@@ -1,0 +1,146 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Inline Message Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/inline-message/docs/design/InlineMessage.md" target="_blank">Design &amp; API Document</a>
+    </div>
+</section>
+
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;!-- Static message -->
+                    &lt;ha-inline-message&gt;
+                        &nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        &nbsp;&nbsp;eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    &lt;/ha-inline-message&gt;
+
+                    &lt;!-- Tooltip-style message -->
+                    &lt;ha-text-field label="First Name">&lt;/ha-text-field>
+                    &lt;ha-inline-message targetSelector="_previousSibling" trigger="focus">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    &lt;/ha-inline-message>
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div class="declarative-wrapper">
+            <h3>Static message</h3>
+            <ha-inline-message>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-inline-message>
+            <button onclick="this.previousElementSibling.close()">Dismiss</button>
+
+            <h3>Tooltip-style message</h3>
+            <ha-text-field label="First Name"></ha-text-field>
+            <ha-inline-message class="inline-message-class-for-query-html" position="bottom" targetSelector="_previousSibling" trigger="focus">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-inline-message>
+            <button onclick="document.body.querySelector('.inline-message-class-for-query-html').close();">Dismiss</button>
+
+            <h3>Tooltip-style message with interactive content</h3>
+            <ha-text-field label="First Name"></ha-text-field>
+            <ha-inline-message targetSelector="_previousSibling" trigger="focus">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.<br>
+                <a href="#" onclick="this.parentNode.parentNode.close(); return false;">Close</a>
+            </ha-inline-message>
+
+            <h3>Tooltip-style message with 'autoClose' attribute</h3>
+            <ha-text-field label="First Name"></ha-text-field>
+            <ha-inline-message autoclose targetSelector="_previousSibling" trigger="focus">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-inline-message>
+
+            <h3>Positioning and alignment</h3>
+
+            <ha-text-field label="First Name" class="top-right-target"></ha-text-field>
+            <ha-inline-message autoclose position="top" targetSelector="_previousSibling" trigger="focus">
+                Position top
+            </ha-inline-message>
+
+            <ha-text-field label="First Name"></ha-text-field>
+            <ha-inline-message autoclose position="bottom" targetSelector="_previousSibling" trigger="focus">
+                Position bottom
+            </ha-inline-message>
+            <br>
+
+            <ha-text-field label="First Name"></ha-text-field>
+            <ha-inline-message autoclose position="right" targetSelector="_previousSibling" trigger="focus">
+                Position right
+            </ha-inline-message>
+            <br>
+        </div>
+    </section>
+</div>
+
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    // Static message
+                    var staticMessage = document.createElement('ha-inline-message'),
+
+                    staticMessage.message = 'Lorem ipsum dolor ...';
+                    document.body.appendChild(staticMessage);
+
+                    // Static message with content from node
+                    var staticMessageFromNode = document.createElement('ha-inline-message'),
+                    &nbsp;&nbsp;messageContent = document.createElement('p');
+
+                    messageContent.innerHTML = '&lt;i>Lorem ipsum &lt;b>dolor&lt;/b> sit amet ...&lt;/i>';
+                    staticMessageFromNode.message = messageContent;
+                    document.body.appendChild(staticMessageFromNode);
+
+                    // Tooltip-style message
+                    var tooltipMessage = document.createElement('ha-inline-message'),
+                    &nbsp;&nbsp;textField = document.createElement('ha-text-field');
+
+                    textField.label = 'First Name';
+                    tooltipMessage.message = 'Lorem ipsum dolor ...';
+                    document.body.appendChild(textField);
+                    document.body.appendChild(tooltipMessage);
+                    tooltipMessage.targetSelector = '_previousSibling';
+                    tooltipMessage.trigger = 'focus';
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

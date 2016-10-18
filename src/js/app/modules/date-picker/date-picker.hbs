@@ -1,0 +1,237 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Date Picker Component
+    </h1>
+
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/DatePicker.md"
+           target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-date-picker label="Date"&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker value="2000-01-01" label="Date"&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker showYearNavigation&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker label="Date" disabled="true"&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker label="With Error" aria-invalid="true" class="ha-validatable input-error"&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker label="Required Field" required="true"&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker label="Min/max restrictions" minDate="2016-06-06" maxDate="2016-08-26"&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker label="Optional Field" optional="true" labelOptional="Same Optional field"&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker name="Name test"&gt;&lt;/ha-date-picker&gt;
+
+                    &lt;ha-date-picker label="Date picker with double calendar" useDoubleCalendar&gt;&lt;/ha-date-picker&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div>
+            <h3>Enabled</h3>
+            <ha-date-picker label="Date"></ha-date-picker>
+            <h3>With Placeholder</h3>
+            <ha-date-picker placeholder="DD/MM/YYYY"></ha-date-picker>
+            <h3>With Value Specified</h3>
+            <ha-date-picker value="2000-01-01" label="Date"></ha-date-picker>
+            <h3>Navigation by Year</h3>
+            <ha-date-picker label="Date" showYearNavigation></ha-date-picker>
+            <h3>Disabled</h3>
+            <ha-date-picker label="Date" disabled="true"></ha-date-picker>
+            <h3>With Error</h3>
+            <ha-date-picker pattern='abcdefghijklmnop' label="With Error" class="ha-validatable input-error"></ha-date-picker>
+            <h3>Required</h3>
+            <ha-date-picker label="Required Field" required="true"></ha-date-picker>
+            <h3>With <code>maxDate</code> and <code>minDate</code> properties</h3>
+            <ha-date-picker label="Min/max restrictions" class="gallery-min-max"></ha-date-picker>
+            <h3>Optional label</h3>
+            <ha-date-picker label="Optional Field" optional="true" labelOptional="Optional"></ha-date-picker>
+            <h3>No Label</h3>
+            <ha-date-picker></ha-date-picker>
+            <h3>With name attribute</h3>
+            <ha-date-picker name="Name test"></ha-date-picker>
+            <h3>With double calendar</h3>
+            <ha-date-picker label="Date picker with double calendar" useDoubleCalendar></ha-date-picker>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                var datePicker = document.createElement('ha-date-picker'),
+                    navigationByYear = document.createElement('ha-date-picker'),
+                    disabledDatePicker = document.createElement('ha-date-picker'),
+                    errorDatePicker = document.createElement('ha-date-picker'),
+                    requiredDatePicker = document.createElement('ha-date-picker'),
+                    minMaxDatePicker = document.createElement('ha-date-picker'),
+                    optionalDatePicker = document.createElement('ha-date-picker'),
+                    nameDatePicker = document.createElement('ha-date-picker'),
+                    noLabelDatePicker = document.createElement('ha-date-picker'),
+                    doubleCalendarDatePicker = document.createElement('ha-date-picker'),
+                    date = new Date(Date.now()),
+                    notableDate,
+                    tooltips = {};
+
+                datePicker.label = 'Name';
+
+                navigationByYear.showYearNavigation = true;
+
+                disabledDatePicker.label = 'Disabled Name';
+                disabledDatePicker.disabled = true;
+
+                errorDatePicker.label = 'With error';
+                errorDatePicker.className = 'input-error ha-validatable';
+
+                requiredDatePicker.label = 'Required Field';
+                requiredDatePicker.required = true;
+
+                minMaxDatePicker.label = 'Min/max restrictions';
+                minMaxDatePicker.minDate = '2016-06-06';
+                minMaxDatePicker.maxDate = '2016-08-26';
+
+                optionalDatePicker.label = 'Optional Field';
+                optionalDatePicker.labelOptional = 'Optional';
+                optionalDatePicker.optional = true;
+
+                noLabelDatePicker.placeholder = 'No Label';
+
+                nameDatePicker.name = 'Name test';
+
+                doubleCalendarDatePicker.label = 'Date picker with double calendar';
+                doubleCalendarDatePicker.useDoubleCalendar = true;
+
+                if (date.getDate() < 20) {
+                    notableDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 2);
+                    datePicker.notableDates = [ notableDate ];
+                    tooltips[notableDate.toDateString()] = 'Important Date';
+                    datePicker.tooltips = tooltips;
+                    datePicker.blackoutDates = [
+                        new Date(date.getFullYear(), date.getMonth(), date.getDate() + 5),
+                        new Date(date.getFullYear(), date.getMonth(), date.getDate() + 6),
+                        new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7)
+                    ];
+                } else {
+                    notableDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 2);
+                    datePicker.notableDates = [ notableDate ];
+                    tooltips[notableDate.toDateString()] = 'Important Date';
+                    datePicker.tooltips = tooltips;
+                    datePicker.blackoutDates = [
+                        new Date(date.getFullYear(), date.getMonth(), date.getDate() - 5),
+                        new Date(date.getFullYear(), date.getMonth(), date.getDate() - 6),
+                        new Date(date.getFullYear(), date.getMonth(), date.getDate() - 7)
+                    ];
+                }
+
+                this._appendTitle('Enabled', placeToAppend);
+                this._appendChildWithWrapper(datePicker, placeToAppend);
+
+                this._appendTitle('Navigation by Year', placeToAppend);
+                this._appendChildWithWrapper(navigationByYear, placeToAppend);
+
+                this._appendTitle('Disabled', placeToAppend);
+                this._appendChildWithWrapper(disabledDatePicker, placeToAppend);
+
+                this._appendTitle('With Error', placeToAppend);
+                this._appendChildWithWrapper(errorDatePicker, placeToAppend);
+
+                this._appendTitle('Required', placeToAppend);
+                this._appendChildWithWrapper(requiredDatePicker, placeToAppend);
+
+                this._appendTitle('With &lt;code>maxDate&lt;/code> and &lt;code>minDate&lt;/code> properties', placeToAppend);
+                this._appendChildWithWrapper(minMaxDatePicker, placeToAppend);
+
+                this._appendTitle('Optional Label', placeToAppend);
+                this._appendChildWithWrapper(optionalDatePicker, placeToAppend);
+
+                this._appendTitle('No Label', placeToAppend);
+                this._appendChildWithWrapper(noLabelDatePicker, placeToAppend);
+
+                this._appendTitle('With name attribute', placeToAppend);
+                this._appendChildWithWrapper(nameDatePicker, placeToAppend);
+
+                this._appendTitle('With Double Calendar', placeToAppend);
+                this._appendChildWithWrapper(doubleCalendarDatePicker, placeToAppend);</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HADatePicker label="Date"/&gt;
+
+                    &lt;HADatePicker value="2000-01-01" label="Date"/&gt;
+
+                    &lt;HADatePicker showYearNavigation/&gt;
+
+                    &lt;HADatePicker label="Date" disabled="true"/&gt;
+
+                    &lt;HADatePickerlabel="With Error" aria-invalid="true" class="ha-validatable input-error"/&gt;
+
+                    &lt;HADatePicker label="Required Field" required="true"/&gt;
+
+                    &lt;HADatePicker label="Optional Field" optional="true" labelOptional="Same Optional field"/&gt;
+
+                    &lt;HADatePicker/&gt;
+
+                    &lt;HADatePicker name="Name test"/&gt;
+
+                    &lt;HADatePicker label="Date picker with double calendar" useDoubleCalendar="true"/&gt;
+                </HADatePicker/>
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="reactWay">
+        </div>
+    </section>
+</div>

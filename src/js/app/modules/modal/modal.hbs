@@ -1,0 +1,277 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Modal Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Modal.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    LARGE MODAL
+
+                    &lt;ha-modal titleText="Large Confirmation Modal" size="large" type="confirm"&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/section&gt;
+                        &nbsp;&nbsp;&lt;footer&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/footer&gt;
+                    &lt;/ha-modal&gt;
+
+                    LARGE MODAL WITH ENDFLOW
+
+                    &lt;ha-modal titleText="Large Modal With Endflow" size="large" type="endflow"&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/section&gt;
+                        &nbsp;&nbsp;&lt;footer&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/footer&gt;
+                    &lt;/ha-modal&gt;
+
+                    MEDIUM MODAL
+
+                    &lt;ha-modal titleText="Medium Modal" size="medium"&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/section&gt;
+                        &nbsp;&nbsp;&lt;footer&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/footer&gt;
+                    &lt;/ha-modal&gt;
+
+                    SMALL MODAL
+
+                    &lt;ha-modal titleText="Small Modal" size="small"&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/section&gt;
+                        &nbsp;&nbsp;&lt;footer&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/footer&gt;
+                    &lt;/ha-modal&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div class="declarative-wrapper">
+            <ha-modal id="declarative-large-modal" titleText="Payment confirmation" size="large" type="confirm">
+                <section>
+                    <p class="large-modal-content">
+                        <label>Payment Method:
+                        </label>
+                        <span>Manual</span>
+                        <br>
+                        <label>Payment Type:
+                        </label>
+                        <span>CA SUI/ETT</span>
+                        <br>
+                        <label>Liability Period:
+                        </label>
+                        <span>01/01/2013 to 03/31/2013</span>
+                        <br>
+                        <label>Due Date:
+                        </label>
+                        <span>04/31/2013</span>
+                        <br>
+                        <label>Payment Date:
+                        </label>
+                        <span>04/31/2013</span>
+                        <br>
+                        <label>Payment Amount:
+                        </label>
+                        <span>$177.70</span>
+                        <br>
+                    </p>
+                    <h4>What’s Next?</h4>
+                    <p>Print they payment coupon and follow the instructions on the form.</p>
+
+                </section>
+                <footer>
+                    <button class="close-button-1 ha-button">Skip for now</button>
+                    <button class="close-button-1 ha-button ha-button-primary">Print Payment Coupon</button>
+                </footer>
+            </ha-modal>
+
+            <ha-modal id="declarative-large-modal-endflow" titleText="Bank account added!" size="large" type="endflow">
+                <section>
+                    <p>Now that we’ve connected to your bank, let’s get your customers into QuickBooks.</p>
+                </section>
+                <aside>
+                    <h3>What's Next?</h3>
+                    <i class="hi hi-circle-check"/></i>
+                <span>Turn on the Assistant</span>
+            </aside>
+            <footer>
+                <button class="close-button-2 ha-button">No thanks</button>
+                <button class="close-button-2 ha-button ha-button-primary">Let’s do it</button>
+            </footer>
+        </ha-modal>
+
+        <ha-modal id="declarative-medium-modal-one" titleText="Title" size="medium" dismissible="true">
+            <section>
+                <p>Important! You have not entered tax payments created prior to using our payroll service. It’s important to reconcile the taxes you have paid with the taxes your company accrued so that your year-end forms will be correct. Enter ths information now and resolve any discrepancies.</p>
+            </section>
+            <footer>
+                <button class="close-button-3 ha-button ha-button-primary">Primary</button>
+            </footer>
+        </ha-modal>
+
+        <ha-modal id="declarative-medium-modal-two" titleText="Title" size="medium" dismissible="true">
+            <section>
+                <p>Important! You have not entered tax payments created prior to using our payroll service. It’s important to reconcile the taxes you have paid with the taxes your company accrued so that your year-end forms will be correct. Enter ths information now and resolve any discrepancies.</p>
+            </section>
+            <footer>
+                <button class="close-button-3 ha-button">Secondary</button>
+                <button class="close-button-3 ha-button ha-button-primary">Primary</button>
+            </footer>
+        </ha-modal>
+
+        <ha-modal id="declarative-medium-modal-three" titleText="Title" size="medium" dismissible="true">
+            <section>
+                <p>Important! You have not entered tax payments created prior to using our payroll service. It’s important to reconcile the taxes you have paid with the taxes your company accrued so that your year-end forms will be correct. Enter ths information now and resolve any discrepancies.</p>
+            </section>
+            <footer>
+                <button class="close-button-3 ha-button">Tertiary</button>
+                <button class="close-button-3 ha-button">Secondary</button>
+                <button class="close-button-3 ha-button ha-button-primary">Primary</button>
+            </footer>
+        </ha-modal>
+
+        <ha-modal id="declarative-medium-error-modal" titleText="Title" size="medium" type="error" dismissible="true">
+            <section>
+                <p>Important! You have not entered tax payments created prior to using our payroll service. It’s important to reconcile the taxes you have paid with the taxes your company accrued so that your year-end forms will be correct. Enter ths information now and resolve any discrepancies.</p>
+            </section>
+            <footer>
+                <button class="close-button-3 ha-button ha-button-primary">Primary</button>
+            </footer>
+        </ha-modal>
+
+        <ha-modal id="declarative-small-error-modal" titleText="Your work will be lost if you navigate away from this page!" size="small" type="error">
+            <section>
+                <p>This is a small Error Modal text!</p>
+            </section>
+            <footer>
+                <button class="close-button-4 ha-button">Cancel</button>
+                <button class="close-button-4 ha-button ha-button-primary">Continue</button>
+            </footer>
+        </ha-modal>
+
+        <ha-modal id="declarative-small-confirm-modal" titleText="Bank account added!" size="small" type="confirm">
+            <section>
+                <p>Now that we’ve connected to your bank, let’s get your customers into QuickBooks.</p>
+            </section>
+            <footer>
+                <button class="close-button-5 ha-button">No thanks</button>
+                <button class="close-button-5 ha-button ha-button-primary">Let’s do it</button>
+            </footer>
+        </ha-modal>
+
+        <ha-modal id="declarative-small-modal" titleText="Small Modal Title">
+            <section>
+                <p>This is a small Modal text!</p>
+            </section>
+            <footer>
+                <button class="close-button-6 ha-button ha-button-primary">Continue</button>
+            </footer>
+        </ha-modal>
+    </div>
+</section>
+</div>
+
+<div class="panel hidden" id="js">
+<section class="usage">
+    <header class="title">
+        <a>Usage</a>
+    </header>
+    <div class="highlight">
+        <pre>
+                <code class="language-html" data-lang="html">
+                    var modal = document.createElement("ha-modal");
+
+                    modal.id = id;
+                    modal.titleText = 'title'
+                    modal.size = 'small' / 'medium' / 'large';
+                    modal.type = 'confirm' / 'error' / 'warn' / 'info' / 'endflow';
+                    modal.dismissible = true / false;
+                    modal.message = HTMLELement / Array of HTMLELement;
+                    modal.buttons = HTMLELement / Array of HTMLELement;
+                    modal.extraInfo = HTMLELement / Array of HTMLELement;
+                </code>
+            </pre>
+    </div>
+</section>
+
+<section class="examples">
+    <header class="title">
+        <a>Examples</a>
+    </header>
+    <div id="programmaticWay"></div>
+</section>
+</div>
+
+<div class="panel hidden" id="dojo">
+<section class="examples">
+    <header class="title">
+        <a>Examples</a>
+    </header>
+    <div id="dojoProgrammaticWay"></div>
+</section>
+</div>
+
+<div class="panel hidden" id="react">
+<section class="usage">
+    <header class="title">
+        <a>Usage</a>
+    </header>
+
+    <div class="highlight">
+        <pre>
+                <code class="language-html" data-lang="html">
+                    LARGE MODAL WITH ENDFLOW
+
+                    &lt;HAModal show={this.state.showModal} type="endflow" title="I AM A MODAL TITLE!!!!!" dismissible={true} size="large"&gt;
+                        &nbsp;&nbsp;&lt;HASection&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/HASection&gt;
+                        &nbsp;&nbsp;&lt;HAAside&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/HAAside&gt;
+                        &nbsp;&nbsp;&lt;HAFooter&gt;
+                        &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/HAFooter&gt;
+                    &lt;/HAModal&gt;
+                </code>
+            </pre>
+    </div>
+</section>
+
+<section class="examples">
+    <header class="title">
+        <a>Examples</a>
+    </header>
+    <div id="reactWay"></div>
+</section>
+</div>

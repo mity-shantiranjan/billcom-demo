@@ -1,0 +1,336 @@
+<ha-trowser data-attach-point="declarativeTrowser" titleText="Welcome to QuickBooks!" infoText="optional header info" history="true" settings="true" help="true">
+    <section>
+        <h3>Button</h3>
+        <button class="ha-button ha-button-primary" action="primary">Primary Button</button>
+        <h3>Checkbox</h3>
+        <ha-checkbox-group name="Checkbox Group" label="Checkbox Group">
+            <ha-checkbox label="Enabled Checkbox" checked></ha-checkbox>
+            <ha-checkbox disabled checked></ha-checkbox>
+            <ha-checkbox disabled></ha-checkbox>
+            <ha-checkbox readonly></ha-checkbox>
+        </ha-checkbox-group>
+        <h3>Combo Button</h3>
+        <ha-combo-button class="ha-button-primary" label="Create New" action="primary">
+            <ha-item value="AppleValue">Apple</ha-item>
+            <ha-item value="BananaValue">Banana</ha-item>
+            <ha-item value="BalloonValue">Balloon</ha-item>
+            <ha-item value="MelonValue">Melon</ha-item>
+        </ha-combo-button>
+        <h3>Combo Link</h3>
+        <ha-combo-link label="Create New" action="primary">
+            <ha-item value="AppleValue">Apple</ha-item>
+            <ha-item value="BananaValue">Banana</ha-item>
+            <ha-item value="BalloonValue">Balloon</ha-item>
+        </ha-combo-link>
+        <h3>Date Picker</h3>
+        <ha-date-picker label="Date"></ha-date-picker>
+        <h3>Flyout</h3>
+        <button class="global-header-button" type="button"><i class="hi hi-create-lg"></i></button>
+        <ha-flyout class="declarative" titleText="Flyout title">
+            <section>
+                <div>
+                    <span>Lorem ipsum dolor sit amet</span>
+                </div>
+            </section>
+        </ha-flyout>
+        <h3>Drawer Large</h3>
+        <ha-drawer-large data-attach-point="trowserDeclarativeDrawer" backdrop="true" titleText="Some Title">
+            <section>
+                <div>
+                    <span>Lorem ipsum dolor sit amet</span>
+                    <div>
+                        <ha-text-field class="ha-text-field" label="Insert content" data-attach-point="textfield">
+                        </ha-text-field>
+                        <ha-tooltip targetselector="[data-attach-point=textfield]" message="Tooltip Info"></ha-tooltip>
+                    </div>
+                    <div>
+                        <button class="ha-button" data-attach-point="showPopoverDrawer1Button">Show Popover</button>
+                        <ha-popover data-attach-point="popoverDrawer1">
+                            <ha-popover-form>
+                                <section>
+                                    <ha-text-field label="Name" required></ha-text-field>
+                                </section>
+                                <footer>
+                                    <button class="ha-button" data-attach-point="popoverDrawer1CancelButton">Cancel</button>
+                                    <button class="ha-button" data-attach-point="popoverDrawer1SaveButton">Save</button>
+                                </footer>
+                            </ha-popover-form>
+                        </ha-popover>
+                    </div>
+                    <div>
+                        <h3>Combo Button</h3>
+                        <ha-combo-button class="ha-button-primary" label="Create New" action="primary">
+                            <ha-item value="AppleValue">Apple</ha-item>
+                            <ha-item value="BananaValue">Banana</ha-item>
+                            <ha-item value="BalloonValue">Balloon</ha-item>
+                            <ha-item value="MelonValue">Melon</ha-item>
+                        </ha-combo-button>
+                    </div>
+                    <div>
+                        <h3>Combo Link</h3>
+                        <ha-combo-link label="Create New" action="primary">
+                            <ha-item value="AppleValue">Apple</ha-item>
+                            <ha-item value="BananaValue">Banana</ha-item>
+                            <ha-item value="BalloonValue">Balloon</ha-item>
+                        </ha-combo-link>
+                    </div>
+                    <div>
+                        <h3>Menu Button</h3>
+                        <ha-menu-button class="ha-button-primary" label="Create New" action="primary">
+                            <ha-item value="AppleValue">Apple</ha-item>
+                            <ha-item value="BananaValue">Banana</ha-item>
+                            <ha-item value="BalloonValue" disabled>Balloon</ha-item>
+                            <ha-item value="MelonValue">Melon</ha-item>
+                        </ha-menu-button>
+                    </div>
+                </div>
+            </section>
+            <footer>
+                <button class="ha-button ha-button-primary" data-attach-point="closeDrawerButton">Save</button>
+            </footer>
+        </ha-drawer-large>
+        <button class="ha-button" data-attach-point="showDrawerButton">
+            Show Drawer Large
+        </button>
+        <h3>Inline Message</h3>
+        <ha-text-field label="First Name"></ha-text-field>
+        <ha-inline-message targetSelector="_previousSibling" trigger="focus" autoClose>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </ha-inline-message>
+        <h3>Simple List</h3>
+        <ha-list>
+            <li>One</li>
+            <li>Two</li>
+            <li>Three</li>
+        </ha-list>
+        <h3>Menu Button</h3>
+        <ha-menu-button class="ha-button-primary" label="Create New" action="primary">
+            <ha-item value="AppleValue">Apple</ha-item>
+            <ha-item value="BananaValue">Banana</ha-item>
+            <ha-item value="BalloonValue" disabled>Balloon</ha-item>
+            <ha-item value="MelonValue">Melon</ha-item>
+        </ha-menu-button>
+        <h3>Modal</h3>
+        <ha-modal data-attach-point="errorModal" titleText="Title" size="medium" type="error" dismissible="true">
+            <section>
+                <p>Important! You have not entered tax payments created prior to using our payroll service. It’s important to reconcile the taxes you have paid with the taxes your company accrued so that your year-end forms will be correct. Enter ths information now and resolve any discrepancies.</p>
+            </section>
+            <footer>
+                <button class="close-button-3 ha-button">Tertiary</button>
+                <button class="close-button-3 ha-button">Secondary</button>
+                <button class="close-button-3 ha-button ha-button-primary">Primary</button>
+            </footer>
+        </ha-modal>
+        <button class="ha-button" data-attach-point="showErrorModalButton">Show Error Modal</button>
+        <h3>Money Bar</h3>
+        <ha-money-bar>
+            <ha-money-bar-segment titleTextBold="50" titleText="Unbilled">
+                <ha-money-bar-cell class="mbDarkBlue" primaryText="$50.00" secondaryText="2 ESTIMATE"></ha-money-bar-cell>
+                <ha-money-bar-cell class="mbLightBlue" primaryText="$50.00" secondaryText="2 UNBILLED ACTIVITY"></ha-money-bar-cell>
+            </ha-money-bar-segment>
+            <ha-money-bar-segment titleTextBold="50" titleText="Unpaid">
+                <ha-money-bar-cell class="mbOrange outlay" primaryText="$50.00" secondaryText="2 OPEN INVOICES"></ha-money-bar-cell>
+                <ha-money-bar-cell class="mbRed inlay" primaryText="$50.00" secondaryText="2 OVERDUE"></ha-money-bar-cell>
+            </ha-money-bar-segment>
+            <ha-money-bar-segment titleTextBold="50" titleText="Paid" size="1">
+                <ha-money-bar-cell class="mbGreen" primaryText="$50.00" secondaryText="2 PAID LAST 30 DAYS"></ha-money-bar-cell>
+            </ha-money-bar-segment>
+        </ha-money-bar>
+        <h3>Numeric Badge</h3>
+        <div>
+    	    <div class="separator">
+    	        <i class="ha-numeric-badge">5</i>
+    	    </div>
+    	    <div class="separator">
+    	        <i class="ha-numeric-badge">99</i>
+    	    </div>
+    	    <div class="separator">
+    	        <i class="ha-numeric-badge">885</i>
+    	    </div>
+    	    <div class="separator">
+    	        <i class="ha-numeric-badge">999<span class="ha-plus-span">+</span></i>
+    	    </div>
+    	</div>
+    	<div>
+    	    <div class="separator">
+    	        <i class="ha-numeric-badge ha-inverse">5</i>
+    	    </div>
+    	    <div class="separator">
+    	        <i class="ha-numeric-badge ha-inverse">99</i>
+    	    </div>
+    	    <div class="separator">
+    	        <i class="ha-numeric-badge ha-inverse">885</i>
+    	    </div>
+    	    <div class="separator">
+    	        <i class="ha-numeric-badge ha-inverse">999<span class="ha-plus-span">+</span></i>
+    	    </div>
+    	</div>
+        <h3>Page Message</h3>
+        <ha-page-message titleText="Alert Title" type="error" dismissible="false">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </ha-page-message>
+        <ha-page-message titleText="Warn Title" type="warn" dismissible="true">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </ha-page-message>
+        <ha-page-message titleText="Info Title" type="info" dismissible="true">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </ha-page-message>
+        <ha-page-message titleText="Discovery Title" type="discovery" dismissible="true">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </ha-page-message>
+        <ha-page-message type="info" dismissible="true">
+            No titleText. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </ha-page-message>
+        <ha-page-message type="info" dismissible="true">
+            <span>Using html inside the message with <a>links</a> no titleText</span>
+        </ha-page-message>
+        <ha-page-message titleText="With Title" type="info" dismissible="true">
+            <span>Using html inside the message with <a>links</a> with titleText</span>
+        </ha-page-message>
+        <h3>Paginated Message</h3>
+        <ha-paginated-messages dismissible="false">
+            <ha-paginated-message titleText="Your trial expires in 7 days!" dismissible>
+                <span>Feel free to keep testing QuickBooks. <a href="#">Subscribe now and save 20%</a></span>
+            </ha-paginated-message>
+            <ha-paginated-message titleText="Your session is about to expire!" dismissible>
+                <span>Please refresh the page</span>
+            </ha-paginated-message>
+            <ha-paginated-message titleText="This is an alert" dismissible>
+                <span>This is an alert message</span>
+            </ha-paginated-message>
+        </ha-paginated-messages>
+        <h3>Popover</h3>
+        <button class="ha-button" data-attach-point="showPopover1Button">Show Popover</button>
+        <ha-popover data-attach-point="popover1">
+            <ha-popover-form>
+                <section>
+                    <ha-text-field label="Name" required></ha-text-field>
+                </section>
+                <footer>
+                    <button class="ha-button" data-attach-point="popover1CancelButton">Cancel</button>
+                    <button class="ha-button" data-attach-point="popover1SaveButton">Save</button>
+                </footer>
+            </ha-popover-form>
+        </ha-popover>
+        <h3>Radio Button</h3>
+        <ha-radio-button-group>
+            <ha-radio-button label="Radio 1" value="1"></ha-radio-button>
+            <ha-radio-button label="Radio 2" value="2"></ha-radio-button>
+            <ha-radio-button label="Radio 3" value="3"></ha-radio-button>
+        </ha-radio-button-group>
+        <h3>Segmented Button</h3>
+        <ha-segmented-button>
+            <button value="credit" title="Credit">Credit / Debit</button>
+            <button value="cash" title="Cash">Cash</button>
+            <button value="check" title="Check">Check</button>
+        </ha-segmented-button>
+        <h3>Select</h3>
+        <ha-select label="Some Label" addNew="true" placeholder="Choose an item">
+            <ha-popover>
+                <ha-popover-form addNewNameSelector=".addNewName">
+                    <section>
+                        <ha-text-field label="Name" class="addNewName"></ha-text-field>
+                    </section>
+                    <footer>
+                        <button class="ha-button ha-button-primary no-connector">Save</button>
+                        <button class="ha-button ha-button-secondary no-connector">Cancel</button>
+                    </footer>
+                </ha-popover-form>
+            </ha-popover>
+            <ha-item value="AppleValue">Apple</ha-item>
+            <ha-item value="BananaValue">Banana</ha-item>
+            <ha-item value="BalloonValue">Balloon</ha-item>
+            <ha-item value="MelonValue">Melon</ha-item>
+        </ha-select>
+        <h3>Select Type Ahead</h3>
+        <ha-select-type-ahead data-attach-point="trowserSelect" label="Some Label" placeholder="Choose an item">
+        </ha-select-type-ahead>
+        <h3>Stacked Page Message</h3>
+        <ha-stacked-page-messages>
+            <ha-page-message titleText="Info Title" type="error" dismissible="false">
+                The contents of this message should focus on what the user needs to do to fix the
+                error instead of just stating what went wrong. Fields related to this error should be highlighted and accomplanied by the appropiate inline error message.
+            </ha-page-message>
+            <ha-page-message titleText="Info Title" type="warn">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-page-message>
+            <ha-page-message titleText="Info Title" type="info" dismissible>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-page-message>
+        </ha-stacked-page-messages>
+        <h3>Status Badge</h3>
+        <div class="separator">
+        	<i class="ha-badge ha-error" aria-label="error"></i>
+        </div>
+        <div class="separator">
+        	<i class="ha-badge ha-confirm" aria-label="confirm"></i>
+        </div>
+        <h3>Switch Button</h3>
+        <ha-switch-button checked="true" name="payMe" label="Pay me"></ha-switch-button><br />
+        <h3>Textarea</h3>
+        <ha-textarea label="Name"></ha-textarea>
+        <h3>Textfield</h3>
+        <ha-text-field label="Name" data-attach-point="textfield"></ha-text-field>
+        <ha-tooltip targetselector="[data-attach-point=textfield]" message="Tooltip Info"></ha-tooltip>
+        <h3>Textfield Type Ahead</h3>
+        <ha-textfield-type-ahead data-attach-point="trowserTypeAhead" placeholder="Choose an item" label="Some Label">
+        </ha-textfield-type-ahead>
+        <h3>Video</h3>
+        <ha-video userId="harmony-gallery-test-user" url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video>
+        <h3>Video Launcher</h3>
+        <ha-video-launcher url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video-launcher>
+    </section>
+    <footer>
+        <ha-combo-button class="ha-button-primary" label="Create New" action="primary">
+            <ha-item value="AppleValue">Apple</ha-item>
+            <ha-item value="BananaValue">Banana</ha-item>
+            <ha-item value="BalloonValue">Balloon</ha-item>
+            <ha-item value="MelonValue">Melon</ha-item>
+        </ha-combo-button>
+        <ha-combo-link label="Create New" action="primary">
+            <ha-item value="AppleValue">Apple</ha-item>
+            <ha-item value="BananaValue">Banana</ha-item>
+            <ha-item value="BalloonValue">Balloon</ha-item>
+        </ha-combo-link>
+        <ha-menu-button class="ha-button-primary" label="Create New" disabled action="primary">
+            <ha-item value="AppleValue">Apple</ha-item>
+            <ha-item value="BananaValue">Banana</ha-item>
+            <ha-item value="BalloonValue" disabled>Balloon</ha-item>
+            <ha-item value="MelonValue">Melon</ha-item>
+        </ha-menu-button>
+        <button class="ha-button ha-button-primary" action="primary">Primary Button</button>
+    </footer>
+</ha-trowser>
+<button class="ha-button show-element" data-target-name="declarativeTrowser">Reveal Test Trowser</button>
+
+<button class="ha-button show-responsive-trowser hide-desktop">Reveal Responsive Trowser</button>
+
+<ha-trowser titleText="Welcome to QuickBooks!" help="true" id="responsive-trowser" class="hide-desktop">
+    <section>
+        <ha-text-field label='Label'></ha-text-field>
+    </section>
+    <footer>
+        <button class="ha-button ha-button-primary hide-mobile" action="primary">Primary Button</button>
+        <button class="ha-button ha-button-dark hide-mobile" action="secondary">Secondary Button</button>
+        <button class="ha-button ha-button-dark hide-mobile" action="tertiary">Tertiary Button 2</button>
+        <button class="ha-button ha-button-dark hide-mobile" action="tertiary">Tertiary Button 1</button>
+
+        <ha-menu-button action="primary" class="ha-button-primary" label="Save">
+            <ha-item>Save and Send</ha-item>
+            <ha-item>Save and Close</ha-item>
+        </ha-menu-button>
+
+        <ha-menu-button action="secondary" icon="hi-overflow">
+            <ha-item>Secondary Button</ha-item>
+            <ha-item>Tertiary Button 1</ha-item>
+            <ha-item>Tertiary Button 2</ha-item>
+        </ha-menu-button>
+    </footer>
+</ha-trowser>

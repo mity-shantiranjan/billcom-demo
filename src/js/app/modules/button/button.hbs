@@ -1,0 +1,180 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Buttons
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+        <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Button.md" target="_blank">Design & API Document</a>
+        </div>
+    </div>
+
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;button class="ha-button"&gt;&lt;/button&gt;
+                    &lt;button class="ha-button ha-button-dark"&gt;&lt;/button&gt;
+                    &lt;button class="ha-button ha-button-primary"&gt;&lt;/button&gt;
+                    &lt;button class="ha-button ha-button-primary ha-button-dark"&gt;&lt;/button&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="usage">
+        <header class="title"><a>Classes</a></header>
+        <table class="buttonTable">
+            <tbody>
+                <tr>
+                    <th>Type</th>
+                    <th>Associated Classes</th>
+                </tr>
+                <tr>
+                    <td>Secondary/Default button</td>
+                    <td>ha-button</td>
+                </tr>
+                <tr>
+                    <td>Secondary/Default button with Icon</td>
+                    <td>ha-button, hi-icon-button</td>
+                </tr>
+                <tr>
+                    <td>Secondary/Default button with Dark Background</td>
+                    <td>ha-button, ha-button-dark</td>
+                </tr>
+                <tr>
+                    <td>Secondary/Default button with Dark Background and Icon</td>
+                    <td>ha-button, ha-button-dark, hi-icon-button</td>
+                </tr>
+                <tr>
+                    <td>Primary button</td>
+                    <td>ha-button, ha-button-primary</td>
+                </tr>
+                <tr>
+                    <td>Primary button with Icon</td>
+                    <td>ha-button, ha-button-primary, hi-icon-button</td>
+                </tr>
+                <tr>
+                    <td>Primary button with Dark Background</td>
+                    <td>ha-button, ha-button-primary, ha-button-dark</td>
+                </tr>
+                <tr>
+                    <td>Primary button with Dark Background and Icon</td>
+                    <td>ha-button, ha-button-primary, ha-button-dark, hi-icon-button</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+
+        <h3 class="subtitle"> Secondary Button (default)</h3>
+        <div>
+            <button class="ha-button" disabled>Button</button>
+            <button class="ha-button">Button</button>
+            <button class="ha-button hi-icon-button">
+                <i class="hi hi-camera"></i>Button
+            </button>
+        </div>
+
+        <h3 class="subtitle"> Secondary Button (default) <small> Dark background</small> </h3>
+        <div style="background:#193048;padding:10px;">
+            <button class="ha-button ha-button-dark" disabled>Button</button>
+            <button class="ha-button ha-button-dark">Button</button>
+            <button class="ha-button ha-button-dark hi-icon-button">
+                <i class="hi hi-accountant"></i>Button
+            </button>
+        </div>
+
+        <h3 class="subtitle"> Primary Button</h3>
+        <div>
+            <button class="ha-button ha-button-primary" disabled>Button</button>
+            <button class="ha-button ha-button-primary">Button</button>
+            <button class="ha-button ha-button-primary hi-icon-button">
+                <i class="hi hi-accountant"></i>Button
+            </button>
+        </div>
+
+        <h3 class="subtitle"> Primary Button <small> Dark background</small> </h3>
+        <div style="background:#193048;padding:10px;">
+            <button class="ha-button ha-button-primary ha-button-dark" disabled>Button</button>
+            <button class="ha-button ha-button-primary ha-button-dark">Button</button>
+            <button class="ha-button ha-button-primary ha-button-dark hi-icon-button">
+                <i class="hi hi-accountant"></i>Button
+            </button>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="plain">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;button&gt;&lt;/button&gt;
+                    &lt;button class="ha-button-primary"&gt;&lt;/button&gt;
+                    &lt;button class="ha-button-dark"&gt;&lt;/button&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+
+        <h3 class="subtitle"> Secondary Button (default)</h3>
+        <div>
+            <button disabled>Button</button>
+            <button>Button</button>
+            <button class="hi-icon-button">
+                <i class="hi hi-camera"></i>
+                Button
+            </button>
+        </div>
+
+        <h3 class="subtitle"> Secondary Button (default) <small> Dark background</small> </h3>
+        <div style="background:#193048;padding:10px;">
+            <button class="ha-button-dark" disabled>Button</button>
+            <button class="ha-button-dark">Button</button>
+            <button class="ha-button-dark hi-icon-button">
+                <i class="hi hi-accountant"></i>
+                Button
+            </button>
+        </div>
+
+        <h3 class="subtitle"> Primary Button</h3>
+        <div>
+            <button class="ha-button-primary" disabled>Button</button>
+            <button class="ha-button-primary">Button</button>
+            <button class="ha-button-primary hi-icon-button">
+                <i class="hi hi-accountant"></i>
+                Button
+            </button>
+        </div>
+
+        <h3 class="subtitle"> Primary Button <small> Dark background</small> </h3>
+        <div style="background:#193048;padding:10px;">
+            <button class="ha-button-primary ha-button-dark" disabled>Button</button>
+            <button class="ha-button-primary ha-button-dark">Button</button>
+            <button class="ha-button-primary ha-button-dark hi-icon-button">
+                <i class="hi hi-accountant"></i>
+                Button
+            </button>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

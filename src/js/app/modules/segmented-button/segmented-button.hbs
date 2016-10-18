@@ -1,0 +1,74 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Segmented Button Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+    <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/SegmentedButton.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-segmented-button&gt;
+                        &nbsp;&nbsp;&lt;button value="credit" title="Credit"&gt;Credit / Debit&lt;/button&gt;
+                        &nbsp;&nbsp;&lt;button value="cash" title="Cash"&gt;Cash&lt;/button&gt;
+                        &nbsp;&nbsp;&lt;button value="check" title="Check"&gt;Check&lt;/button&gt;
+                    &lt;/ha-segmented-button&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var segmentedButton = document.createElement("ha-segmented-button"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;segmentedOption = document.createElement("button");
+
+                    segmentedOption.textContent = "Cash";
+                    segmentedOption.title = "Cash";
+                    segmentedOption.selected = true;
+                    segmentedOption.value = "value";
+
+                    segmentedButton.buttons = segmentedOption;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

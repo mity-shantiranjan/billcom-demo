@@ -1,0 +1,108 @@
+<div>
+    <h3>Default</h3>
+    <ha-select data-automation-id="dojo-ha-select-default">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Placeholder</h3>
+    <ha-select placeholder="Choose an item" data-automation-id="dojo-ha-select-with-placeholder">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Label</h3>
+    <ha-select label="Some Label" placeholder="Choose an item" data-automation-id="dojo-ha-select-with-label">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>Disabled</h3>
+    <ha-select label="Some Label" placeholder="Choose an item" disabled data-automation-id="dojo-ha-select-disabled">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Disabled Item</h3>
+    <ha-select label="Some Label" placeholder="Choose an item" data-automation-id="dojo-ha-select-disabled-item">
+        <ha-item value="AppleValue" disabled="disabled">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Value Selected</h3>
+    <ha-select label="Some Label" value="BananaValue" data-automation-id="dojo-ha-select-value-selected">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Required Validation</h3>
+    <ha-select label="Some Label" placeholder="Choose an item" required data-automation-id="dojo-ha-select-required">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Required Validation No Indicator</h3>
+    <ha-select label="Some Label" placeholder="Choose an item" required noRequiredIndicator data-automation-id="dojo-ha-select-no-required-ind">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Add New</h3>
+    <ha-select label="Some Label" addNew="true" placeholder="Choose an item" data-automation-id="dojo-ha-select-add-new">
+        <ha-popover>
+            <ha-popover-form addNewNameSelector="#addNewName">
+                <section>
+                    <ha-text-field label="Name" id="addNewName"></ha-text-field>
+                </section>
+                <footer>
+                    <button class="ha-button ha-button-primary no-connector">Save</button>
+                    <button class="ha-button ha-button-secondary no-connector">Cancel</button>
+                </footer>
+            </ha-popover-form>
+        </ha-popover>
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Icon</h3>
+    <ha-select label="Some Label" placeholder="Choose an item" icon="hi-filter" data-automation-id="dojo-ha-select-with-icon">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+    </ha-select>
+
+    <h3>With Wrapping Items</h3>
+    <ha-select data-automation-id="dojo-ha-select-items-wrapped">
+        <ha-item value="AppleValue">Apple</ha-item>
+        <ha-item value="BananaValue">Banana</ha-item>
+        <ha-item value="BalloonValue">Balloon</ha-item>
+        <ha-item value="MelonValue">Melon</ha-item>
+        <ha-item
+            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </ha-item>
+        <ha-item
+            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </ha-item>
+    </ha-select>
+</div>

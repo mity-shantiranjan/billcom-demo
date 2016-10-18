@@ -1,0 +1,9 @@
+{
+  "name": "object-utils",
+  "version": "1.1.2",
+  "description": "ECMAScript 5-based property and class utilities for projects using AMD",
+  "dependencies": {
+    "requirejs": "git://github.com/jrburke/requirejs-bower.git#2.1.22"
+  },
+  "private": true
+}

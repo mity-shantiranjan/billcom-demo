@@ -1,0 +1,111 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Toast Message Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/ToastMessage.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-toast-message id="Toast1" duration="5000" dismissible="true"&gt;
+                        &nbsp;&nbsp;My message here test &lt;strong&gt;with bold text&lt;/strong&gt;, timeout 5s.
+                    &lt;/ha-toast-message&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div style="position:relative; background:#f0f0f0; height:200px; max-width:636px; margin:20px auto; border:1px solid gray;">
+            <ha-toast-message id="Toast1" duration="5000">
+                Lorem ipsum dolor <strong>with bold text</strong>, timeout 5s.
+            </ha-toast-message>
+            <ha-toast-message id="Toast2" duration="2000" dismissible="false">
+                Lorem ipsum dolor sit amet, amet hendrerit a semper reprehenderit <strong>with bold text</strong>, timeout 2s.
+            </ha-toast-message>
+            <ha-toast-message id="Toast3" duration="-1" dismissible="true">
+                Lorem ipsum dolor sit amet, amet hendrerit a semper reprehenderit, <strong>with bold text</strong>.
+            </ha-toast-message>
+        </div>
+        <button class="ha-button btn-show-toast" value="Toast1">Show Toast 1</button>
+        <button class="ha-button btn-show-toast" value="Toast2">Show Toast 2</button>
+        <button class="ha-button btn-show-toast" value="Toast3">Show Toast 3</button>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var node = document.createElement("ha-toast-message");
+
+                    node.dismissible = true;
+                    node.duration = 3000;
+                    node.message = "My message <strong>here</strong>";
+                    node.show();
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div style="position:relative; background:#f0f0f0; height:200px; max-width:636px; margin:20px auto; border:1px solid gray;" id="programmaticWay">
+        </div>
+    </section>
+
+    <button class="ha-button btn-show-toast" value="ToastJS1">Show Toast 1</button>
+    <button class="ha-button btn-show-toast" value="ToastJS2">Show Toast 2</button>
+    <button class="ha-button btn-show-toast" value="ToastJS3">Show Toast 3</button>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HAToastMessage closeCallback={() =&gt; this._closeToast(1)} onShow={eventLog} onClose={eventLog} onDismiss={eventLog} id="Toast1" duration={5000} show={this.state.showToast1}&gt;
+                        Lorem ipsum dolor &lt;strong&gt;with bold text&lt;/strong&gt;, timeout 5s.
+                    &lt;/HAToastMessage&gt;
+                    &lt;HAToastMessage closeCallback={() =&gt; this._closeToast(2)} id="Toast2" duration={2000} dismissible={false} show={this.state.showToast2}&gt;
+                        Lorem ipsum dolor sit amet, amet hendrerit a semper reprehenderit &lt;strong&gt;with bold text&lt;/strong&gt;, timeout 2s.
+                    &lt;/HAToastMessage&gt;
+                    &lt;HAToastMessage closeCallback={() =&gt; this._closeToast(3)} id="Toast3" duration={-1} dismissible={true} show={this.state.showToast3}&gt;
+                        Lorem ipsum dolor sit amet, amet hendrerit a semper reprehenderit, &lt;strong&gt;with bold text&lt;/strong&gt;.
+                    &lt;/HAToastMessage&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="reactWay">
+    </section>
+</div>

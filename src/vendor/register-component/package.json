@@ -1,0 +1,41 @@
+{
+  "name": "register-component",
+  "description": "A wrapper JS library for creating web components using custom elements.",
+  "repository": {
+    "url": "git@github.intuit.com:SBG/register-component.git",
+    "type": "git"
+  },
+  "version": "1.6.0",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "author": {
+    "name": "Intuit Inc."
+  },
+  "devDependencies": {
+    "@sbg/depcop": "^2.0.0",
+    "bower": "1.4.1",
+    "chromedriver": "^2.19.0",
+    "grunt": "~0.4.4",
+    "grunt-bump": "0.0.15",
+    "grunt-cli": "0.1.13",
+    "grunt-code-coverage-enforcer": "^0.1.5",
+    "grunt-continue": "^0.1.0",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-connect": "^0.7.1",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-exec": "^0.4.6",
+    "grunt-jscs": "^2.3.0",
+    "grunt-jsdoc": "0.5.4",
+    "intern": "^3.0.0",
+    "jshint-stylish": "^1.0.0",
+    "load-grunt-config": "^0.8.0",
+    "phantomjs": "^1.9.9",
+    "selenium-server-standalone-jar": "~2.47.1",
+    "sinon": "^1.12.0",
+    "time-grunt": "^0.3.2"
+  }
+}

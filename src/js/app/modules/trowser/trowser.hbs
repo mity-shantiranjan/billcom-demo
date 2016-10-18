@@ -1,0 +1,271 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Trowser Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+   <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Trowser.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    New Contract:
+
+                    &lt;ha-trowser titleText="Welcome to QuickBooks!" infoText="optional header info" history="true" settings="true" help="true" id="declarative-trowser"&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/section&gt;
+                        &nbsp;&nbsp;&lt;footer&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="footer-right"&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="ha-button ha-button-primary"&gt;Primary Button&lt;/button&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="footer-center"&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="ha-button ha-button-dark"&gt;Secondary Button&lt;/button&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                        &nbsp;&nbsp;&lt;/footer&gt;
+                    &lt;/ha-trowser&gt;
+
+                    Deprecated Contract:
+
+                    &lt;ha-trowser titleText="Welcome to QuickBooks!" infoText="optional header info" history="true" settings="true" help="true" id="declarative-trowser"&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;...
+                        &nbsp;&nbsp;&lt;/section&gt;
+                        &nbsp;&nbsp;&lt;footer&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="ha-button ha-button-primary" action="primary"&gt;Primary Button&lt;/button&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="ha-button ha-button-dark" action="secondary"&gt;Secondary Button&lt;/button&gt;
+                        &nbsp;&nbsp;&lt;/footer&gt;
+                    &lt;/ha-trowser&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <ha-trowser titleText="Welcome to QuickBooks!" infoText="optional header info" history="true" settings="true" help="true" data-attach-point="zTrowser">
+            <section>
+                <button class="ha-button" data-attach-point="trowserShowZdrawerButton">Show Drawer</button>
+                <button class="ha-button" data-attach-point="trowserShowZmodalButton">Show Modal</button>
+                <button class="ha-button" data-attach-point="trowserShowZtrowserButton">Show Trowser</button>
+                <ha-drawer-large data-attach-point="zDrawer" backdrop="true" titleText="Some Title">
+                    <section>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                        <div><ha-text-field label="Lorem ipsum dolor sit amet"></ha-text-field></div>
+                    </section>
+                    <footer>
+                        <button class="ha-button" data-attach-point="drawerShowZmodalButton">Show Modal</button>
+                        <ha-modal data-attach-point="zModal" titleText="Payment confirmation" size="large" type="confirm">
+                            <section>
+                                <p class="large-modal-content">
+                                    <label>Payment Method:
+                                    </label>
+                                    <span>Manual</span>
+                                    <br>
+                                    <ha-text-field label="Payment Type" required></ha-text-field>
+                                    <br>
+                                    <label>Liability Period:
+                                    </label>
+                                    <span>01/01/2013 to 03/31/2013</span>
+                                    <br>
+                                    <label>Due Date:
+                                    </label>
+                                    <span>04/31/2013</span>
+                                    <br>
+                                    <label>Payment Date:
+                                    </label>
+                                    <span>04/31/2013</span>
+                                    <br>
+                                    <label>Payment Amount:
+                                    </label>
+                                    <span>$177.70</span>
+                                </p>
+                                <h4>What's Next?</h4>
+                                <p>Print the payment coupon and follow the instructions on the form.</p>
+                            </section>
+                            <footer>
+                                <button class="ha-button" data-attach-point="zModalSkipButton">Skip for now</button>
+                                <button class="ha-button ha-button-primary" data-attach-point="zModalPrintButton">Print Payment Coupon</button>
+                            </footer>
+                        </ha-modal>
+                        <button class="ha-button ha-button-primary" data-attach-point="zDrawerSaveButton">Save</button>
+                    </footer>
+                </ha-drawer-large>
+            </section>
+            <footer>
+                <button class="ha-button ha-button-primary" action="primary">Primary Button</button>
+                <button class="ha-button ha-button-dark" action="secondary">Secondary Button</button>
+            </footer>
+        </ha-trowser>
+
+        {{{componentDemoTemplate}}}
+
+        <button class="ha-button show-element" data-target-name="zTrowser">z-index Test: Trowser</button>
+        <button class="ha-button show-element" data-target-name="zDrawer">z-index Test: Drawer</button>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var node = document.createElement("ha-trowser"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mainNode;
+
+                    node.titleText = "Invoice";
+                    node.infoText = "optional header info"
+
+                    // default false
+                    node.history = true;
+                    // default false
+                    node.settings = false;
+                    // default true
+                    node.help = true;
+                    // defaul true
+                    node.dismissible = true;
+
+                    // assume the following components are pre-created, make sure the `action` property is set
+                    node.footerItems = [buttonCancel, buttonLinks, buttonSave, comboButton];
+
+                    // your main node, append your content here;
+                    mainNode = document.createElement("div");
+
+                    node.section = mainNode;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    New Contract:
+
+                    &lt;HATrowser
+                        &nbsp;show={this.state.showTrowser}
+                        &nbsp;infoText="endflow"
+                        &nbsp;titleText="I AM A TROWSER TITLE!!!!!"
+                        &nbsp;settings={true}
+                        &nbsp;help={true}
+                        &nbsp;history={false}
+                        &nbsp;dismissible={true}
+                        &nbsp;autofocus={true}
+                        &nbsp;onShow={() => console.log('show was fired')}
+                        &nbsp;onClose={() => console.log('close was fired')}
+                        &nbsp;onDismiss={() => console.log('dismiss was fired')}&gt;
+                        &nbsp;&lt;HASection&gt;
+                            &nbsp;&nbsp;&lt;div>{this.state.sectionContent}&lt;/div&gt;
+                        &nbsp;&lt;/HASection&gt;
+                        &nbsp;&lt;HATrowserFooter&gt;
+                            &nbsp;&nbsp;&nbsp;&lt;span class="footer-right"&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;button
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;className="ha-button ha-button-primary"
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onClick={() => this._changeAsideContent()}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I don't do anything&lt;/button&gt;
+                            &nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                            &nbsp;&nbsp;&nbsp;&lt;span class="footer-center"&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;button
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;className="ha-button ha-button-primary"
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onClick={() => this._changeContent()}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set all content&lt;/button&gt;
+                            &nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                        &nbsp;&lt;/HATrowserFooter&gt;
+                    &lt;/HATrowser&gt;
+
+                    Deprecated Contract:
+
+                    &lt;HATrowser
+                        &nbsp;show={this.state.showTrowser}
+                        &nbsp;infoText="endflow"
+                        &nbsp;titleText="I AM A TROWSER TITLE!!!!!"
+                        &nbsp;settings={true}
+                        &nbsp;help={true}
+                        &nbsp;history={false}
+                        &nbsp;dismissible={true}
+                        &nbsp;autofocus={true}
+                        &nbsp;onShow={() => console.log('show was fired')}
+                        &nbsp;onClose={() => console.log('close was fired')}
+                        &nbsp;onDismiss={() => console.log('dismiss was fired')}&gt;
+                        &nbsp;&lt;HASection&gt;
+                            &nbsp;&nbsp;&lt;div>{this.state.sectionContent}&lt;/div&gt;
+                        &nbsp;&lt;/HASection&gt;
+                        &nbsp;&lt;HATrowserFooter&gt;
+                            &nbsp;&nbsp;&lt;button
+                                &nbsp;&nbsp;&nbsp;&nbsp;className="ha-button ha-button-primary"
+                                &nbsp;&nbsp;&nbsp;&nbsp;onClick={() => this._changeAsideContent()}
+                                &nbsp;&nbsp;&nbsp;&nbsp;action="primary">I don't do anything&lt;/button&gt;
+                            &nbsp;&nbsp;&lt;button
+                                &nbsp;&nbsp;&nbsp;&nbsp;className="ha-button ha-button-primary"
+                                &nbsp;&nbsp;&nbsp;&nbsp;onClick={() => this._changeContent()}
+                                &nbsp;&nbsp;&nbsp;&nbsp;action="tertiary">set all content&lt;/button&gt;
+                        &nbsp;&lt;/HATrowserFooter&gt;
+                    &lt;/HATrowser&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="reactWay">
+        </div>
+    </section>
+</div>

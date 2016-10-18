@@ -1,0 +1,47 @@
+<h3>Static message</h3>
+<ha-inline-message>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</ha-inline-message>
+<button onclick="this.previousElementSibling.close()">Dismiss</button>
+
+<h3>Tooltip-style message</h3>
+<ha-text-field label="First Name"></ha-text-field>
+<ha-inline-message class="inline-message-class-for-query-dojo" position="bottom" targetSelector="_previousSibling" trigger="focus">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</ha-inline-message>
+<button onclick="document.body.querySelector('.inline-message-class-for-query-dojo').close();">Dismiss</button>
+
+<h3>Tooltip-style message with interactive content</h3>
+<ha-text-field label="First Name"></ha-text-field>
+<ha-inline-message targetSelector="_previousSibling input" trigger="focus">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua.<br>
+    <a href="#" onclick="this.parentNode.parentNode.close(); return false;">Close</a>
+</ha-inline-message>
+
+<h3>Tooltip-style message with 'autoClose' attribute</h3>
+<ha-text-field label="First Name"></ha-text-field>
+<ha-inline-message autoclose targetSelector="_previousSibling input" trigger="focus">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</ha-inline-message>
+
+<h3>Positioning and alignment</h3>
+
+<ha-text-field label="First Name" class="top-right-target"></ha-text-field>
+<ha-inline-message autoclose position="top" targetSelector="_previousSibling" trigger="focus">
+    Position top
+</ha-inline-message>
+
+<ha-text-field label="First Name"></ha-text-field>
+<ha-inline-message autoclose position="bottom" targetSelector="_previousSibling" trigger="focus">
+    Position bottom
+</ha-inline-message>
+<br>
+
+<ha-text-field label="First Name"></ha-text-field>
+<ha-inline-message autoclose position="right" targetSelector="_previousSibling input" trigger="focus">
+    Position right
+</ha-inline-message>

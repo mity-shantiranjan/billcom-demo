@@ -1,0 +1,15 @@
+<h3>Basic video, opened with a button</h3>
+<button class="ha-button ha-button-primary" onclick="document.querySelector('#basic-video-dojo-example').show()">Click to view</button>
+<ha-video userId="harmony-gallery-test-user" id="basic-video-dojo-example" url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video>
+
+<h3>Video with history</h3>
+<button class="ha-button ha-button-primary" onclick="document.querySelector('#history-video-dojo-example').show()">Click to view</button>
+<ha-video enableHistoryView userId="harmony-gallery-test-user" id="history-video-dojo-example" url="https://www.youtube.com/embed/4by7kleQbmE"></ha-video>
+
+<h3>Video with overlay</h3>
+<button class="ha-button ha-button-primary" onclick="document.querySelector('#overlay-video-dojo-example').show()">Click to view</button>
+<ha-video userId="harmony-gallery-test-user" id="overlay-video-dojo-example" url="https://www.youtube.com/embed/48QBRQdyRmU">
+    <section>
+        <ha-video-overlay-button label="Call to action" type="primary">Button</ha-video-overlay-button>
+    </section>
+</ha-video>

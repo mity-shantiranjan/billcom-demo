@@ -1,0 +1,145 @@
+<style>
+.flexbox-container {
+    display: flex;
+    padding:10px;
+}
+
+.flexbox-container > .half-width {
+    width: 50%;
+}
+.half-width.code-section {
+  padding-left:20px;
+}
+
+ha-tabs .ha-tabs-content {
+  height:auto;
+}
+</style>
+
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Test Drive
+    </h1>
+    <div class="meta">
+      <button class="ha-button output-toggle">Show Output only</button>
+      <ha-segmented-button class='templateChoices' class="usage-tab-buttons">
+                <button value="handlebars" selected="true" title="Handlebars">Backbone/Handlebars</button>
+                <button value="dojo" title="Dojo">Dojo</button>
+                <button value="react" title="React">React</button>
+      </ha-segmented-button>
+    </div>
+</section>
+
+<div class="flexbox-container">
+    <!-- First Column -->
+    <div class="half-width template-section">
+     <ha-tabs>
+      <ha-tab titletext="Template">
+      <textarea name="comments" id="code-input" rows="25" style="width: 100%">
+        <form>
+          <ha-text-field label="Name" class="ha-text-field" value="{{author}}" maxlength="524288" minlength="0"></ha-text-field>
+        </form>
+        <div>
+          <ha-switch-button checked={{status}} class="ha-switch-button" title="on"></ha-switch-button>
+        </div>
+        <div>
+          <ha-checkbox label="Enabled Checkbox (default checked)" checked={{status}}></ha-checkbox>
+        </div>
+        <div>
+         <button class="ha-button hi-icon-button">
+                <i class="hi hi-camera"></i>{{author}}
+        </button>
+        <div>
+            <button class="ha-button ha-button-primary" disabled="">{{author}}</button>
+            <button class="ha-button ha-button-primary">{{author}}</button>
+            <button class="ha-button ha-button-primary hi-icon-button">
+                <i class="hi hi-accountant"></i>{{author}}
+            </button>
+        </div>
+        </div>
+        <div>
+
+        <ha-combo-button class="ha-button-primary" label="Michael Jordan">
+           {{#each people}}
+              <ha-item value="{{this}}">{{this}}</ha-item>
+           {{/each}}
+        </ha-combo-button>
+
+        <ha-menu-button class="ha-button-primary" label="Send Message">
+           {{#each people}}
+              <ha-item value="{{this}}">{{this}}</ha-item>
+           {{/each}}
+        </ha-menu-button>
+
+        <ha-combo-link class="ha-button-primary" label="Michael Jordan">
+           {{#each people}}
+              <ha-item value="{{this}}">{{this}}</ha-item>
+           {{/each}}
+        </ha-combo-link>
+
+        <ha-select class="ha-button-primary" label="Choose your player">
+           {{#each people}}
+              <ha-item value="{{this}}">{{this}}</ha-item>
+           {{/each}}
+        </ha-select>
+        </div>
+        <div>
+        <ha-money-bar>
+          <ha-money-bar-segment titleTextBold="50" titleText="Unbilled">
+             <ha-money-bar-cell class="mbDarkBlue" primaryText="{{insights.openEstimates}}" secondaryText="2 ESTIMATE"></ha-money-bar-cell>
+             <ha-money-bar-cell class="mbLightBlue" primaryText="{{insights.unbilledActivity}}" secondaryText="2 UNBILLED ACTIVITY"></ha-money-bar-cell>
+          </ha-money-bar-segment>
+        </ha-money-bar>
+        </div>
+        <div>
+
+            <ha-radio-button-group name="RadioDemo" selectedItem="2">
+                <ha-radio-button label="{{options.option1}}" value="1" disabled></ha-radio-button>
+                <ha-radio-button label="{{options.option2}}" value="2" checked></ha-radio-button>
+                <ha-radio-button label="{{options.option3}}" value="3"></ha-radio-button>
+            </ha-radio-button-group>
+        </div>
+        <ha-list titleText="Single select list">
+                <li>First list item</li>
+                <li>Second list item</li>
+                <li>Third list item</li>
+        </ha-list>
+        </textarea>
+
+      </ha-tab>
+      <ha-tab titletext="Data">
+      <textarea name="comments" id="data-input" rows="25" style="width: 100%">
+        {
+          "people": [
+            "Sachin Tendulkar",
+            "Michael Schumacher",
+            "Michael Jordan"
+          ],
+          "author": "Hui Developer",
+          "status": false,
+          "options": {
+            "option1": "Check",
+            "option2": "Credit/Debit",
+            "option3": "Cash"
+          },
+          "insights":{
+             "openEstimates": "$50.00",
+             "unbilledActivity" : "$100.00"
+          }
+
+        }
+                </textarea>
+      </ha-tab>
+      <ha-tab titletext="Synthetic event Log">
+      <button class="clear-logs ha-button">Clear Logs</button>
+      <textarea name="event logs" id="event-logs" rows="25" style="width: 100%"></textarea>
+      </ha-tab>
+     </ha-tabs>
+
+    </div>
+    <!-- Second Column -->
+    <div class="half-width code-section"><section class="usage">
+     <header class="title"><a>Output HTML</a></header>
+     <div id="html"></div>
+    </section></div>
+</div>

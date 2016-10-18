@@ -1,0 +1,35 @@
+{
+  "name": "register-component",
+  "version": "1.6.0",
+  "description": "A wrapper JS library for creating web components using custom elements.",
+  "dependencies": {
+    "mustache.js": "git://github.com/janl/mustache.js.git#2.0.0",
+    "object-utils": "git@github.intuit.com:SBG/js-object-utils.git#1.1.2",
+    "requirejs": "git://github.com/jrburke/requirejs-bower.git#2.1.22",
+    "requirejs-text": "git://github.com/requirejs/text.git#2.0.14",
+    "document-register-element": "git://github.com/WebReflection/document-register-element.git#0.5.4"
+  },
+  "devDependencies": {
+    "rsvp": "~3.0.16"
+  },
+  "keywords": [
+    "register-component",
+    "register component",
+    "web components",
+    "custom element",
+    "register element"
+  ],
+  "main": "dist/register-component.js",
+  "ignore": [
+    "build",
+    "build-utils",
+    "docs",
+    "test",
+    "CHANGELOG",
+    "CONTRIBUTING.md",
+    "Gruntfile.js",
+    "**/.*",
+    "README.md"
+  ],
+  "private": true
+}

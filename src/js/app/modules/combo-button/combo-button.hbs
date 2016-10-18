@@ -1,0 +1,245 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Combo Button Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/ComboButton.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <div class="highlight">
+                <pre>
+                <code class="language-html" data-lang="html">
+                    NEW WAY:
+
+                    &lt;ha-combo-button class="ha-button-primary" label="Create New"&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                    &lt;/ha-combo-button&gt;
+
+                    &lt;ha-combo-button class="ha-button-primary" label="Create New" disabled&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                    &lt;/ha-combo-button&gt;
+
+
+                    &lt;ha-combo-button class="ha-button-dark" label="Save" &gt;
+                        &nbsp;&nbsp;&lt;ha-item value="SendValue"&gt;Send&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="CreateNewValue"&gt;Create new&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="DoneValue"&gt;Done&lt;/ha-item&gt;
+                    &lt;/ha-combo-button&gt;
+
+                    &lt;ha-combo-button class="hidden-handheld ha-button-primary" label="Create New"&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                    &lt;/ha-combo-button&gt;
+
+                    &lt;ha-menu-button class=&quot;hidden-desktop ha-button-primary&quot; label=&quot;Create New&quot;&gt;
+                        &nbsp;&nbsp;&lt;ha-item value=&quot;AppleValue&quot;&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value=&quot;BananaValue&quot;&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value=&quot;BalloonValue&quot;&gt;Balloon&lt;/ha-item&gt;
+                    &lt;/ha-menu-button&gt;
+
+                    DEPRECATED WAY:
+
+                    &lt;ha-combo-button class="ha-button-primary" label="Create New"&gt;
+                        &nbsp;&nbsp;&lt;ha-popover&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-item&gt;Apple&lt;/ha-menu-item&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-item&gt;Banana&lt;/ha-menu-item&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-item&gt;Balloon&lt;/ha-menu-item&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-item&gt;Melon&lt;/ha-menu-item&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu&gt;
+                        &nbsp;&nbsp;&lt;/ha-popover&gt;
+                    &lt;/ha-combo-button&gt;
+                </code>
+            </pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div class="container-combo-buttons">
+            <ha-combo-button class="ha-button-primary" label="Create New" disabled data-automation-id="html_cmbtn_primary_disabled">
+                <ha-item value="AppleValue">Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-combo-button>
+            <ha-combo-button class="ha-button-primary" label="Create New" data-automation-id="html_cmbtn_primary">
+                <ha-item value="AppleValue">Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-combo-button>
+            <ha-combo-button label="Create New" disabled data-automation-id="html_cmbtn_secondary_disabled">
+                <ha-item value="AppleValue">Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-combo-button>
+            <ha-combo-button label="Create New" data-automation-id="html_cmbtn_secondary">
+                <ha-item value="AppleValue">Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-combo-button>
+        </div>
+        <div class="content-dark">
+            <ha-combo-button class="ha-button-dark" label="Create New" disabled data-automation-id="html_cmbtn_dark_disabled">
+                <ha-item value="AppleValue">Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-combo-button>
+            <ha-combo-button class="ha-button-dark" label="Save" data-automation-id="html_cmbtn_dark">
+                <ha-item value="SendValue">Send</ha-item>
+                <ha-item value="CreateNewValue">Create new</ha-item>
+                <ha-item value="DoneValue">Done</ha-item>
+            </ha-combo-button>
+        </div>
+        <h3>With Disabled Items</h3>
+        <div class="container-disabled-items">
+             <ha-combo-button class="ha-button-primary" label="Create New" data-automation-id="html_cmbtn_primary_item_disabled">
+                 <ha-item value="AppleValue" disabled="disabled">Apple</ha-item>
+                 <ha-item value="BananaValue">Banana</ha-item>
+                 <ha-item value="BalloonValue">Balloon</ha-item>
+             </ha-combo-button>
+        </div>
+        <h3>Switch to Menu Buttons for Handheld Devices</h3>
+        <div class="hidden-handheld container-combo-items">
+            <ha-combo-button class="ha-button-primary" label="Create New" data-automation-id="html_cmbtn_primary_desktop">
+                <ha-item value="AppleValue" >Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-combo-button>
+        </div>
+        <div class="hidden-desktop container-menu-items">
+            <ha-menu-button class="ha-button-primary" label="Create New" data-automation-id="html_mbtn_primary_mobile">
+                <ha-item value="AppleValue">Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-menu-button>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    NEW WAY:
+
+                    var comboButton = document.createElement("ha-combo-button"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item1 = document.createElement("ha-item"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item2 = document.createElement("ha-item"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;menuButton = document.createElement("ha-menu-button");
+
+                    item1.label = "Basic paragraph style";
+                    item1.value = "Basic paragraph style";
+                    item2.label = "Basic paragraph style";
+                    item2.value = "Basic paragraph style";
+
+                    comboButton.classList.add("ha-button-primary");
+                    comboButton.classList.add("hidden-handheld");
+                    comboButton.label = "Create New";
+                    comboButton.disabled = false;
+                    comboButton.items = [item1, item2];
+
+                    menuButton.classList.add("ha-button-primary");
+                    menuButton.classList.add("hidden-desktop");
+                    menuButton.label = "Create New";
+                    menuButton.disabled = false;
+                    menuButton.items = [item1, item2];
+
+                    DEPRECATED WAY:
+
+                    var comboButton = document.createElement("ha-combo-button"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;popover = document.createElement("ha-popover"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;menu = document.createElement("ha-menu"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item1 = document.createElement("ha-menu-item"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item2 = document.createElement("ha-menu-item"),
+
+                    item1.label = "Basic paragraph style";
+                    item1.value = "Basic paragraph style";
+                    item2.label = "Basic paragraph style";
+                    item2.value = "Basic paragraph style";
+
+                    menu.items = [item1, item2];
+
+                    popover.addContent(menu);
+
+                    comboButton.classList.add("ha-button-primary");
+                    comboButton.label = "Create New";
+                    comboButton.disabled = false;
+                    comboButton.popover = popover;
+
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="programmaticWay"></div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="dojoProgrammaticWay"></div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                        &lt;HAComboButton placeholder="Choose a method" label="Same title"&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="AppleValue"&gt;Apple&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="BananaValue"&gt;Banana&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="BalloonValue"&gt;Balloon&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="MelonValue"&gt;Melon&lt;/HAItem&gt;
+                        &lt;/HAComboButton&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="reactWay"></div>
+    </section>
+</div>

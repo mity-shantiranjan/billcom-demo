@@ -1,0 +1,38 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        {{title}}
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            {{#each examples}}
+            <button class="segmented-nav" value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</button>
+            {{/each}}
+        </ha-segmented-button>
+    </div>
+   <div class="design-document">
+        <a href="{{docUrl}}" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+{{#each examples}}
+<div class="panel {{#unless selected}}hidden{{/unless}}" id="{{id}}">
+    {{#if usage}}
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="html" data-lang="html">
+                    {{{usage}}}
+                </code>
+            </pre>
+        </div>
+    </section>
+    {{/if}}
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="{{id}}-example">{{{demoTemplate}}}</div>
+    </section>
+</div>
+{{/each}}

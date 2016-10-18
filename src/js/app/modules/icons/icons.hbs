@@ -1,0 +1,29 @@
+<section class=" post box clearfix">
+<style>
+.icon-section.panel label {
+    min-width: 120px;
+    display:inline-block;
+    text-transform: capitalize;
+}
+</style>
+    <h1 class="entry-title">
+        Icons
+    </h1>
+    <div class="meta">
+    </div>
+</section>
+
+<div class="icon-section panel" id="html">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div>
+            {{#each icons}}
+                <label>{{this.name}}</label>
+                <i class="hi page large {{this.class}}"></i>
+                <i class="hi page small {{this.class}}"></i>
+                <i class="hi navigation {{this.class}}"></i>
+                <br>
+           {{/each}}
+        </div>
+    </section>
+</div>

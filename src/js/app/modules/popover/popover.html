@@ -1,0 +1,62 @@
+<div>
+    <ha-select placeholder="Select one..." label="Custom Popover Examples" class="customer-select">
+        <ha-item value="SelectACustomer">Select a customer</ha-item>
+        <ha-item value="CreateNewCustomer">Create new customer</ha-item>
+    </ha-select>
+    <ha-popover>
+        <ha-popover-form>
+            <section>
+                <ha-text-field label="Name"></ha-text-field>
+            </section>
+            <footer>
+                <button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();">Cancel</button>
+                <button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();">Save</button>
+            </footer>
+        </ha-popover-form>
+    </ha-popover>
+    <ha-popover>
+        <ha-popover-form>
+            <section>
+                <ha-text-field label="Name" required></ha-text-field>
+            </section>
+            <footer>
+                <button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();">Cancel</button>
+                <button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();">Save</button>
+            </footer>
+        </ha-popover-form>
+    </ha-popover>
+
+    <button class="ha-button show-popover">Show Popover</button>
+    <ha-popover>
+        <ha-popover-form>
+            <section>
+                <ha-page-message titleText="With Title" type="info" dismissible="true">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                </ha-page-message>
+            </section>
+            <footer>
+                <button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();">Cancel</button>
+                <button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();">Save</button>
+            </footer>
+        </ha-popover-form>
+    </ha-popover>
+
+    <button class="ha-button show-popover">Show Popover w/ Page Message</button>
+    <ha-popover>
+        <ha-popover-form>
+            <section>
+                <ha-text-field label="Name"></ha-text-field>
+            </section>
+            <footer>
+                <button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();">Cancel</button>
+                <button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();">Save</button>
+            </footer>
+        </ha-popover-form>
+    </ha-popover>
+
+    <h3>Popover In Select</h3>
+    <ha-select placeholder="Select one..." label="Some Label">
+        <ha-item value="SelectACustomer">Select a customer</ha-item>
+        <ha-item value="CreateNewCustomer">Create new customer</ha-item>
+    </ha-select>
+</div>

@@ -1,0 +1,127 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Trowser Flow Component
+    </h1>
+
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div class="declarative-wrapper">
+            <ha-trowser-flow flow="linear" titleText="Linear navigation Title" id="declarative-trowser-flow-linear">
+                <main>
+                    <ha-trowser-flow-step titleText="step1 title">
+                        content for step1 here
+                    </ha-trowser-flow-step>
+                    <ha-trowser-flow-step titleText="step2 title">
+                        content for step2 here
+                    </ha-trowser-flow-step>
+                    <ha-trowser-flow-step titleText="step3 title">
+                        content for step3 here
+                    </ha-trowser-flow-step>
+                    <ha-trowser-flow-step titleText="step4 title">
+                        content for step4 here
+                    </ha-trowser-flow-step>
+                    <ha-trowser-flow-step titleText="step5 title">
+                        content for step5 here
+                    </ha-trowser-flow-step>
+                </main>
+                <footer>
+                    <button class="ha-button ha-button-dark ha-button-primary" action="primary">Next</button>
+                    <button class="ha-button ha-button-dark" action="secondary">Back</button>
+                </footer>
+            </ha-trowser-flow>
+
+            <ha-trowser-flow flow="nonlinear" titleText="Non Linear navigation Title" id="declarative-trowser-flow-nonlinear">
+                <main>
+                    <ha-trowser-flow-step titleText="step name" icon="user" description="Step Description">
+                        content for step1 here
+                    </ha-trowser-flow-step>
+                    <ha-trowser-flow-step titleText="step name" icon="map" description="Step Description">
+                        content for step2 here
+                    </ha-trowser-flow-step>
+                    <ha-trowser-flow-step titleText="step name" icon="attach" description="Step Description">
+                        content for step3 here
+                    </ha-trowser-flow-step>
+                </main>
+                <footer>
+                    <button class="ha-button ha-button-dark ha-button-primary" action="primary">Next</button>
+                    <button class="ha-button ha-button-dark" action="secondary">Back</button>
+                </footer>
+            </ha-trowser-flow>
+            <button class="ha-button show-trowser" data-trowser-id="#declarative-trowser-flow-linear">
+                Show Trowser Flow Linear
+            </button>
+            <button class="ha-button show-trowser" data-trowser-id="#declarative-trowser-flow-nonlinear">
+                Show Trowser Flow Nonlinear
+            </button>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var node = document.createElement("ha-trowser-flow");
+                    node.titleText = "Invoice";
+                    node.info = "optional header info"
+
+                    // default false
+                    node.history = true;
+                    // default false
+                    node.settings = false;
+                    // default true
+                    node.help = true;
+                    // defaul true
+                    node.dismissible = true;
+
+                    // assume the following components are pre-created, make sure the `action` property is set
+                    node.footerItems = [buttonCancel, buttonLinks, buttonSave, comboButton];
+
+                    // your main node, append your content here;
+                    var mainNode = document.createElement("div");
+
+                    node.addContent({section: mainNode});
+                    node.render();
+
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

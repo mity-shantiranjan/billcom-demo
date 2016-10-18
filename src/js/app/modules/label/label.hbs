@@ -1,0 +1,252 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Label Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Label.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-text-field id="myTextField"&gt;
+                        &lt;ha-label&gt;
+                            I am &lt;strong&gt; ha-label &lt;/strong&gt; &lt;small&gt; that overwrites default &lt;/small&gt;&lt;span&gt;label&lt;/span&gt;
+                        &lt;/ha-label&gt;
+                    &lt;/ha-text-field&gt;
+
+                    &lt;ha-textarea id="myTextField"&gt;
+                        &lt;ha-label&gt;
+                            I am &lt;strong&gt; ha-label &lt;/strong&gt; &lt;small&gt; that overwrites default &lt;/small&gt;&lt;span&gt;label&lt;/span&gt;
+                        &lt;/ha-label&gt;
+                    &lt;/ha-textarea&gt;
+
+                    &lt;ha-select label="Some Label" placeholder="Choose an item"&gt;
+                        &lt;ha-label&gt;
+                            I am &lt;strong&gt; ha-label &lt;/strong&gt; &lt;small&gt; that overwrites default label&lt;/small&gt;
+                        &lt;/ha-label&gt;
+                        &lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                    &lt;/ha-select&gt;
+
+                    &lt;ha-checkbox-group name="Declarative Checkbox Group" label="Checkbox Group"&gt;
+                        &lt;ha-label&gt;
+                            I am &lt;strong&gt; ha-label &lt;/strong&gt; &lt;small&gt; that overwrites default label&lt;/small&gt;
+                        &lt;/ha-label&gt;
+                        &lt;ha-checkbox value="1" name="Enabled-Checkbox" label="Enabled Checkbox"&gt;&lt;/ha-checkbox&gt;
+                        &lt;ha-checkbox value="2" name="Enabled-Checkbox-Default" label="Enabled Checkbox (default checked)" checked&gt;&lt;/ha-checkbox&gt;
+                        &lt;ha-checkbox value="3" name="Disabled-Checkbox" label="Disabled Checkbox" disabled&gt;&lt;/ha-checkbox&gt;
+                        &lt;ha-checkbox name="Enabled-Checkbox-Default" label="Disabled Checkbox (default checked)"  value="4" checked disabled&gt;&lt;/ha-checkbox&gt;
+                        &lt;ha-checkbox value="off" label="With value OFF"&gt;&lt;/ha-checkbox&gt;
+                        &lt;ha-checkbox value="5"&gt;&lt;/ha-checkbox&gt;
+                        &lt;ha-checkbox value="6" checked&gt;&lt;/ha-checkbox&gt;
+                    &lt;/ha-checkbox-group&gt;
+
+                    &lt;ha-radio-button-group label="Some Label"&gt;
+                        &lt;ha-label&gt;
+                            I am &lt;strong&gt; ha-label &lt;/strong&gt; &lt;small&gt; that overwrites default label&lt;/small&gt;
+                        &lt;/ha-label&gt;
+                        &lt;ha-radio-button label="Radio 1" value="1"&gt;&lt;/ha-radio-button&gt;
+                        &lt;ha-radio-button label="Radio 2" value="2"&gt;&lt;/ha-radio-button&gt;
+                        &lt;ha-radio-button label="Radio 3" value="3"&gt;&lt;/ha-radio-button&gt;
+                    &lt;/ha-radio-button-group&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    // text-field
+                    var textField = document.createElement('ha-text-field');
+                    textField.label = 'Name';
+                    textField.haLabel = complexLabel.cloneNode(true);
+                    content = div.cloneNode(true);
+                    content.appendChild(textField);
+                    placeToAppend.appendChild(content);
+
+                    // textarea
+                    var textarea = document.createElement('ha-textarea');
+                    textarea.label = 'Name';
+                    textarea.haLabel = complexLabel.cloneNode(true);
+                    content = div.cloneNode(true);
+                    content.appendChild(textarea);
+                    placeToAppend.appendChild(content);
+
+                    // select
+                    var items = [],
+                    select = document.createElement('ha-select'),
+                    i;
+
+                    for (i = 0; i &lt; 4; i++) {
+                        items[i] = document.createElement('ha-item');
+                    }
+
+                    items[0].label = 'Apple';
+                    items[0].value = 'Apple';
+                    items[1].label = 'Banana';
+                    items[1].value = 'Banana';
+                    items[2].label = 'Balloon';
+                    items[2].value = 'Balloon';
+                    items[3].label = 'Mellon';
+                    items[3].value = 'Mellon';
+
+                    select.items = [items[0], items[1], items[2], items[3]];
+                    select.label = 'Name';
+                    select.haLabel = complexLabel.cloneNode(true);
+                    content = div.cloneNode(true);
+                    content.appendChild(select);
+                    placeToAppend.appendChild(content);
+
+                    // checkbox-group
+                    var checkboxGroup = document.createElement('ha-checkbox-group'),
+                        checkbox1 = document.createElement('ha-checkbox'),
+                        checkbox2 = document.createElement('ha-checkbox'),
+                        checkbox3 = document.createElement('ha-checkbox');
+                    checkbox1.label = 'Radio 1';
+                    checkbox1.value = 1;
+                    checkbox1.disabled = true;
+                    checkbox2.label = 'Radio 2';
+                    checkbox2.value = 2;
+                    checkbox2.checked = true;
+                    checkbox3.label = 'Radio 3';
+                    checkbox3.value = 3;
+                    checkboxGroup.checkboxes = [checkbox1, checkbox2, checkbox3];
+                    checkboxGroup.selectedItem = "2";
+                    checkboxGroup.label = 'Some title';
+                    checkboxGroup.haLabel = complexLabel.cloneNode(true);
+                    content = div.cloneNode(true);
+                    content.appendChild(checkboxGroup);
+                    placeToAppend.appendChild(content);
+
+                    // radio-button-group
+                    var radioButtonGroup = document.createElement('ha-radio-button-group'),
+                        radioButton1 = document.createElement('ha-radio-button'),
+                        radioButton2 = document.createElement('ha-radio-button'),
+                        radioButton3 = document.createElement('ha-radio-button');
+                    radioButton1.label = 'Radio 1';
+                    radioButton1.value = 1;
+                    radioButton1.disabled = true;
+                    radioButton2.label = 'Radio 2';
+                    radioButton2.value = 2;
+                    radioButton2.checked = true;
+                    radioButton3.label = 'Radio 3';
+                    radioButton3.value = 3;
+                    radioButtonGroup.radios = [radioButton1, radioButton2, radioButton3];
+                    radioButtonGroup.selectedItem = "2";
+                    radioButtonGroup.label = 'Some title';
+                    radioButtonGroup.haLabel = complexLabel.cloneNode(true);
+                    content = div.cloneNode(true);
+                    content.appendChild(radioButtonGroup);
+                    placeToAppend.appendChild(content);
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HATextField&gt;
+                        &lt;HALabel&gt;
+                            I am &lt;strong&gt; HALabel &lt;/strong&gt; &lt;small&gt; that overwrites default &lt;/small&gt;&lt;span&gt;label&lt;/span&gt;
+                        &lt;/HALabel&gt;
+                    &lt;/HATextField&gt;
+
+                    &lt;HATextarea&gt;
+                        &lt;HALabel&gt;
+                            I am &lt;strong&gt; HALabel &lt;/strong&gt; &lt;small&gt; that overwrites default &lt;/small&gt;&lt;span&gt;label&lt;/span&gt;
+                        &lt;/HALabel&gt;
+                    &lt;/HATextarea&gt;
+
+                    &lt;HATextField&gt;
+                        &lt;HALabel&gt;
+                            &lt;div&gt;I am&lt;/div&gt; &lt;strong&gt; HALabel &lt;/strong&gt; &lt;small&gt; that overwrites default label&lt;/small&gt;
+                        &lt;/HALabel&gt;
+                    &lt;/HATextField&gt;
+
+                    &lt;HASelect label="Some Label" placeholder="Choose an item"&gt;
+                        &lt;HALabel&gt;
+                            I am &lt;strong&gt; HALabel &lt;/strong&gt; &lt;small&gt; that overwrites default label&lt;/small&gt;
+                        &lt;/HALabel&gt;
+                        &lt;HAItem value="AppleValue"&gt;Apple&lt;/HAItem&gt;
+                        &lt;HAItem value="BananaValue"&gt;Banana&lt;/HAItem&gt;
+                        &lt;HAItem value="BalloonValue"&gt;Balloon&lt;/HAItem&gt;
+                        &lt;HAItem value="MelonValue"&gt;Melon&lt;/HAItem&gt;
+                    &lt;/HASelect&gt;
+
+                    &lt;HACheckboxGroup name="Declarative Checkbox Group" label="Checkbox Group"&gt;
+                        &lt;HALabel&gt;
+                            I am &lt;strong&gt; HALabel &lt;/strong&gt; &lt;small&gt; that overwrites default label&lt;/small&gt;
+                        &lt;/HALabel&gt;
+                        &lt;HACheckbox value="1" name="Enabled-Checkbox" label="Enabled Checkbox"&gt;&lt;/HACheckbox&gt;
+                        &lt;HACheckbox value="2" name="Enabled-Checkbox-Default" label="Enabled Checkbox (default checked)" checked&gt;&lt;/HACheckbox&gt;
+                        &lt;HACheckbox value="3" name="Disabled-Checkbox" label="Disabled Checkbox" disabled&gt;&lt;/HACheckbox&gt;
+                        &lt;HACheckbox name="Enabled-Checkbox-Default" label="Disabled Checkbox (default checked)"  value="4" checked disabled&gt;&lt;/HACheckbox&gt;
+                        &lt;HACheckbox value="off" label="With value OFF"&gt;&lt;/HACheckbox&gt;
+                        &lt;HACheckbox value="5"&gt;&lt;/HACheckbox&gt;
+                        &lt;HACheckbox value="6" checked&gt;&lt;/HACheckbox&gt;
+                    &lt;/HACheckboxGroup&gt;
+
+                    &lt;HARadioButtonGroup label="Some Label"&gt;
+                        &lt;HALabel&gt;
+                            I am &lt;strong&gt; HALabel &lt;/strong&gt; &lt;small&gt; that overwrites default label&lt;/small&gt;
+                        &lt;/HALabel&gt;
+                        &lt;HARadioButton label="Radio 1" value="1"&gt;&lt;/HARadioButton&gt;
+                        &lt;HARadioButton label="Radio 2" value="2"&gt;&lt;/HARadioButton&gt;
+                        &lt;HARadioButton label="Radio 3" value="3"&gt;&lt;/HARadioButton&gt;
+                    &lt;/HARadioButtonGroup&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="reactWay">
+        </div>
+    </section>
+</div>

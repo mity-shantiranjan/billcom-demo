@@ -1,0 +1,115 @@
+<div>
+    <h3>Default Hidden (No Footer)</h3>
+    <ha-card-discovery-large titleText="Card discovery large default" dismissible>
+        <section>
+            Some content for testing
+        </section>
+    </ha-card-discovery-large>
+    <button class="ha-button" onclick="javascript:if (!this.previousElementSibling.open) {this.previousElementSibling.show();this.previousElementSibling.addEventListener('close', function() {this.focus()}.bind(this));}">Show</button>
+
+    <h3>With One Button</h3>
+    <ha-card-discovery-large titleText="Card discovery large with 1 button" dismissible>
+        <section>
+            Some content for testing
+        </section>
+        <footer>
+            <ha-footer-buttons>
+                <button class="ha-button ha-button-primary">Primary Button</button>
+            </ha-footer-buttons>
+        </footer>
+    </ha-card-discovery-large>
+    <button class="ha-button" onclick="javascript:if (!this.previousElementSibling.open) {this.previousElementSibling.show();this.previousElementSibling.addEventListener('close', function() {this.focus()}.bind(this));}">Show</button>
+
+    <h3>With Two Buttons</h3>
+    <ha-card-discovery-large titleText="Card discovery large with 2 buttons" dismissible>
+        <section>
+            Some content for testing
+        </section>
+        <footer>
+            <ha-footer-buttons>
+                <button class="ha-button">Secondary Button</button>
+                <button class="ha-button ha-button-primary">Primary Button</button>
+            </ha-footer-buttons>
+        </footer>
+    </ha-card-discovery-large>
+    <button class="ha-button" onclick="javascript:if (!this.previousElementSibling.open) {this.previousElementSibling.show();this.previousElementSibling.addEventListener('close', function() {this.focus()}.bind(this));}">Show</button>
+
+    <h3>With Three Buttons</h3>
+    <ha-card-discovery-large titleText="Card discovery large with 3 buttons" dismissible>
+        <section>
+            Some content for testing
+        </section>
+        <footer>
+            <ha-footer-buttons>
+                <button class="ha-button">Tertiary Button</button>
+                <button class="ha-button">Secondary Button</button>
+                <button class="ha-button ha-button-primary">Primary Button</button>
+            </ha-footer-buttons>
+        </footer>
+    </ha-card-discovery-large>
+    <button class="ha-button" onclick="javascript:if (!this.previousElementSibling.open) {this.previousElementSibling.show();this.previousElementSibling.addEventListener('close', function() {this.focus()}.bind(this));}">Show</button>
+
+    <h3>With Customized Footer</h3>
+    <ha-card-discovery-large titleText="Get set up right with help from an expert" dismissible>
+        <section>
+            <p>Ready for your free 1-hour session ? <a href="">Learn more</a></p>
+            <ha-text-field placeholder="Phone number"></ha-text-field>
+            <button class="ha-button ha-button-primary">Call me now!</button>
+        </section>
+        <footer>
+            <div style="padding-top:20px; text-align: center">
+                Already have an accountant ?
+                <a href="">invite them here</a>
+            </div>
+        </footer>
+    </ha-card-discovery-large>
+    <button class="ha-button" onclick="javascript:if (!this.previousElementSibling.open) {this.previousElementSibling.show();this.previousElementSibling.addEventListener('close', function() {this.focus()}.bind(this));}">Show</button>
+
+    <h3>With Image in Section</h3>
+    <ha-card-discovery-large titleText="Card discovery large with image in section" dismissible>
+        <section>
+            <div class="card-sub-item">
+                <div class="card-image qbo-certification"></div>
+                <div class="card-image-description">
+                    Strengthen your skills to
+                    <br/> become a QuickBooks expert.
+                </div>
+            </div>
+            <div class="card-sub-item">
+                <div class="card-image fap-directory"></div>
+                <div class="card-image-description">
+                    Showcase your practices to over
+                    <br/> 1 million businesses.
+                </div>
+            </div>
+            <div class="card-sub-item">
+                <div class="card-image customer-support"></div>
+                <div class="card-image-description">
+                    Connect quickly with our VIP
+                    <br/> support specialists.
+                </div>
+            </div>
+        </section>
+        <footer>
+            <ha-footer-buttons>
+                <button class="ha-button ha-button-primary">Primary Button</button>
+            </ha-footer-buttons>
+        </footer>
+    </ha-card-discovery-large>
+    <button class="ha-button" onclick="javascript:if (!this.previousElementSibling.open) {this.previousElementSibling.show();this.previousElementSibling.addEventListener('close', function() {this.focus()}.bind(this));}">Show</button>
+
+    <h3>Show immediately (open=true)</h3>
+    <ha-card-discovery-large titleText="Card discovery large with open=true" dismissible open>
+        <section>
+            Some content for testing
+        </section>
+        <footer>
+            <ha-footer-buttons>
+                <button class="ha-button">Tertiary Button</button>
+                <button class="ha-button">Secondary Button</button>
+                <button class="ha-button ha-button-primary">Primary Button</button>
+            </ha-footer-buttons>
+        </footer>
+    </ha-card-discovery-large>
+    <button class="ha-button" onclick="javascript:this.previousElementSibling.open ? this.previousElementSibling.close() : this.previousElementSibling.show()">Toggle</button>
+</div>

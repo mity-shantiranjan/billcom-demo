@@ -1,0 +1,252 @@
+<div>
+
+<div class="basic-html">
+    <h3>Basic Step Flow</h3>
+    <button class="show-flow ha-button">
+        Show Step Flow
+    </button>
+    <ha-trowser titleText="Step Flow Demonstration" help="false" type="step-flow">
+        <section>
+            <ha-step-flow closeParentTrowser>
+                <ha-flow-landing>
+                    <section>
+                        <h3>Landing Page</h3>
+                    </section>
+                </ha-flow-landing>
+                <ha-flow-confirmation titleText="Confirmed!" subtitleText="Everything is good to go.">
+                    <section>Custom content</section>
+                </ha-flow-confirmation>
+                <ha-flow-step titleText="Some information about you..." subtitleText="Step subtitle"
+                id="ha-flow-step-1" showSaveForLaterButton>
+                    <section>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-6 col-sm-12">
+                                <ha-text-field label="First Name"></ha-text-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-sm-12">
+                                <ha-text-field label="Last Name"></ha-text-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-sm-12">
+                                <ha-text-field label="Address"></ha-text-field>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ha-select label="Pick a color">
+                                    <ha-item>Blue</ha-item>
+                                    <ha-item>Red</ha-item>
+                                    <ha-item>Green</ha-item>
+                                    <ha-item>Yellow</ha-item>
+                                </ha-select>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ha-select label="Pick a shape">
+                                    <ha-item>Square</ha-item>
+                                    <ha-item>Circle</ha-item>
+                                    <ha-item>Triangle</ha-item>
+                                    <ha-item>Rectangle</ha-item>
+                                </ha-select>
+                            </div>
+                        </div>
+                        <button class="toggleStepEdit ha-button pull-right">Toggle Edit Mode</button>
+                    </section>
+                </ha-flow-step>
+                <ha-flow-step titleText="Step with validation" id="ha-flow-step-2"
+                    nextButtonText="Custom Next" previousButtonText="Custom Previous">
+                        <section>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <ha-text-field label="Required Field"
+                                    id="reqField" placeholder="Required" required="true">
+                                    </ha-text-field>
+                                </div>
+                            </div>
+                        </section>
+                    </ha-flow-step>
+                <ha-flow-step titleText="Messages for you">
+                    <section>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ha-stacked-page-messages>
+                                    <ha-page-message titleText="Error Title" type="error" dismissible="false">
+                                        Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                    <ha-page-message titleText="Warn Title" type="warn" dismissible="true">
+                                        Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                    <ha-page-message titleText="Info Title" type="info" dismissible="true">
+                                             Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                </ha-stacked-page-messages>
+                            </div>
+                        </div>
+                    </section>
+                </ha-flow-step>
+            </ha-step-flow>
+        </section>
+    </ha-trowser>
+</div>
+
+<div class="complex-html">
+    <h3>Complex Step Flow (Linear)</h3>
+    <button class="show-flow ha-button">
+        Show Step Flow
+    </button>
+    <ha-trowser titleText="Step Flow Demonstration" help="false" type="step-flow">
+        <section>
+            <ha-step-flow progressIndicator closeParentTrowser>
+                <ha-flow-landing>
+                    <section>
+                        <h3>Landing Page</h3>
+                    </section>
+                </ha-flow-landing>
+                <ha-flow-confirmation titleText="Confirmed!" subtitleText="Everything is good to go.">
+                    <section>Custom content</section>
+                </ha-flow-confirmation>
+                <ha-flow-step titleText="Some information about you..." subtitleText="Step subtitle" showSaveForLaterButton>
+                    <section>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-6 col-sm-12">
+                                <ha-text-field label="First Name"></ha-text-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-sm-12">
+                                <ha-text-field label="Last Name"></ha-text-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-sm-12">
+                                <ha-text-field label="Address"></ha-text-field>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ha-select label="Pick a color">
+                                    <ha-item>Blue</ha-item>
+                                    <ha-item>Red</ha-item>
+                                    <ha-item>Green</ha-item>
+                                    <ha-item>Yellow</ha-item>
+                                </ha-select>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ha-select label="Pick a shape">
+                                    <ha-item>Square</ha-item>
+                                    <ha-item>Circle</ha-item>
+                                    <ha-item>Triangle</ha-item>
+                                    <ha-item>Rectangle</ha-item>
+                                </ha-select>
+                            </div>
+                        </div>
+                    </section>
+                </ha-flow-step>
+                <ha-flow-step titleText="Step with validation" id="ha-flow-step-2">
+                        <section>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <ha-text-field label="Required Field"
+                                    id="reqField" placeholder="Required" required="true">
+                                    </ha-text-field>
+                                </div>
+                            </div>
+                        </section>
+                    </ha-flow-step>
+                <ha-flow-step titleText="Messages for you">
+                    <section>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ha-stacked-page-messages>
+                                    <ha-page-message titleText="Info Title" type="error" dismissible="false">
+                                        Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                    <ha-page-message titleText="Info Title" type="warn" dismissible="true">
+                                        Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                    <ha-page-message titleText="Info Title" type="info" dismissible="true">
+                                             Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                </ha-stacked-page-messages>
+                            </div>
+                        </div>
+                    </section>
+                </ha-flow-step>
+            </ha-step-flow>
+        </section>
+    </ha-trowser>
+</div>
+
+<div class="complex-nonlinear-html">
+    <h3>Complex Step Flow (Non-Linear)</h3>
+    <button class="show-flow ha-button">
+        Show Step Flow
+    </button>
+    <ha-trowser titleText="Step Flow Demonstration" help="false" type="step-flow">
+        <section>
+            <ha-step-flow progressIndicator closeParentTrowser flow="nonlinear">
+                <ha-flow-landing>
+                    <section>
+                        <h3>Landing Page</h3>
+                    </section>
+                </ha-flow-landing>
+                <ha-flow-confirmation titleText="Confirmed!" subtitleText="Everything is good to go.">
+                    <section>Custom content</section>
+                </ha-flow-confirmation>
+                <ha-flow-step titleText="Some information about you..." subtitleText="Step subtitle" showSaveForLaterButton>
+                    <section>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-6 col-sm-12">
+                                <ha-text-field label="First Name"></ha-text-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-sm-12">
+                                <ha-text-field label="Last Name"></ha-text-field>
+                            </div>
+                            <div class="col-xl-4 col-lg-12 col-sm-12">
+                                <ha-text-field label="Address"></ha-text-field>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ha-select label="Pick a color">
+                                    <ha-item>Blue</ha-item>
+                                    <ha-item>Red</ha-item>
+                                    <ha-item>Green</ha-item>
+                                    <ha-item>Yellow</ha-item>
+                                </ha-select>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <ha-select label="Pick a shape">
+                                    <ha-item>Square</ha-item>
+                                    <ha-item>Circle</ha-item>
+                                    <ha-item>Triangle</ha-item>
+                                    <ha-item>Rectangle</ha-item>
+                                </ha-select>
+                            </div>
+                        </div>
+                    </section>
+                </ha-flow-step>
+                <ha-flow-step titleText="Step with validation" id="ha-flow-step-2">
+                        <section>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <ha-text-field label="Required Field"
+                                    id="reqField" placeholder="Required" required="true">
+                                    </ha-text-field>
+                                </div>
+                            </div>
+                        </section>
+                    </ha-flow-step>
+                <ha-flow-step titleText="Messages for you">
+                    <section>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ha-stacked-page-messages>
+                                    <ha-page-message titleText="Info Title" type="error" dismissible="false">
+                                        Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                    <ha-page-message titleText="Info Title" type="warn" dismissible="true">
+                                        Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                    <ha-page-message titleText="Info Title" type="info" dismissible="true">
+                                             Lorem ipsum dolor sit amet...
+                                    </ha-page-message>
+                                </ha-stacked-page-messages>
+                            </div>
+                        </div>
+                    </section>
+                </ha-flow-step>
+            </ha-step-flow>
+        </section>
+    </ha-trowser>
+</div>
+
+</div>

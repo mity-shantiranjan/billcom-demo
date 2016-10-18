@@ -1,0 +1,44 @@
+{
+  "name": "object-utils",
+  "description": "ECMAScript 5-based property utilities for RequireJS projects",
+  "version": "1.1.2",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt unit-test"
+  },
+  "author": {
+    "name": "Richard Connamacher",
+    "email": "Richard_Connamacher@intuit.com"
+  },
+  "private": true,
+  "devDependencies": {
+    "@sbg/depcop": "^2.0.0",
+    "bower": "1.3.3",
+    "grunt": "~0.4.4",
+    "grunt-cli": "~0.1.13",
+    "grunt-bump": "0.0.15",
+    "grunt-code-coverage-enforcer": "^0.1.5",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-connect": "^0.7.1",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-exec": "^0.4.6",
+    "grunt-groc": "^0.5.0",
+    "grunt-jscs": "^1.0.0",
+    "grunt-jsdoc": "0.5.4",
+    "grunt-sonar-runner": "^2.3.1",
+    "intern": "2.1.0",
+    "jshint-stylish": "^1.0.0",
+    "load-grunt-config": "^0.8.0",
+    "mkdirp": "^0.5.0",
+    "phantomjs": "^1.9.9",
+    "request": "^2.53.0",
+    "selenium-server-standalone-jar": "~2.43.1",
+    "sinon": "^1.11.0",
+    "time-grunt": "^0.3.2"
+  }
+}

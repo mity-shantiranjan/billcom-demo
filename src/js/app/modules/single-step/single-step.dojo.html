@@ -1,0 +1,108 @@
+<div>
+    <h2>Focus</h2>
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' trigger="focus" titleText="Some sort of title" message="This is a textview with a default single-step and trigger 'focus'">
+        </ha-single-step>
+        <label for="">Default single-step</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' trigger="focus" position="bottom"
+                        titleText="Some sort of title"
+                        message="This is a textview with a timed (5 seconds) single-step, position bottom and trigger 'focus'"
+                        duration="5000"></ha-single-step>
+        <label>Timed (5 seconds) single-step, bottom position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' trigger="focus" position="top right" titleText="Some sort of title" message="This is a textview with a close button, position top and trigger focus" dismissible="true"></ha-single-step>
+        <label>Close button, top right position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' trigger="focus" position="top left" titleText="Some sort of title" message="This is a textview with a close button, position top and trigger focus" dismissible="true"></ha-single-step>
+        <label>Close button, top left position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' trigger="focus" position="right top" titleText="Some sort of title" message="This is a textview with a close button, position top and trigger focus" dismissible="true"></ha-single-step>
+        <label>Close button, right top position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' trigger="focus" position="bottom right" titleText="Some sort of title" message="This is a textview with a close button, position top and trigger focus" dismissible="true"></ha-single-step>
+        <label>Close button, bottom right position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' trigger="focus" position="bottom left" titleText="Some sort of title" message="This is a textview with a close button, position top and trigger focus" dismissible="true"></ha-single-step>
+        <label>Close button, bottom left position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' trigger="focus" position="left top" titleText="Some sort of title" message="This is a textview with a close button, position top and trigger focus" dismissible="true"></ha-single-step>
+        <label>Close button, left top position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' position="bottom" titleText="Some sort of title" trigger="focus">
+            <h4>Rich content Dojo</h4>
+            <p>single-step with rich content, bottom position</p>
+        </ha-single-step>
+        <label>single-step with rich content, bottom position</label>
+    </div>
+
+    <h2>Hover</h2>
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' titleText="Some sort of title" message="This is a textview with a default single-step and trigger 'hover'.">
+        </ha-single-step>
+        <label>Default single-step</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' position="top"
+                        titleText="Some sort of title"
+                        message="This is a textview with a timed (5 seconds) single-step"
+                        duration="5000"></ha-single-step>
+        <label>Timed (5 seconds), top position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' position="top"
+                        titleText="Some sort of title"
+                        message="This is a textview with a close button and a top left position"
+                        dismissible="true">
+        </ha-single-step>
+        <label>Close button, top position</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-single-step open='false' titleText="Some sort of title" position="top">
+            <h4>Rich content Dojo</h4>
+            <p>single-step with rich content, top position</p>
+        </ha-single-step>
+        <label>single-step with rich content, top position</label>
+    </div>
+
+    <h2>Custom Focus and Hover</h2>
+    <div class="separator">
+        <ha-text-field id="dojo-ha-text-field"></ha-text-field>
+        <ha-single-step open='false' id="dojo-single-step" trigger="custom" titleText="Some sort of title" message="This is a textview with a custom trigger">
+        </ha-single-step>
+        <label>Custom single-step</label>
+    </div>
+
+</div>

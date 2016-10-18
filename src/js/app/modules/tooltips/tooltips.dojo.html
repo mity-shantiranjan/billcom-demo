@@ -1,0 +1,82 @@
+<div>
+    <h2>Focus</h2>
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-tooltip trigger="focus" message="This is a textview with a default tooltip and trigger 'focus'">
+        </ha-tooltip>
+        <label for="">Default tooltip</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-tooltip trigger="focus" position="bottom" alignment="right"
+                    message="This is a textview with a timed (5 seconds) tooltip, position bottom, alignment right and trigger 'focus'"
+                    duration="5000"></ha-tooltip>
+        <label>Timed (5 seconds) tooltip, bottom position, right alignment</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-tooltip trigger="focus" position="top" alignment="right"  message="This is a textview with a close button, position top, alignment right and trigger focus" dismissible="true"></ha-tooltip>
+        <label>Close button, top position, right alignment</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-tooltip position="bottom" alignment="left" trigger="focus">
+            <h4>Rich content</h4>
+            <p>Tooltip with rich content, bottom position, left alignment</p>
+        </ha-tooltip>
+        <label>Tooltip with rich content, bottom position, left alignment</label>
+    </div>
+
+    <h2>Hover</h2>
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-tooltip message="This is a textview with a default tooltip and a bottom position.">
+        </ha-tooltip>
+        <label>Default tooltip</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-tooltip position="top" alignment="left"
+                    message="This is a textview with a timed (5 seconds) tooltip"
+                    duration="5000"></ha-tooltip>
+        <label>Timed (5 seconds), top position, left alignment</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-tooltip position="top" alignment="left"
+                    message="This is a textview with a close button and a top left position"
+                    dismissible="true">
+        </ha-tooltip>
+        <label>Close button, top position and left alignment</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field></ha-text-field>
+        <ha-tooltip position="bottom" alignment="left">
+            <h4>Rich content</h4>
+            <p>Tooltip with rich content, bottom position, left alignment</p>
+        </ha-tooltip>
+        <label>Tooltip with rich content, bottom position, left alignment</label>
+    </div>
+
+    <div class="separator">
+        <ha-text-field class="tooltip-selector-dojo" tooltipmessage="Grouped tooltip - textfield 1"></ha-text-field>
+        <ha-text-field class="tooltip-selector-dojo" tooltipmessage="Grouped tooltip - textfield 2"></ha-text-field>
+        <ha-tooltip targetselector=".tooltip-selector-dojo"></ha-tooltip>
+        <label>Grouped tooltip</label>
+    </div>
+
+    <h2>Focus and over</h2>
+    <div class="separator">
+        <ha-text-field id="dojo-textfield"></ha-text-field>
+        <ha-tooltip id="dojo-tooltip" trigger="custom" message="This is a textview with a custom trigger">
+        </ha-tooltip>
+        <label>Default tooltip</label>
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+<div class="declarative-wrapper">
+    <ha-trowser-flow flow="linear" titleText="Linear navigation Title" id="dojo-declarative-trowser-flow-linear">
+        <main>
+            <ha-trowser-flow-step titleText="step1 title">
+                content for step1 here
+            </ha-trowser-flow-step>
+            <ha-trowser-flow-step titleText="step2 title">
+                content for step2 here
+            </ha-trowser-flow-step>
+            <ha-trowser-flow-step titleText="step3 title">
+                content for step3 here
+            </ha-trowser-flow-step>
+            <ha-trowser-flow-step titleText="step4 title">
+                content for step4 here
+            </ha-trowser-flow-step>
+            <ha-trowser-flow-step titleText="step5 title">
+                content for step5 here
+            </ha-trowser-flow-step>
+        </main>
+        <footer>
+            <button class="ha-button ha-button-dark ha-button-primary" action="primary">Next</button>
+            <button class="ha-button ha-button-dark" action="secondary">Back</button>
+        </footer>
+    </ha-trowser-flow>
+
+    <ha-trowser-flow flow="nonlinear" titleText="Non Linear navigation Title" id="dojo-declarative-trowser-flow-nonlinear">
+        <main>
+            <ha-trowser-flow-step titleText="step name" icon="user" description="Step Description">
+                content for step1 here
+            </ha-trowser-flow-step>
+            <ha-trowser-flow-step titleText="step name" icon="map" description="Step Description">
+                content for step2 here
+            </ha-trowser-flow-step>
+            <ha-trowser-flow-step titleText="step name" icon="attach" description="Step Description">
+                content for step3 here
+            </ha-trowser-flow-step>
+        </main>
+        <footer>
+            <button class="ha-button ha-button-dark ha-button-primary" action="primary">Next</button>
+            <button class="ha-button ha-button-dark" action="secondary">Back</button>
+        </footer>
+    </ha-trowser-flow>
+    <button class="ha-button show-trowser" data-trowser-id="#dojo-declarative-trowser-flow-linear">
+        Show Trowser Flow Linear
+    </button>
+    <button class="ha-button show-trowser" data-trowser-id="#dojo-declarative-trowser-flow-nonlinear">
+        Show Trowser Flow Nonlinear
+    </button>
+</div>

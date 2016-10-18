@@ -1,0 +1,123 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Simple List Component
+    </h1>
+
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/List.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-list titleText="Single select list"&gt;
+                        &nbsp;&nbsp;&lt;li&gt;First list item&lt;/li&gt;
+                        &nbsp;&nbsp;&lt;li&gt;Second list item&lt;/li&gt;
+                        &nbsp;&nbsp;&lt;li&gt;Third list item&lt;/li&gt;
+                    &lt;/ha-list&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <ha-list titleText="Single select list">
+            <li>First list item</li>
+            <li>Second list item</li>
+            <li>Third list item</li>
+        </ha-list>
+
+        <!-- <ha-list id="list-1" titleText="Single select list with control in default position">
+            <li><ha-checkbox></ha-checkbox>First list item</li>
+            <li><ha-checkbox></ha-checkbox>Second list item</li>
+            <li><ha-checkbox></ha-checkbox>Third list item</li>
+        </ha-list> -->
+
+        <!-- <ha-list id="list-2" titleText="Single select list with control in right position">
+            <li>First list item<ha-checkbox></ha-checkbox></li>
+            <li>Second list item<ha-checkbox></ha-checkbox></li>
+            <li>Third list item<ha-checkbox></ha-checkbox></li>
+        </ha-list> -->
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var list = document.createElement("ha-list"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item1 = document.createElement("li"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item2 = document.createElement("li"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item3 = document.createElement("li");
+
+                    list.complexity = "basic";
+                    list.titleText = "A basic harmony list";
+
+                    // optionally add a control as a child to item1
+                    item1.innerHTML = "First list item";
+
+                    // optionally add a control as a child to item2
+                    item2.innerHTML = "Second list item";
+
+                    // optionally add a control as a child to item3
+                    item3.innerHTML = "Third list item";
+
+                    list.items = [item1, item2, item3];
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                  &lt;HAList titleText="Single select list"&gt;
+                  &nbsp; &lt;li&gt;First list item&lt;/li&gt;
+                  &nbsp; &lt;li&gt;Second list item&lt;/li&gt;
+                  &nbsp; &lt;li&gt;Third list item&lt;/li&gt;
+                  &lt;/HAList&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="reactWay">
+        </div>
+    </section>
+</div>

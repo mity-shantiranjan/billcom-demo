@@ -1,0 +1,231 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Stage Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+			<button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+        <div class = "design-document">
+            <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Stage.md" target="_blank">Design & API Document</a>
+        </div>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    Collapsible Stage Component with Link navigation:
+                    &lt;ha-stage collapsible="collapsible"&gt;
+                    &nbsp;&nbsp;&lt;header&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-left"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="ha-back-links"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="#"&gt;Back to employee list&lt;/a&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Employees&lt;/h2&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-right"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-button class="ha-button-primary" label="Create New"&gt;...&lt;/ha-menu-button&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/span&gt;
+                    &nbsp;&nbsp;&lt;/header&gt;
+                    &nbsp;&nbsp;&lt;section&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/section&gt;
+                    &lt;/ha-stage&gt;
+
+                    Collapsible Stage Component:
+                    &lt;ha-stage collapsible="collapsible"&gt;
+                    &nbsp;&nbsp;&lt;header&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-left"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Employees&lt;/h2&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;Profit and loss&lt;/h3&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-right"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-button class="ha-button-primary" label="Create New"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu-button&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&lt;/header&gt;
+                    &nbsp;&nbsp;&lt;section&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/section&gt;
+                    &lt;/ha-stage&gt;
+
+                    Non Collapsable Stage Component (Default):
+                    &lt;ha-stage&gt;
+                    &nbsp;&nbsp;&lt;header&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-left"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Employees&lt;/h2&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;Profit and loss&lt;/h3&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-right"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-button class="ha-button-primary" label="Create New"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu-button&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&lt;/header&gt;
+                    &nbsp;&nbsp;&lt;section&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/section&gt;
+                    &lt;/ha-stage&gt;
+
+                    Non Collapsible Stage Component without header:
+                    &lt;ha-stage&gt;
+                    &nbsp;&nbsp;&lt;section&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/section&gt;
+                    &lt;/ha-stage&gt;
+                </code>
+            </pre>
+        </div>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var stage = document.createElement('ha-stage'),
+                        spanLeft = document.createElement('span'),
+                        spanRight = document.createElement('span'),
+
+                    spanLeft.classList.add('header-left');
+                    spanRight.classList.add('header-right');
+
+                    stage.header = [spanLeft, spanRight]
+                    stage.section = [...]
+
+                    stage.collapsible = true;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+<section class="usage">
+    <header class="title">
+        <a>Usage</a>
+    </header>
+
+    <div class="highlight">
+        <pre>
+			 <code class="language-html" data-lang="html">
+					
+					Collapsible Stage Component with open stage:
+                    &lt;HAStage collapsible="true" open="true" &gt;
+                    &nbsp;&nbsp;&lt;HAHeader&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-left"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Employees&lt;/h2&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;Profit and loss&lt;/h3&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-right"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-button class="ha-button-primary" label="Create New"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu-button&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&lt;/HAHeader&gt;
+                    &nbsp;&nbsp;&lt;HASection&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/HASection&gt;
+                    &lt;/HAStage&gt;
+				
+                    Collapsible Stage Component with Link navigation:
+                    &lt;HAStage collapsible="true"&gt;
+                    &nbsp;&nbsp;&lt;HAHeader&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-left"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="ha-back-links"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="#"&gt;Back to employee list&lt;/a&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Employees&lt;/h2&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-right"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-button class="ha-button-primary" label="Create New"&gt;...&lt;/ha-menu-button&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/span&gt;
+                    &nbsp;&nbsp;&lt;/HAHeader&gt;
+                    &nbsp;&nbsp;&lt;HASection&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/HASection&gt;
+                    &lt;/HAStage&gt;
+
+                    Collapsible Stage Component:
+                    &lt;HAStage collapsible="true"&gt;
+                    &nbsp;&nbsp;&lt;HAHeader&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-left"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Employees&lt;/h2&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;Profit and loss&lt;/h3&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-right"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-button class="ha-button-primary" label="Create New"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu-button&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&lt;/HAHeader&gt;
+                    &nbsp;&nbsp;&lt;HASection&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/HASection&gt;
+                    &lt;/HAStage&gt;
+
+                    Non Collapsable Stage Component (Default):
+                    &lt;HAStage&gt;
+                    &nbsp;&nbsp;&lt;HAHeader&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-left"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Employees&lt;/h2&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;Profit and loss&lt;/h3&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="header-right"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-button class="ha-button-primary" label="Create New"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu-button&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/span&gt;
+                    &nbsp;&nbsp;&lt;/HAHeader&gt;
+                    &nbsp;&nbsp;&lt;HASection&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/HASection&gt;
+                    &lt;/HAStage&gt;
+
+                    Non Collapsible Stage Component without header:
+                    &lt;HAStage&gt;
+                    &nbsp;&nbsp;&lt;HASection&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;...
+                    &nbsp;&nbsp;&lt;/HASection&gt;
+                    &lt;/HAStage&gt;
+                </code>               
+        </pre>
+    </div>
+</section>
+
+<section class="examples">
+    <header class="title">
+        <a>Examples</a>
+    </header>
+    <div id="reactWay"></div>
+</section>
+</div>

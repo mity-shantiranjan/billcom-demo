@@ -1,0 +1,168 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Select Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Select.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <div class="highlight">
+                <pre>
+                    <code class="language-html" data-lang="html">
+                        &lt;ha-select placeholder="Choose a method" label="Same title"&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                        &lt;/ha-select&gt;
+
+                        &lt;ha-select placeholder="Choose a method" disabled&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                        &lt;/ha-select&gt;
+
+                        &lt;ha-select placeholder="Choose a method" label="Required Select" required&gt;
+                            &nbsp;&nbsp;&lt;ha-item value="Apple"&gt;Apple&lt;/ha-item&gt;
+                            &nbsp;&nbsp;&lt;ha-item value="Banana"&gt;Banana&lt;/ha-item&gt;
+                            &nbsp;&nbsp;&lt;ha-item value="Balloon"&gt;Balloon&lt;/ha-item&gt;
+                            &nbsp;&nbsp;&lt;ha-item value="Melon"&gt;Melon&lt;/ha-item&gt;
+                        &lt;/ha-select&gt;
+
+                        &lt;!-- With value selected --&gt;
+                        &lt;ha-select value="AppleValue"&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                        &lt;/ha-select&gt;
+
+                        &lt;!-- With Add New --&gt;
+                        &lt;ha-select placeholder="Choose a method" addnew="true"&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                        &lt;/ha-select&gt;
+
+                        &lt;!-- With Icon --&gt;
+                        &lt;ha-select placeholder="Choose a method" icon="hi-filter"&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="MelonValue"&gt;Melon&lt;/ha-item&gt;
+                        &lt;/ha-select&gt;
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+    <section class="examples">
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    createSelect: function(selectProperties) {
+
+                    &nbsp;&nbsp;var items = [],
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select = document.createElement('ha-select'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prop,
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i;
+
+                    &nbsp;&nbsp;for (i = 0; i < 4; i++) {
+                    &nbsp;&nbsp;&nbsp;&nbsp;items[i] = document.createElement('ha-item');
+                    &nbsp;&nbsp;}
+
+                    &nbsp;&nbsp;items[0].label = 'Apple';
+                    &nbsp;&nbsp;items[0].value = 'Apple';
+                    &nbsp;&nbsp;items[1].label = 'Banana';
+                    &nbsp;&nbsp;items[1].value = 'Banana';
+                    &nbsp;&nbsp;items[2].label = 'Balloon';
+                    &nbsp;&nbsp;items[2].value = 'Balloon';
+                    &nbsp;&nbsp;items[3].label = 'Mellon';
+                    &nbsp;&nbsp;items[3].value = 'Mellon';
+
+                    &nbsp;&nbsp;for (prop in selectProperties) {
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (selectProperties.hasOwnProperty(prop)) {
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select[prop] = selectProperties[prop];
+                    &nbsp;&nbsp;&nbsp;&nbsp;}
+                    &nbsp;&nbsp;}
+
+                    &nbsp;&nbsp;select.items = [items[0], items[1], items[2], items[3]];
+
+                    &nbsp;&nbsp;return select;
+                    },
+
+                    select = this.createSelect({
+                    &nbsp;&nbsp;placeholder: 'Choose a method',
+                    &nbsp;&nbsp;label: 'Some title'
+                    });
+
+                    select = this.createSelect({
+                    &nbsp;&nbsp;placeholder: 'Choose a method',
+                    &nbsp;&nbsp;disabled: true
+                    });
+
+                    select = this.createSelect({
+                        &nbsp;&nbsp;placeholder: 'Choose a method',
+                        &nbsp;&nbsp;label: 'Required Select',
+                        &nbsp;&nbsp;required: true
+                    });
+
+                    select = this.createSelect({
+                    &nbsp;&nbsp;label: 'With icon',
+                    &nbsp;&nbsp;placeholder: 'Choose a method',
+                    &nbsp;&nbsp;icon: 'hi-filter'
+                    });
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples"></section>
+</div>
+<div class="panel hidden" id="dojo">
+    <section class="examples"></section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                        &lt;HASelect placeholder="Choose a method" label="Same title"&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="AppleValue"&gt;Apple&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="BananaValue"&gt;Banana&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="BalloonValue"&gt;Balloon&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="MelonValue"&gt;Melon&lt;/HAItem&gt;
+                        &lt;/HASelect&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples"></section>
+</div>

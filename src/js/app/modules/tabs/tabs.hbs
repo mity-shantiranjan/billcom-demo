@@ -1,0 +1,213 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Horizontal Tab Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Tabs.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                     ## Horizontal Tabs
+
+                     &lt;ha-tabs&gt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Adjustments"&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 1
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Mappings"&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 2
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Send To Taxes"&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 3
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &lt;/ha-tabs&gt;
+
+                     ## Horizontal Tabs With Icons
+
+                     &lt;ha-tabsgt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Adjustments" icon="hi-settings-o"&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 1
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Mappings" icon="hi-duplicate"&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 2
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Send To Taxes" icon="hi-reconcile"&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 3
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &lt;/ha-tabs&gt;
+
+                     ## Horizontal Tabs With Badges
+
+                     &lt;ha-tabs&gt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Messages" badgeClass='ha-numeric-badge' badgeText='1337'&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 1
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Invoices" badgeClass='ha-numeric-badge ha-inverse' badgeText='42'&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 2
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &nbsp;&nbsp;&lt;ha-tab titleText="Status" badgeClass='ha-text-badge ha-warn' badgeText='Overdue'&gt;
+                     &nbsp;&nbsp;&nbsp;&nbsp;Content 3
+                     &nbsp;&nbsp;&lt;/ha-tab&gt;
+                     &lt;/ha-tabs&gt;
+
+                    ## Horizontal Tabs Without Button on Mobile
+
+                    &lt;ha-tabs useTabButton="false"&gt;
+                    &nbsp;&nbsp;&lt;ha-tab titleText="Adjustments"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;Content 1
+                    &nbsp;&nbsp;&lt;/ha-tab&gt;
+                    &nbsp;&nbsp;&lt;ha-tab titleText="Mappings"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;Content 2
+                    &nbsp;&nbsp;&lt;/ha-tab&gt;
+                    &nbsp;&nbsp;&lt;ha-tab titleText="Send To Taxes"&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;Content 3
+                    &nbsp;&nbsp;&lt;/ha-tab&gt;
+                    &lt;/ha-tabs&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="horizontal-tab-demo examples ">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    // Horizontal Tab
+                    var haTabs = document.createElement('ha-tabs'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;tab1 = document.createElement('ha-tab'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;tab2 = document.createElement('ha-tab'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;tab3 = document.createElement('ha-tab'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;tab4 = document.createElement('ha-tab'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;dynamicTabContent = document.createElement('div'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;dynamicTabContent2 = document.createElement('div'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;dynamicTabContent3 = document.createElement('div'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;dynamicTabContent4 = document.createElement('div');
+
+                    tab1.titleText = 'Adjustments';
+                    tab2.titleText = 'Mappings';
+                    dynamicTabContent.innerHTML = this.createTabContent(tab1.titleText);
+                    tab1.section = dynamicTabContent;
+                    dynamicTabContent2.innerHTML = this.createTabContent(tab2.titleText);
+                    tab2.section = dynamicTabContent2;
+
+                    haTabs.tabs = [tab1, tab2];
+
+                    // Horizontal Tab With Icons
+                    var haTabs = document.createElement('ha-tabs'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;tab1 = document.createElement('ha-tab'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;tab2 = document.createElement('ha-tab');
+
+                    tab3.titleText = 'Adjustments';
+                    tab4.titleText = 'Mappings';
+                    dynamicTabContent3.innerHTML = this.createTabContent(tab3.titleText);
+                    tab3.section = dynamicTabContent3;
+                    dynamicTabContent4.innerHTML = this.createTabContent(tab4.titleText);
+                    tab4.section = dynamicTabContent4;
+
+                    tab3.icon = 'hi-settings-o';
+                    tab4.icon ='hi-duplicate';
+
+                    haTabs.tabs = [tab3, tab4];
+
+                    // Horizontal Tab With Badges
+                    ...
+                    tab1.badgeClass = 'ha-numeric-badge';
+                    tab1.badgeText = '1337';
+
+                    tab2.badgeClass = 'ha-numeric-badge ha-inverse';
+                    tab2.badgeText = '42';
+
+                    tab3.badgeClass = 'ha-text-badge ha-warn';
+                    tab3.badgeText = 'Overdue';
+
+                    haTabs.tabs = [tab1, tab2, tab3];
+                    ...
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="horizontal-tab-demo examples ">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+<section class="usage">
+    <header class="title">
+        <a>Usage</a>
+    </header>
+
+    <div class="highlight">
+        <pre>
+            <code class="language-html" data-lang="html">
+                  ## Horizontal Tab
+
+                  &lt;HATabs&gt;
+                  &nbsp;&nbsp;&lt;HATab titleText="Adjustments"&gt;
+                  &nbsp;&nbsp;&nbsp;&nbsp;Content 1
+                  &nbsp;&nbsp;&lt;/HATab&gt;
+                  &nbsp;&nbsp;&lt;HATab titleText="Mappings"&gt;
+                  &nbsp;&nbsp;&nbsp;&nbsp;Content 2
+                  &nbsp;&nbsp;&lt;/HATab&gt;
+                  &nbsp;&nbsp;&lt;HATab titleText="Send To Taxes"&gt;
+                  &nbsp;&nbsp;&nbsp;&nbsp;Content 3
+                  &nbsp;&nbsp;&lt;/HATab&gt;
+                  &lt;/HATabs&gt;
+
+                  ## Horizontal Tab With Icons
+
+                  &lt;HATabs&gt;
+                  &nbsp;&nbsp;&lt;HATab titleText="Adjustments" icon="hi-settings-o"&gt;
+                  &nbsp;&nbsp;&nbsp;&nbsp;Content 1
+                  &nbsp;&nbsp;&lt;/HATab&gt;
+                  &nbsp;&nbsp;&lt;HATab titleText="Mappings" icon="hi-duplicate"&gt;
+                  &nbsp;&nbsp;&nbsp;&nbsp;Content 2
+                  &nbsp;&nbsp;&lt;/HATab&gt;
+                  &nbsp;&nbsp;&lt;HATab titleText="Send To Taxes" icon="hi-reconcile"&gt;
+                  &nbsp;&nbsp;&nbsp;&nbsp;Content 3
+                  &nbsp;&nbsp;&lt;/HATab&gt;
+                  &lt;/HATabs&gt;
+            </code>
+        </pre>
+    </div>
+</section>
+
+<section class="examples">
+    <header class="title">
+        <a>Examples</a>
+    </header>
+    <div id="reactWay"></div>
+</section>
+</div>

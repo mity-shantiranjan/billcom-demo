@@ -1,0 +1,76 @@
+<div class="drawer">
+    <section class="post box clearfix">
+    <h1 class="entry-title">
+        Drawer Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/DrawerSmall.md" target="_blank">Design & API Document</a>
+    </div>
+    </section>
+
+    <div class="panel" id="html">
+        <div class="left-content">
+            <section class="usage">
+                <header class="title"><a>Usage</a></header>
+
+                <div class="highlight">
+                    <pre>
+                        <code class="language-html" data-lang="html">
+                            &lt;ha-drawer-small id="declarative-drawer-small"&gt;
+                                &nbsp;&nbsp;&lt;section&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;...
+                                &nbsp;&nbsp;&lt;/section&gt;
+                            &lt;/ha-drawer-small&gt;
+                            &lt;button data-drawer-id="#declarative-drawer-small"&gt;
+                            &nbsp;&nbsp;Show Drawer Small Without Overlay
+                            &lt;/button&gt;
+                        </code>
+                    </pre>
+                </div>
+            </section>
+            <section class="examples">
+                {{{componentDemoTemplate}}}
+            </section>
+        </div>
+    </div>
+    <div class="panel hidden" id="js">
+        <div class="left-content">
+            <section class="usage">
+                <header class="title"><a>Usage</a></header>
+                <div class="highlight">
+                    <pre>
+                        <code class="language-html" data-lang="html">
+                            var drawer = document.createElement('ha-drawer-small');
+
+                            drawer.id = id;
+                            drawer.titleText = title;
+                            drawer.section = contentNode;
+                        </code>
+                    </pre>
+                </div>
+            </section>
+
+            <section class="examples">
+                <header class="title"><a>Examples</a></header>
+                <div id="programmaticWay">
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="panel hidden" id="dojo">
+        <div class="left-content">
+            <section class="examples">
+                <div id="dojoProgrammaticWay">
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

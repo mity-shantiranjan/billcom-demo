@@ -1,0 +1,255 @@
+<style>
+.separator {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #DCDCDC;
+    display: table;
+}
+.separator label{
+    display: table-cell;
+    vertical-align: middle;
+}
+.separator ha-text-field {
+    margin-bottom: 5px;
+}
+.note {
+    border: 1px solid #EEE;
+    border-left: 5px solid #AA6708;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+.note > h5 {
+    color: #AA6708;
+}
+</style>
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Tooltip Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Tooltip.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-text-field id="myTextField"&gt;&lt;/ha-text-field&gt;
+                    &lt;ha-tooltip targetselector="#myTextField" message="Text field with tooltip"&gt;&lt;/ha-tooltip&gt;
+                </code>
+            </pre>
+        </div>
+        <div class="note">
+            <h5>Positioning</h5>
+            <p>In a few edge cases you may be facing positioning issues, and you can follow one of this possible solutions:</p>
+            <ol>
+                <li>If using flex, where the offset parent has position relative, display flex and align-items as strech, you may want to change the align-items value or wrap the target and element in a relative positioned tag.</li>
+                <li>Make sure that target and the element are sibilings and/or share the same offset parent.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div>
+            <h2>Focus</h2>
+            <div class="separator">
+                <ha-text-field label="Default tooltip"></ha-text-field>
+                <ha-tooltip trigger="focus" message="This is a textview with a default tooltip and trigger 'focus'">
+                </ha-tooltip>
+            </div>
+
+            <div class="separator">
+                <ha-text-field label="Timed (5 seconds) tooltip, bottom position"></ha-text-field>
+                <ha-tooltip trigger="focus" position="bottom" alignment="right"
+                    message="This is a textview with a timed (5 seconds) tooltip, position bottom and trigger 'focus'"
+                    duration="5000"></ha-tooltip>
+            </div>
+
+            <div class="separator">
+                <ha-text-field label="Close button, top position"></ha-text-field>
+                <ha-tooltip trigger="focus" position="top" alignment="right"  message="This is a textview with a close button, position top and trigger focus" dismissible="true"></ha-tooltip>
+            </div>
+
+            <div class="separator">
+                <ha-text-field label="Tooltip with rich content, bottom position"></ha-text-field>
+                <ha-tooltip position="bottom" alignment="left" trigger="focus">
+                    <h4>Rich content</h4>
+                    <p>Tooltip with rich content, bottom position</p>
+                </ha-tooltip>
+            </div>
+
+            <div class="hidden-handheld">
+                <h2>Hover</h2>
+                <div class="separator">
+                    <ha-text-field label="Default tooltip"></ha-text-field>
+                    <ha-tooltip message="This is a textview with a default tooltip and trigger 'hover'.">
+                    </ha-tooltip>
+                </div>
+
+                <div class="separator">
+                    <ha-text-field label="Timed (5 seconds), top position"></ha-text-field>
+                    <ha-tooltip position="top" alignment="left"
+                                message="This is a textview with a timed (5 seconds) tooltip"
+                                duration="5000"></ha-tooltip>
+                </div>
+
+                <div class="separator">
+                    <ha-text-field label="Close button, top position"></ha-text-field>
+                    <ha-tooltip position="top" alignment="left"
+                                message="This is a textview with a close button and a top left position"
+                                dismissible="true">
+                    </ha-tooltip>
+                </div>
+
+                <div class="separator">
+                    <ha-text-field label="Tooltip with rich content, bottom position"></ha-text-field>
+                    <ha-tooltip position="bottom" alignment="left">
+                        <h4>Rich content</h4>
+                        <p>Tooltip with rich content, bottom position</p>
+                    </ha-tooltip>
+                </div>
+            </div>
+
+            <div class="separator">
+                <ha-text-field label="Grouped tooltip" class="tooltip-selector-html" tooltipmessage="Grouped tooltip - textfield 1"></ha-text-field>
+                <ha-text-field class="tooltip-selector-html" tooltipmessage="Grouped tooltip - textfield 2"></ha-text-field>
+                <ha-tooltip targetselector=".tooltip-selector-html"></ha-tooltip>
+            </div>
+
+            <h2>Focus and over</h2>
+            <div class="separator">
+                <ha-text-field id="html-textfield" label="Default tooltip"></ha-text-field>
+                <ha-tooltip id="html-tooltip" trigger="custom" message="This is a textview with a custom trigger">
+                </ha-tooltip>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var textField = document.createElement('ha-text-field'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;tooltip = document.createElement('ha-tooltip');
+
+                    tooltip.message = "Text field with tooltip!";
+                    tooltip.duration = 5000;
+                    tooltip.dismissible = true;
+
+                    document.body.appendchild(textField);
+                    document.body.appendchild(tooltip);
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;h2&gt;Focus&lt;/h2&gt;
+                    &lt;HATextField&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip trigger="focus"&gt;
+                        This is a textview with a default tooltip and trigger 'focus'
+                    &lt;/HATooltip&gt;
+                    &lt;label htmlFor=""&gt;Default tooltip&lt;/label&gt;
+
+                    &lt;HATextField&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip trigger="focus" position="bottom" alignment="right" duration={5000}&gt;
+                        This is a textview with a timed (5 seconds) tooltip, position bottom, alignment right and trigger 'focus'
+                    &lt;/HATooltip&gt;
+                    &lt;label&gt;Timed (5 seconds) tooltip, bottom position, right alignment&lt;/label&gt;
+
+                    &lt;HATextField&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip trigger="focus" position="top" alignment="right" dismissible={true}&gt;
+                        This is a textview with a close button, position top, alignment right and trigger focus
+                    &lt;/HATooltip&gt;
+                    &lt;label&gt;Close button, top position, right alignment&lt;/label&gt;
+
+                    &lt;HATextField&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip position="bottom" alignment="left" trigger="focus"&gt;
+                        &lt;h4&gt;Rich content&lt;/h4&gt;
+                        &lt;p&gt;Tooltip with rich content, bottom position, left alignment&lt;/p&gt;
+                    &lt;/HATooltip&gt;
+                    &lt;label&gt;Tooltip with rich content, bottom position, left alignment&lt;/label&gt;
+
+                    &lt;h2&gt;Hover&lt;/h2&gt;
+                    &lt;HATextField&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip&gt;
+                        This is a textview with a default tooltip and a bottom position.
+                    &lt;/HATooltip&gt;
+                    &lt;label&gt;Default tooltip&lt;/label&gt;
+
+                    &lt;HATextField&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip position="top" alignment="left" duration={5000}&gt;
+                        This is a textview with a timed (5 seconds) tooltip
+                    &lt;/HATooltip&gt;
+                    &lt;label&gt;Timed (5 seconds), top position, left alignment&lt;/label&gt;
+
+                    &lt;HATextField&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip position="top" alignment="left" dismissible={true}&gt;
+                        This is a textview with a close button and a top left position
+                    &lt;/HATooltip&gt;
+                    &lt;label&gt;Close button, top position and left alignment&lt;/label&gt;
+
+                    &lt;HATextField&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip position="bottom" alignment="left"&gt;
+                        &lt;h4&gt;Rich content&lt;/h4&gt;
+                        &lt;p&gt;Tooltip with rich content, bottom position, left alignment&lt;/p&gt;
+                    &lt;/HATooltip&gt;
+                    &lt;label&gt;Tooltip with rich content, bottom position, left alignment&lt;/label&gt;
+
+                    &lt;h2&gt;Focus and over&lt;/h2&gt;
+                    &lt;HATextField id="react-textfield"&gt;&lt;/HATextField&gt;
+                    &lt;HATooltip id="react-tooltip" trigger="custom"&gt;
+                        This is a textview with a custom trigger
+                    &lt;/HATooltip&gt;
+                    &lt;label&gt;Default tooltip&lt;/label&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="reactWay"></div>
+    </section>
+</div>

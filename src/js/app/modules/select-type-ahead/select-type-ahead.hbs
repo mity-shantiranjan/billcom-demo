@@ -1,0 +1,177 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Select Type Ahead Component
+    </h1>
+
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/SelectTypeAhead.md"
+           target="_blank">Design & API Document</a>
+    </div>
+</section>
+<div class="panel type-ahead-demos" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-select-type-ahead placeholder="Choose an item" label="Some title"&gt;
+                    &lt;/ha-select-type-ahead&gt;
+
+                    var typeahead = querySelector('ha-select-type-ahead');
+                    typeahead.store = ...
+
+                    &lt;ha-select-type-ahead placeholder="Choose an item" label="Disabled Select TypeAhead" disabled&gt;
+                    &lt;/ha-select-type-ahead&gt;
+
+                    var typeahead = querySelector('ha-select-type-ahead');
+                    typeahead.store = ...
+
+                    &lt;ha-select-type-ahead placeholder="Choose an item" label="Required Select TypeAhead" required&gt;
+                    &lt;/ha-select-type-ahead&gt;
+
+                    var typeahead = querySelector('ha-select-type-ahead');
+                    typeahead.store = ...
+
+                    &lt;ha-select-type-ahead addNew="true" placeholder="Choose an item" label="Some title"&gt;
+                    &lt;/ha-select-type-ahead&gt;
+
+                    var typeahead = querySelector('ha-select-type-ahead');
+                    typeahead.store = ...
+
+                    &lt;ha-select-type-ahead placeholder="Choose an item" label="Some title" icon="hi-filter"&gt;
+                    &lt;/ha-select-type-ahead&gt;
+
+                    var typeahead = querySelector('ha-select-type-ahead');
+                    typeahead.store = ...
+                </code>
+            </pre>
+            </div>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+<div class="panel type-ahead-demos hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="js" data-lang="js">
+                select = document.createElement('ha-select-type-ahead');
+                select.placeholder = 'Choose an item';
+                select.store = ....
+                select.label = 'Some title';
+
+                disabledSelect = document.createElement('ha-select-type-ahead');
+                disabledSelect.disabled = true;
+                disabledSelect.placeholder = 'Choose an item';
+                disabledSelect.label = 'Disabled Select TypeAhead';
+                disabledSelect.store = ....
+
+                requiredSelect = document.createElement('ha-select-type-ahead');
+                requiredSelect.required = true;
+                requiredSelect.placeholder = 'Choose an item';
+                requiredSelect.label = 'Required Select TypeAhead';
+                requiredSelect.store = ....
+
+                iconSelect = document.createElement('ha-select-type-ahead');
+                iconSelect.placeholder = 'Choose an item';
+                iconSelect.store = ....
+                iconSelect.label = 'Some title';
+                iconSelect.icon = 'hi-filter';
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+
+<div class="panel type-ahead-demos hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="js" data-lang="js">
+                    import React from "react";
+                    import HASelectTypeAhead from "hui-react/HASelectTypeAhead";
+
+                    const data = [{
+                    &nbsp;&nbsp;label: "Apple",
+                    &nbsp;&nbsp;value: "Apple"
+                    }, {
+                    &nbsp;&nbsp;label: "Banana",
+                    &nbsp;&nbsp;value: "Banana"
+                    }, {
+                    &nbsp;&nbsp;label: "Balloon",
+                    &nbsp;&nbsp;value: "Balloon"
+                    }, {
+                    &nbsp;&nbsp;label: "Mellon",
+                    &nbsp;&nbsp;value: "Mellon"
+                    }];
+
+                    class MyTypeahead extends React.Component {
+                    &nbsp;&nbsp;constructor(props) {
+                    &nbsp;&nbsp;&nbsp;&nbsp;super(props);
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;this.state = {
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value: &quot;&quot;
+                    &nbsp;&nbsp;&nbsp;&nbsp;};
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;this.handleClick = this.handleClick.bind(this);
+                    &nbsp;&nbsp;}
+
+                    &nbsp;&nbsp;handleChange(event) {
+                    &nbsp;&nbsp;&nbsp;&nbsp;const {selectedItem} = event,
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = (selectedItem) ? selectedItem.value : &quot;&quot;;
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;this.setState({
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value
+                    &nbsp;&nbsp;&nbsp;&nbsp;});
+                    &nbsp;&nbsp;}
+
+
+                    &nbsp;&nbsp;render() {
+                    &nbsp;&nbsp;&nbsp;&nbsp;return (
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;HASelectTypeAhead
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=&quot;Fruit&quot;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeholder=&quot;Choose an item&quot;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data={data}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value={this.state.value}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onChange={this.handleChange}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&gt;
+                    &nbsp;&nbsp;&nbsp;&nbsp;);
+                    &nbsp;&nbsp;}
+                    }
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples"></section>
+</div>

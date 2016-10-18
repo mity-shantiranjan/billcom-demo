@@ -1,0 +1,208 @@
+<h3 class="subtitle">Horizontal Tabs</h3>
+<div>
+    <ha-tabs>
+        <ha-tab titletext="Adjustments">
+            <h4>Tab Content 1</h4>
+            <div class="form-control">
+                <ha-text-field label="name"></ha-text-field>
+            </div>
+            <div class="form-control">
+                <ha-text-field label="lastname"></ha-text-field>
+            </div>
+            <div class="form-control">
+                <ha-text-field label="email"></ha-text-field>
+            </div>
+            <div class="form-control">
+                <ha-radio-button-group name="gender1" selectedItem="2">
+                    <ha-radio-button label="Male" value="1"></ha-radio-button>
+                    <ha-radio-button label="Female" value="2"></ha-radio-button>
+                </ha-radio-button-group>
+            </div>
+            <div>
+                <button>Save</button>
+            </div>
+        </ha-tab>
+        <ha-tab titletext="Mappings">
+            <h4>Tab Content 2</h4>
+            <p>No focusable elements here</p>
+        </ha-tab>
+        <ha-tab titletext="Send To Taxes">
+            <h4>Tab Content 3</h4>
+            <div class="form-control">
+                <ha-text-field label="name"></ha-text-field>
+            </div>
+            <div class="form-control">
+                <ha-text-field label="lastname"></ha-text-field>
+            </div>
+            <div class="form-control">
+                <ha-text-field label="email"></ha-text-field>
+            </div>
+            <div class="form-control">
+                <ha-radio-button-group name="gender2" selectedItem="2">
+                    <ha-radio-button label="Male" value="1"></ha-radio-button>
+                    <ha-radio-button label="Female" value="2"></ha-radio-button>
+                </ha-radio-button-group>
+            </div>
+
+            <div>
+                <button>Save</button>
+            </div>
+        </ha-tab>
+    </ha-tabs>
+</div>
+
+<h3 class="subtitle">Horizontal Tabs With Icons</h3>
+<ha-tabs>
+    <ha-tab titletext="Adjustments" icon="hi-settings-o">
+        <h4>Tab Content 1</h4>
+        <div class="form-control">
+            <ha-text-field label="name"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="lastname"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="email"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-radio-button-group name="gender3" selectedItem="2">
+                <ha-radio-button label="Male" value="1"></ha-radio-button>
+                <ha-radio-button label="Female" value="2"></ha-radio-button>
+            </ha-radio-button-group>
+        </div>
+
+        <div>
+            <button>Save</button>
+        </div>
+    </ha-tab>
+    <ha-tab titletext="Mappings" icon="hi-duplicate">
+        <h4>Tab Content 2</h4>
+        <p>No focusable content here</p>
+    </ha-tab>
+    <ha-tab titletext="Send To Taxes" icon="hi-reconcile">
+        <h4>Tab Content 3</h4>
+        <div class="form-control">
+            <ha-text-field label="name"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="lastname"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="email"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-radio-button-group name="gender4" selectedItem="2">
+                <ha-radio-button label="Male" value="1"></ha-radio-button>
+                <ha-radio-button label="Female" value="2"></ha-radio-button>
+            </ha-radio-button-group>
+        </div>
+
+        <div>
+            <button>Save</button>
+        </div>
+    </ha-tab>
+</ha-tabs>
+
+<h3 class="subtitle">Horizontal Tabs With Badges</h3>
+<ha-tabs>
+    <ha-tab titleText='Messages' badgeClass='ha-numeric-badge' badgeText='1337'>
+        <h4>Tab Content 1</h4>
+        <div class="form-control">
+            <ha-text-field label="name"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="lastname"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="email"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-radio-button-group name="gender3" selectedItem="2">
+                <ha-radio-button label="Male" value="1"></ha-radio-button>
+                <ha-radio-button label="Female" value="2"></ha-radio-button>
+            </ha-radio-button-group>
+        </div>
+
+        <div>
+            <button>Save</button>
+        </div>
+    </ha-tab>
+    <ha-tab titleText='Invoices' badgeClass='ha-numeric-badge ha-inverse' badgeText='42'>
+        <h4>Tab Content 2</h4>
+        <p>No focusable content here</p>
+    </ha-tab>
+    <ha-tab titleText='Status' badgeClass='ha-text-badge ha-warn' badgeText='Overdue'>
+        <h4>tab content 3</h4>
+        <div class="form-control">
+            <ha-text-field label="name"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="lastname"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="email"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-radio-button-group name="gender4" selecteditem="2">
+                <ha-radio-button label="male" value="1"></ha-radio-button>
+                <ha-radio-button label="female" value="2"></ha-radio-button>
+            </ha-radio-button-group>
+        </div>
+
+        <div>
+            <button>save</button>
+        </div>
+    </ha-tab>
+</ha-tabs>
+
+<h3 class="subtitle">Horizontal Tabs Without Button on Mobile</h3>
+<ha-tabs useTabButton="false">
+    <ha-tab titletext="Adjustments">
+        <h4>Tab Content 1</h4>
+        <div class="form-control">
+            <ha-text-field label="name"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="lastname"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="email"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-radio-button-group name="gender3" selectedItem="2">
+                <ha-radio-button label="Male" value="1"></ha-radio-button>
+                <ha-radio-button label="Female" value="2"></ha-radio-button>
+            </ha-radio-button-group>
+        </div>
+
+        <div>
+            <button>Save</button>
+        </div>
+    </ha-tab>
+    <ha-tab titletext="Mappings">
+        <h4>Tab Content 2</h4>
+        <p>No focusable content here</p>
+    </ha-tab>
+    <ha-tab titletext="Send To Taxes">
+        <h4>tab content 3</h4>
+        <div class="form-control">
+            <ha-text-field label="name"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="lastname"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-text-field label="email"></ha-text-field>
+        </div>
+        <div class="form-control">
+            <ha-radio-button-group name="gender4" selecteditem="2">
+                <ha-radio-button label="male" value="1"></ha-radio-button>
+                <ha-radio-button label="female" value="2"></ha-radio-button>
+            </ha-radio-button-group>
+        </div>
+
+        <div>
+            <button>save</button>
+        </div>
+    </ha-tab>
+</ha-tabs>

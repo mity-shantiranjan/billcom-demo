@@ -1,0 +1,99 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Switch Button Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/SwitchButton.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-switch-button checked="true" name="switchName" label="Send me notifications"&gt;&lt;/ha-switch-button&gt;
+                    &lt;ha-switch-button checked="false" name="switchName" label="Pay me"&gt;&lt;/ha-switch-button&gt;
+                    &lt;ha-switch-button checked="false" name="switchName" label="Auto-Payment" labelOn="on" labelOff="Disable"&gt;&lt;/ha-switch-button&gt;
+                    &lt;ha-switch-button checked="true" name="switchName" label="Credit card payment" labelOn="on" labelOff="Disable"&gt;&lt;/ha-switch-button&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var switchbutton = document.createElement("ha-switch-button");
+
+                    switchbutton.value = "123";
+                    switchbutton.checked = true;
+                    switchbutton.labelOn = "ON";
+                    switchbutton.labelOff = "OFF";
+                    switchbutton.name = "Switch button initialized as checked";
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HASwitchButton labelOn=&quot;on&quot; labelOff=&quot;off&quot; name=&quot;sendNotification&quot; label=&quot;Send me notifications&quot; /&gt;&lt;br /&gt;
+
+                    &lt;HASwitchButton checked labelOn=&quot;on&quot; labelOff=&quot;off&quot; name=&quot;payMe&quot; label=&quot;Pay me&quot; /&gt;&lt;br /&gt;
+
+                    &lt;HASwitchButton labelOn=&quot;on&quot; name=&quot;autoPayment&quot; labelOff=&quot;Disable&quot; span=&quot;false&quot; label=&quot;Auto-Payment&quot; /&gt;&lt;br /&gt;
+
+                    &lt;HASwitchButton labelOn=&quot;on&quot; name=&quot;creditCardPayment&quot; labelOff=&quot;Disable&quot; checked label=&quot;Credit card payment&quot; /&gt;&lt;br /&gt;
+
+                    &lt;HASwitchButton name=&quot;runPayroll&quot; checked label=&quot;Run Payroll&quot;/&gt;&lt;br /&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="reactWay">
+        </div>
+    </section>
+</div>

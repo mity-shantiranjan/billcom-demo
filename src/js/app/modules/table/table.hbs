@@ -1,0 +1,1437 @@
+<div class="table-demo">
+    <section class="post box clearfix">
+        <h1 class="entry-title">
+            Table Component
+        </h1>
+        <div class="meta">
+            <ha-segmented-button id="table-navigation">
+                <button class="segmented-nav" value="html" renderer="renderHtml" selected="true">HTML</button>
+                <button class="segmented-nav" value="js" renderer="renderJS">Javascript</button>
+                <button class="segmented-nav" value="settings" renderer="renderSettings">Table Settings</button>
+                <button class="segmented-nav" value="print" renderer="renderPrint">Table Print</button>
+                <button class="segmented-nav" value="batch-mode" renderer="renderBatchMode">Batch Mode</button>
+                <button class="segmented-nav" value="export" renderer="renderExport">Export</button>
+                <button class="segmented-nav" value="row-reordering" renderer="renderRowReordering">Row Reordering</button>
+                <button class="segmented-nav" value="total-row" renderer="renderTotalRow">Total Row</button>
+                <button class="segmented-nav" value="content-grouping" renderer="renderContentGrouping">Content Grouping</button>
+                <button class="segmented-nav" value="table-filter" renderer="renderFilter">Filter</button>
+                <button class="segmented-nav" value="empty-grid" renderer="renderEmptyGrid">Empty Grid</button>
+                <button class="segmented-nav" value="loading-message" renderer="renderLoadingMessage">Loading Message</button>
+                <button class="segmented-nav" value="edit-mode" renderer="renderEditMode">Edit Mode</button>
+                <button class="segmented-nav" value="row-edit-mode" renderer="renderRowEditMode">Row Edit Mode</button>
+                <button class="segmented-nav" value="virtual-scrolling" renderer="renderVirtualScrolling">Virtual Scrolling</button>
+                <button class="segmented-nav" value="column-locking" renderer="renderColumnLocking">Column Locking</button>
+                <button class="segmented-nav" value="request-store" renderer="requestStore">Request Store</button>
+                <button class="segmented-nav" value="expando-row" renderer="expandoRow">Expandable Rows</button>
+                <button class="segmented-nav" value="tab-usage" renderer="renderInTabs">Tables in Tabs</button>
+                <button class="segmented-nav hidden-desktop" value="responsive-table-layouts" renderer="renderResponsiveLayouts">Responsive Table Layouts</button>
+            </ha-segmented-button>
+        </div>
+    </section>
+
+    <div class="panel" id="html">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre>
+                    <code>
+                        <span class="nt">&lt;ha-table</span><span class="na">&nbsp;showtablebar=<span class="s">"true"&nbsp;</span></span> <span class="na">showsettings=<span class="s">"true"</span>&gt;</span>
+                        <span class="nt">&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-table-column</span><span class="na">&nbsp;field=<span class="s">"first"</span></span><span class="na">&nbsp;label=<span class="s">"First Name"</span></span><span class="na">&nbsp;sortable=<span class="s">"false"</span>&gt;</span><span class="nt">&lt;/ha-table-column&gt;</span>
+                        <span class="nt">&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-table-column</span><span class="na">&nbsp;field=<span class="s">"last"</span></span><span class="na">&nbsp;label=<span class="s">"Last Name"</span>&gt;</span><span class="nt">&lt;/ha-table-column&gt;</span>
+                        <span class="nt">&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-table-column</span><span class="na">&nbsp;field=<span class="s">"totalG"</span></span><span class="na">&nbsp;label=<span class="s">"Games Played"</span>&gt;</span><span class="nt">&lt;/ha-table-column&gt;</span>
+                        <span class="nt">&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-table-column</span><span
+                        class="na">&nbsp;field=<span class="s">"link"</span></span><span class="na">&nbsp;label=<span class="s">"Link"</span>&gt;</span><span class="nt">&lt;/ha-table-column&gt;</span>
+                        <span class="nt">&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-table-column</span><span
+                        class="na">&nbsp;field=<span class="s">"amount"</span></span><span class="na">&nbsp;label=<span class="s">"Amount"</span>&gt;</span><span class="nt">&lt;/ha-table-column&gt;</span>
+                        <span class="nt">&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-table-column</span><span class="na">&nbsp;field=<span class="s">"action"</span></span><span class="na">&nbsp;label=<span class="s">"Action"</span>&gt;</span><span class="nt">&lt;/ha-table-column&gt;</span>
+                        <span class="nt">&lt;/ha-table&gt;</span>
+                    </code>
+                </pre>
+            </div>
+        </section>
+
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div class="declarative-wrapper">
+                <h3>Table</h3>
+                <form class="table-controls">
+                    Size: <ha-segmented-button id="table-size-button">
+                        <button class="ha-button" value="normal" type="button">Normal</button>
+                        <button class="ha-button" value="double" type="button">Double</button>
+                        <button class="ha-button" value="compact" type="button">Compact</button>
+                    </ha-segmented-button>
+                </form>
+                <div id="html-example"></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="js">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">var table = document.createElement('ha-table');
+    table.autoheight = true;
+    table.rowsPerPage = 50;
+    table.showTableBar = true;
+    table.collection = new Memory({
+        data: [
+            {
+                first: 'John',
+                last: 'Doe',
+                dob: new Date('1942-2-13'),
+                id: 1
+            },
+            {
+                first: 'Bob',
+                last: 'Ross',
+                dob: new Date('1942-10-29'),
+                id: 2
+            }
+        ]
+    });
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        height: 'Height'
+    };</pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="js-example">
+            </div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="settings">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table'),
+        div = document.createElement('div'),
+        checkbox = document.createElement('ha-checkbox'),
+        title = document.createElement('h4');
+    table.showTableBar = true;
+    table.showSettings = true;
+    table.userId = 'userId';
+    table.persistentId = 'persistentId';
+    table.showColumnHider = true;
+    table.showDisplayDensitySettings = true;
+    table.showRowsPerPageSettings = true;
+    table.filterType = 'simple-filter';
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                var icon = document.createElement('button'),
+                    screenReaderNode = document.createElement('span');
+
+                node.classList.add('control');
+                icon.className = 'hi hi-settings';
+                icon.style.background = 'none';
+                icon.style.border = 'none';
+                screenReaderNode.className = 'sr-only';
+                screenReaderNode.innerHTML = 'Action for this row';
+                icon.appendChild(screenReaderNode);
+                node.appendChild(icon);
+            },
+            unhidable: true
+        }
+    };
+    table.collection = new RequestMemory({target: 'js/app/modules/table/hof-batting.json'});
+    title.textContent = 'Other';
+    checkbox.label = 'Do something special';
+    div.appendChild(checkbox);
+    checkbox.render();
+    table.otherSettingsNode.appendChild(title);
+    table.otherSettingsNode.appendChild(div);
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="settings-example">
+            </div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="print">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table'),
+        div = document.createElement('div'),
+        checkbox = document.createElement('ha-checkbox'),
+        title = document.createElement('h4');
+    table.showTableBar = true;
+    table.showPrintList = true;
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                var icon = document.createElement('button'),
+                    screenReaderNode = document.createElement('span');
+
+                node.classList.add('control');
+                icon.className = 'hi hi-settings';
+                icon.style.background = 'none';
+                icon.style.border = 'none';
+                screenReaderNode.className = 'sr-only';
+                screenReaderNode.innerHTML = 'Action for this row';
+                icon.appendChild(screenReaderNode);
+                node.appendChild(icon);
+            },
+            unhidable: true
+        }
+    };
+    table.collection = new RequestMemory({target: 'js/app/modules/table/hof-batting.json'});
+
+    node.appendChild(table);
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="print-example">
+            </div>
+        </section>
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    ...
+    table.printRenderer = {
+        header: function() {
+            var header = this.table.querySelector('.ha-table-header');
+            if (header) {
+                header.parentNode.removeChild(header);
+            }
+        },
+        row: function(object) {
+            var div = document.createElement('div');
+            function renderField(fieldDef) {
+                var fieldName = typeof fieldDef === 'string' ? fieldDef : fieldDef.field;
+                var fieldDiv = document.createElement('div');
+                fieldDiv.textContent = fieldName + ': ' + object[fieldName];
+                div.style.borderBottom = '1px solid black';
+                div.appendChild(fieldDiv);
+            }
+            if (Array.isArray(this.table.columns)) {
+                this.table.columns.forEach(renderField);
+            } else {
+                Object.keys(this.table.columns).map(function(key) {
+                    return typeof this.table.columns[key] === 'string' ? key : this.table.columns[key];
+                }, this).forEach(renderField);
+            }
+
+            return div;
+        }
+    };
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="print-renderer-example">
+            </div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="batch-mode">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table'),
+        button = document.createElement('button'),
+        evenButton = document.createElement('button'),
+        store = new (RequestMemory.createSubclass(Trackable))({target: 'js/app/modules/table/hof-batting.json'});
+
+    button.textContent = 'Do batch things';
+    button.classList.add('ha-button');
+
+    evenButton.textContent = 'Do even batch things';
+    evenButton.classList.add('ha-button');
+
+    table.batchNodes = [button, evenButton];
+
+    ['select', 'deselect'].forEach(function(type) {
+        table.on(type, function(event) {
+            var evenDisabled = Object.keys(table.selection).some(function(id) {
+                return table.row(id).element.classList.contains('dgrid-row-even');
+            });
+
+            evenButton.disabled = evenDisabled;
+        });
+    });
+
+    button.addEventListener('click', function() {
+        table.clearErrors();
+        var errors = [];
+        Object.keys(table.selection).forEach(function(id) {
+            if ((table.row(id).element.rowIndex % 10) == 6) {
+                // add an error to rows 7, 17, 27, etc.
+                table.setError(id, '7th row error');
+                errors.push(id);
+            } else {
+                store.get(id).then(function(item) {
+                    item.first = 'UPDATED';
+                    item.last = 'ITEM';
+                    store.put(item);
+                });
+            }
+        });
+
+        if (!errors.length) {
+            table.clearSelection();
+        }
+    });
+
+    table.collection = store;
+    table.allowBatchMode = true;
+    table.showTableBar = true;
+    table.filterType = 'simple-filter';
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        }
+    };
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="batch-example">
+            </div>
+        </section>
+    </div>
+
+    <div id="export" class="panel hidden">
+        <section class="usage">
+            <header class="title">Usage</header>
+            <div class="highlight">
+                <pre><code><pre style="background:none;border:none;">
+    var table = document.createElement('ha-table');
+    table.showExport = true;
+    table.on('export', function() {
+        alert('Commencing simple export');
+    });</pre></code></pre>
+            </div>
+        </section>
+        <div id="simple-export"></div>
+        <section class="usage">
+            <header class="title">Usage</header>
+            <div class="highlight">
+                <pre><code><pre style="background:none;border:none;">
+    var complexTable = createExportTable(),
+        xlsItem = document.createElement('ha-item'),
+        pdfItem = document.createElement('ha-item'),
+        exportMenuButton = document.createElement('ha-menu-button');
+
+    xlsItem.value = xlsItem.label = 'Export as XLS';
+    pdfItem.value = pdfItem.label = 'Export as PDF';
+    exportMenuButton.items = [xlsItem, pdfItem];
+    exportMenuButton.addEventListener('select', function(event) {
+        alert(event.target.selectedItem.value);
+    });
+    exportMenuButton.icon = 'hi-export';
+    exportMenuButton.label = complexTable.exportIconText;
+    complexTable.exportButton = exportMenuButton;
+    </pre></code></pre>
+            </div>
+        </section>
+        <div id="complex-export"></div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="row-reordering">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table');
+    table.allowRowReordering = true;
+    table.showTableBar = true;
+    table.filterType = 'simple-filter';
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                node.classList.add('control');
+                var icon = document.createElement('span');
+                icon.classList.add('hi', 'hi-settings');
+                node.appendChild(icon);
+            }
+        }
+    };
+    table.collection = new (declare([RequestMemory, Trackable]))({
+        target: 'js/app/modules/table/hof-batting.json'
+    });
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="row-reordering-examples"></div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="total-row">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table'),
+        totalGamesPlayed = 0,
+        totalAmount = 0;
+    table.showTableBar = true;
+    table.filterType = 'simple-filter';
+    table.rowsPerPage = 5;
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                node.classList.add('control');
+                var icon = document.createElement('span');
+                icon.classList.add('hi', 'hi-settings');
+                node.appendChild(icon);
+            }
+        }
+    };
+    table.rowStatus = function(row) {
+        if (row.last.indexOf('x') > -1) {
+            return 'success';
+        } else if (row.last.indexOf('w') > -1) {
+            return 'error';
+        } else {
+            return '';
+        }
+    };
+    table.collection = new RequestMemory({target: 'js/app/modules/table/hof-batting.json'});
+    table.collection.fetch().then(function(results) {
+        var i;
+        for (i = 0; i < results.length; i++) {
+            totalGamesPlayed += results[i].totalG;
+            totalAmount += results[i ].height;
+        }
+
+        table.totals = {
+            'totalG': totalGamesPlayed,
+            'height': '$' + totalAmount
+        };
+    });
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="total-row-example"></div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="content-grouping">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table');
+    table.categoryProperty = 'contractType';
+    table.rowsPerPage = 15;
+    table.collection = new ContentGroupMemory({
+        data: this._getCategoryData()
+    });
+    table.columns = {
+        contractType: {
+            label: '', renderExpando: true
+        },
+        id: 'ID',
+        email: 'Email',
+        balance: {
+            label: 'Balance',
+            className: 'numeric',
+            formatter: currencyFormatter
+        }
+    };
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="content-grouping-virtual-scroll">
+            </div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="table-filter">
+        <section class="usage">
+            <header class="title"><a>Simple Filter Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table');
+    table.showTableBar = true;
+    table.filterType = 'simple';
+    table.columns = {
+        first: 'First Name',
+        last: 'Last Name',
+        totalG: 'Games Played',
+        // ...
+    };
+    table.collection = new RequestMemory({target: 'js/app/modules/table/hof-batting.json'});
+
+    var select = (function filterSelect() {
+        // construct simple filter with select
+        var select = document.createElement('ha-select'),
+            popover = document.createElement('ha-popover'),
+            item1 = document.createElement('ha-item'),
+            item2 = document.createElement('ha-item'),
+            item3 = document.createElement('ha-item');
+
+        item1.label = 'No Filter';
+        item1.value = undefined;
+        item1.selected = true;
+
+        item2.label = 'Less than 1000 games';
+        item2.value = 1000;
+
+        item3.label = 'Less than 2000 games';
+        item3.value = 2000;
+
+        select.items = [ item1, item2, item3 ];
+        select.popover = popover;
+
+        select.on('change', function(event) {
+            var value = event.target.value;
+            if (value) {
+                table.filter(function(data) {
+                    return data.totalG < value;
+                });
+            } else {
+                table.filter();
+            }
+        });
+
+        return select;
+    })();
+
+    var input = (function filterTextField() {
+        var input = document.createElement('ha-text-field');
+
+        input.type = 'text';
+        input.name = 'first';
+        input.placeholder = 'Filter by first name...';
+
+        input.on('change', function(event) {
+            var value = event.target.value;
+
+            table.filter({
+                first: new RegExp(value, 'i')
+            });
+        });
+
+        return input;
+    })();
+
+    var popover = (function filterPopover() {
+        var popover = document.createElement('ha-popover'),
+            input = document.createElement('ha-text-field'),
+            popoverForm = document.createElement('ha-popover-form'),
+            section = popoverForm.querySelector('section'),
+            applyButton = document.createElement('button'),
+            resetButton = document.createElement('button');
+
+        applyButton.classList.add('ha-button');
+        applyButton.type = 'submit';
+        applyButton.textContent = 'Apply';
+        resetButton.textContent = 'Reset';
+        resetButton.classList.add('ha-button');
+
+        input.name = 'first';
+        input.label = 'First Name';
+        popover.appendChild(popoverForm);
+        section.appendChild(input);
+        section.appendChild(document.createElement('br'));
+        section.appendChild(applyButton);
+        section.appendChild(resetButton);
+
+        applyButton.addEventListener('click', function() {
+            console.log('input.value', input.value);
+            table.filter({
+                first: new RegExp(input.value, 'i')
+            });
+        });
+        resetButton.addEventListener('click', function() {
+            input.value = null;
+            table.filter();
+        });
+
+        return popover;
+    })();
+
+    var customLabels = (function filterPopoverSelect() {
+            var popover = document.createElement('ha-popover'),
+                first = document.createElement('ha-text-field'),
+                last = document.createElement('ha-text-field'),
+                nickname = createSelect(),
+                amount = document.createElement('ha-text-field'),
+                popoverForm = document.createElement('ha-popover-form'),
+                section = popoverForm.querySelector('section'),
+                applyButton = document.createElement('button'),
+                resetButton = document.createElement('button');
+
+            applyButton.classList.add('ha-button', 'ha-button-primary');
+            applyButton.type = 'submit';
+            applyButton.textContent = 'Apply';
+            resetButton.textContent = 'Reset';
+            resetButton.classList.add('ha-button', 'ha-button-secondary');
+
+            first.name = 'first';
+            first.label = 'First Name';
+            last.name = 'last';
+            last.label = 'Last Name';
+            nickname.name = 'nickname';
+            nickname.label = 'Nickname';
+            amount.name = 'height';
+            amount.label = 'Amount';
+            popover.appendChild(popoverForm);
+            section.appendChild(first);
+            section.appendChild(last);
+            section.appendChild(nickname);
+            section.appendChild(amount);
+            section.appendChild(document.createElement('br'));
+            section.appendChild(resetButton);
+            section.appendChild(applyButton);
+
+            function filter() {
+                var query = {},
+                    labels = {};
+                [first, last, nickname, amount].forEach(function(field) {
+                    if (field.value) {
+                        query[field.name] = field.value;
+                        // Use custom format for text-fields and selects, except the
+                        // last name field
+                        if (field.tagName === 'HA-TEXT-FIELD' && field.name !== 'last') {
+                            labels[field.name] = field.label + '=' + field.value;
+                        } else if (field.tagName === 'HA-SELECT') {
+                            labels[field.name] = field.selectedItem.label;
+                        } else {
+                            labels[field.name] = field.value;
+                        }
+                    }
+                });
+
+                table.filter(query, labels);
+            }
+
+            function reset() {
+                var query = {};
+                [first, last, nickname, amount].forEach(function(field) {
+                    field.value = null;
+                });
+
+                table.filter(query);
+            }
+
+            function dismiss(name) {
+                var field;
+                switch (name) {
+                    case 'first':
+                        field = first;
+                        break;
+                    case 'last':
+                        field = last;
+                        break;
+                    case 'nickname':
+                        field = nickname;
+                        break;
+                    case 'height':
+                        field = amount;
+                        break;
+                }
+                field.value = null;
+                filter();
+            }
+
+            applyButton.addEventListener('click', function() {
+                filter();
+                popover.hide();
+            });
+            resetButton.addEventListener('click', function() {
+                reset();
+            });
+
+            table.on('dismiss', function(event) {
+                dismiss(event.target.value);
+            });
+
+            table.on('dismiss-all', function() {
+                reset();
+            });
+
+            table.on('show-all', function() {
+                popover.show();
+            });
+
+            return popover;
+    })();
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <ha-segmented-button id="filter-type">
+                <button value="simpleSelect" selected="true">Simple Select</button>
+                <button value="simpleText">Simple Text Field</button>
+                <button value="complex">Complex</button>
+                <button value="custom-labels">Custom Labels</button>
+            </ha-segmented-button>
+            <div id="filter-example"></div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="empty-grid">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table');
+    table.showTableBar = true;
+    table.showExport = true;
+    table.showEditMode = true;
+    table.showPrintList = true;
+    table.showSettings = true;
+    table.rowsPerPage = 5;
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                node.classList.add('control');
+                var icon = document.createElement('span');
+                icon.classList.add('hi', 'hi-settings');
+                node.appendChild(icon);
+            }
+        }
+    };
+    table.collection = new Memory();
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="empty-grid-example"></div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="loading-message">
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="loading-message-example"></div>
+        </section>
+    </div>
+    <div class="panel hidden" id="edit-mode">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+            <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table');
+    table.rowsPerPage = 100;
+    table.showTableBar = true;
+    table.showSettings = true;
+    table2.showEditMode = true;
+    table.showDisplayDensitySettings = true;
+    table.showRowsPerPageSettings = true;
+    table.showColumnHider = true;
+    table.filterType = 'simple-filter';
+    table.collection = store;
+    table.collection = new RequestMemory({target: 'js/app/modules/table/hof-batting.json'});
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false,
+            editor: 'ha-text-field'
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            editor: 'ha-text-field',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                node.classList.add('control');
+                var icon = document.createElement('span');
+                icon.classList.add('hi', 'hi-settings');
+                node.appendChild(icon);
+            }
+        }
+    };
+
+    table.on('edit-cancel', function() {
+        console.log('%cEDIT CANCEL', 'font-weight:bold;color:orange;');
+    });
+    table.on('edit-save', function(event) {
+        console.log('%cEDIT SAVE', 'font-weight:bold;color:green;', event);
+        table.clearErrors();
+        table.editable = false;
+        var id = Object.keys(event.changed)[0];
+        if (id && (table.row(id).element.rowIndex % 10) == 6) {
+            // add an error to that row
+            table.setError(id, 'There was an error that prevented save. Please try again.');
+            table.revert();
+        } else {
+            console.log(table.save());
+        }
+    });
+
+    table.editMode = 'specific';
+            </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="edit-example"></div>
+        </section>
+
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table2 = document.createElement('ha-table2');
+    table2.rowsPerPage = 100;
+    table2.showTableBar = true;
+    table2.showSettings = true;
+    table2.showDisplayDensitySettings = true;
+    table2.showRowsPerPageSettings = true;
+    table2.showColumnHider = true;
+    table2.filterType = 'simple-filter';
+    table2.collection = new RequestMemory({target: 'js/app/modules/table/hof-batting.json'});
+    // table2.allowBatchMode = true;
+    table2.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false,
+            editor: 'ha-text-field'
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            editor: 'ha-text-field',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                node.classList.add('control');
+                var icon = document.createElement('span');
+                icon.classList.add('hi', 'hi-settings');
+                node.appendChild(icon);
+            }
+        }
+    };
+
+    table2.on('edit-save', function(event) {
+        table2.clearErrors();
+        table2.editable = false;
+        var id = Object.keys(event.changed)[0];
+        if (id && (table2.row(id).element.rowIndex % 10) == 6) {
+            // add an error to that row
+            table2.setError(id, 'There was an error that prevented save. Please try again.');
+            table2.revert();
+        } else {
+            console.log(table2.save());
+        }
+    });
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="edit-simple-example"></div>
+        </section>
+    </div>
+
+    <div class="panel hidden" id="row-edit-mode">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+        </section>
+
+    </div>
+
+    <div class="panel hidden" id="virtual-scrolling">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table-virtual');
+
+    table.maxHeight = 600;
+    table.showSettings = true;
+    table.showTableBar = true;
+    table.collection = new (declare([RequestMemory, Trackable]))({
+        target: 'js/app/modules/table/hof-batting.json'
+    });
+
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        }
+    };
+                </pre></code></pre>
+            </div>
+        </section>
+
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="virtual-scrolling-example"></div>
+            <div>
+                <label><input type="checkbox"> Does this get focus after hitting escape + tab from the table?</label>
+            </div>
+        </section>
+    </div>
+    <div class="panel hidden" id="column-locking">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table'),
+        node = parent.querySelector('#column-locking-example');
+    table.lockedColumns = 1;
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                node.classList.add('control');
+                var icon = document.createElement('span');
+                icon.classList.add('hi', 'hi-settings');
+                node.appendChild(icon);
+            }
+        }
+    };
+    table.collection = new (declare([RequestMemory, Trackable]))({
+        target: 'js/app/modules/table/hof-batting.json'
+    });
+    node.appendChild(table);
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="column-locking-example"></div>
+        </section>
+    </div>
+    <div class="panel hidden" id="request-store">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table'),
+        node = parent.querySelector('#column-locking-example');
+    table.lockedColumns = 1;
+    table.columns = {
+        first: {
+            label: 'First Name',
+            sortable: false
+        },
+        last: 'Last Name',
+        totalG: {
+            label: 'Games Played',
+            renderCell: function(object, value, node) {
+                node.appendChild(document.createTextNode(value));
+                var secondLine = document.createElement('div');
+                secondLine.classList.add('subline');
+                secondLine.appendChild(document.createTextNode('Games Played'));
+                node.appendChild(secondLine);
+                // return node;
+
+            }
+        },
+        nickname: {
+            label: 'Nickname',
+            formatter: function(value) {
+                return '<a href="#">' + value + '</a>';
+            }
+        },
+        height: {
+            label: 'Amount',
+            className: 'numeric',
+            formatter: currencyFormatter
+        },
+        action: {
+            label: 'Action',
+            renderCell: function(object, value, node) {
+                node.classList.add('control');
+                var icon = document.createElement('span');
+                icon.classList.add('hi', 'hi-settings');
+                node.appendChild(icon);
+            }
+        }
+    };
+    table.collection = new (declare([RequestMemory, Trackable]))({
+        target: 'js/app/modules/table/hof-batting.json'
+    });
+    node.appendChild(table);
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <div id="request-store-example"></div>
+            <div id="request-store-content-grouping-example"></div>
+        </section>
+    </div>
+    <div class="panel hidden" id="expando-row">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var table = document.createElement('ha-table'),
+        tableWithExtendedRenderer = document.createElement('ha-table'),
+        tableWithCustomHeightRenderer = document.createElement('ha-table'),
+        node = parent.querySelector('#expando-row-example' + (batch ? '-batch' : '')),
+        rendererFactoryRegistry = new RendererFactoryRegistry(),
+        columns = {
+            first: {
+                label: 'First Name',
+                sortable: false
+            },
+            last: 'Last Name',
+            height: 'Height',
+            action: {
+                label: 'Action',
+                renderCell: function(object, value, node) {
+                    node.classList.add('control');
+                    var icon = document.createElement('button');
+                    icon.classList.add('no-button');
+                    icon.classList.add('hi', 'hi-settings');
+                    icon.setAttribute('aria-label', 'Show row expansion');
+                    icon.setAttribute('tabindex', '0');
+                    node.appendChild(icon);
+                }
+            }
+        },
+        customRowExpansionArgs = {
+            activatorSelector: '.control .hi-settings',
+            renderRowExpansionContent: function(object, hideExpansion) {
+                var expandoContentDiv = document.createElement('div'),
+                    firstNameTextField = document.createElement('ha-text-field'),
+                    lastNameDiv = document.createElement('div'),
+                    heightDiv = document.createElement('div'),
+                    select = demoJS.createComponent(),
+                    hideButton = document.createElement('button'),
+                    radioButtonGroupDiv = document.createElement('div');
+
+                radioButtonGroupDiv.innerHTML = '&lt;ha-radio-button-group label=&quot;Some Label&quot; expected=&quot;2&quot; required&gt;' +
+                    '&lt;ha-radio-button label=&quot;Radio 1&quot; value=&quot;1&quot;&gt;&lt;/ha-radio-button&gt;' +
+                    '&lt;ha-radio-button label=&quot;Radio 2&quot; value=&quot;2&quot;&gt;&lt;/ha-radio-button&gt;' +
+                    '&lt;ha-radio-button label=&quot;Radio 3&quot; value=&quot;3&quot;&gt;&lt;/ha-radio-button&gt;' +
+                    '&lt;/ha-radio-button-group&gt;';
+                firstNameTextField.value = 'First Name: ' + object.first;
+                lastNameDiv.textContent = 'Last Name: ' + object.last;
+                heightDiv.textContent = 'Height: ' + object.height;
+                select.style.display = 'block';
+                hideButton.className = 'ha-button ha-button-primary';
+                hideButton.textContent = 'Collapse';
+                hideButton.onclick = function () {
+                    alert("Action taken");
+                    hideExpansion();
+                };
+                hideButton.style.width = "100px";
+
+                expandoContentDiv.appendChild(radioButtonGroupDiv);
+                expandoContentDiv.appendChild(firstNameTextField);
+                expandoContentDiv.appendChild(lastNameDiv);
+                expandoContentDiv.appendChild(heightDiv);
+                expandoContentDiv.appendChild(select);
+                expandoContentDiv.appendChild(hideButton);
+
+            return expandoContentDiv;
+        }
+    },
+    rowExpansionWithCustomHeight = {
+        expansionHeight: 80
+    };
+
+    rendererFactoryRegistry.registerRenderer("defaultExpandableRow", RowExpansionRenderer);
+    // Register a custom renderer with bound constructor args. This way each table using this registry
+    // gets a new renderer(so they don't share state) but with the same custom functionality.
+    rendererFactoryRegistry.registerRenderer(
+        "customExpandableRow",
+        RowExpansionRenderer.bind(null, customRowExpansionArgs)
+    );
+
+    rendererFactoryRegistry.registerRenderer(
+        'customHeightExpandableRow',
+        RowExpansionRenderer.bind(null, rowExpansionWithCustomHeight)
+    );
+
+    table.columns = simpleColumns;
+    table.rowsPerPage = 50;
+    table.collection = hofStore;
+    table.rendererFactory = rendererFactoryRegistry.getRendererFactory();
+    table.renderMode = 'defaultExpandableRow';
+    table.allowBatchMode = batch;
+
+    tableWithExtendedRenderer.columns = columns;
+    tableWithExtendedRenderer.rowsPerPage = 50;
+    tableWithExtendedRenderer.collection = hofStore;
+    tableWithExtendedRenderer.rendererFactory = rendererFactoryRegistry.getRendererFactory();
+    tableWithExtendedRenderer.renderMode = 'customExpandableRow';
+    tableWithExtendedRenderer.allowBatchMode = batch;
+
+    tableWithCustomHeightRenderer.columns = simpleColumns;
+    tableWithCustomHeightRenderer.rowsPerPage = 50;
+    tableWithCustomHeightRenderer.collection = hofStore;
+    tableWithCustomHeightRenderer.rendererFactory = rendererFactoryRegistry.getRendererFactory();
+    tableWithCustomHeightRenderer.renderMode = 'customHeightExpandableRow';
+    tableWithCustomHeightRenderer.allowBatchMode = batch;
+
+    node.appendChild(table);
+    node = parent.querySelector('#expando-row-custom-example' + (batch ? '-batch' : ''));
+    node.appendChild(tableWithExtendedRenderer);
+    node = parent.querySelector('#expando-row-custom-height-example' + (batch ? '-batch' : ''));
+    node.appendChild(tableWithCustomHeightRenderer);
+    return this;            </pre></code></pre>
+        </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <h2 class="title">Without Batch Mode</h2>
+            <h3 class="subtitle">Default Row Expansion Renderer</h3>
+            <div id="expando-row-example"></div>
+            <h3 class="subtitle">Row Expansion Renderer with custom rendering function</h3>
+            <div id="expando-row-custom-example"></div>
+            <h3 class="subtitle">Row Expansion Renderer with specified content height</h3>
+            <div id="expando-row-custom-height-example"></div>
+            <h2 class="title">With Batch Mode</h2>
+            <h3 class="subtitle">Default Row Expansion Renderer</h3>
+            <div id="expando-row-example-batch"></div>
+            <h3 class="subtitle">Row Expansion Renderer with custom rendering function</h3>
+            <div id="expando-row-custom-example-batch"></div>
+        </section>
+    </div>
+
+    <div id="tab-usage" class="panel table-tab-usage hidden">
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <ha-tabs>
+                <ha-tab titleText="First Table">
+                    <ha-table id="tab-table1"></ha-table>
+                </ha-tab>
+
+                <ha-tab titleText="Second Table">
+                    <ha-table id="tab-table2"></ha-table>
+                </ha-tab>
+
+                <ha-tab titleText="Third Table">
+                    <ha-table id="tab-table3"></ha-table>
+                </ha-tab>
+            </ha-tabs>
+        </section>
+    </div>
+
+    <div id="responsive-table-layouts" class="panel hidden">
+        <section class="usage">
+            <header class="title"><a>Usage</a></header>
+            <div class="highlight">
+                <pre><code><pre style="background:none; border:none;">
+    var standardLayoutParent = document.querySelector('#table-layouts-standard-example'),
+        stackedLayoutParent = document.querySelector('#table-layouts-stacked-data-example'),
+        columnLockingLayoutParent = document.querySelector('#table-layouts-column-locking-example'),
+        simpleColumnDefStackedLayoutParent =
+            document.querySelector('#table-layouts-simple-column-def-stacked-example'),
+        standardTable = document.createElement('ha-table'),
+        stackedTable = document.createElement('ha-table'),
+        columnLockingTable = document.createElement('ha-table'),
+        simpleColumnDefStackedTable = document.createElement('ha-table');
+
+    standardTable.columns = complexColumns();
+    standardTable.collection = hofStore;
+
+    columnLockingTable.responsiveLayout = 'columnLocking';
+    columnLockingTable.columns = complexColumns();
+    columnLockingTable.collection = hofStore;
+
+    stackedTable.responsiveLayout = 'stacked';
+    stackedTable.columns = stackedColumns();
+    stackedTable.collection = hofStore;
+
+    simpleColumnDefStackedTable.responsiveLayout = 'stacked';
+    simpleColumnDefStackedTable.columns = {
+        first: 'First Name',
+        last: 'Last Name',
+        totalG: 'Games Played',
+        nickname: 'Nickname'
+    };
+    simpleColumnDefStackedTable.collection = hofStore;
+
+    standardLayoutParent.appendChild(standardTable);
+    stackedLayoutParent.appendChild(stackedTable);
+    columnLockingLayoutParent.appendChild(columnLockingTable);
+    simpleColumnDefStackedLayoutParent.appendChild(simpleColumnDefStackedTable);
+                </pre></code></pre>
+            </div>
+        </section>
+        <section class="examples">
+            <header class="title"><a>Examples</a></header>
+            <h2 class="title">Standard Layout</h2>
+            <div id="table-layouts-standard-example"></div>
+            <h2 class="title">Stacked Data Layout</h2>
+            <div id="table-layouts-stacked-data-example"></div>
+            <h2 class="title">Column Locking Layout</h2>
+            <div id="table-layouts-column-locking-example"></div>
+            <h2 class="title">Simple Column Def Stacked Data Layout</h2>
+            <div id="table-layouts-simple-column-def-stacked-example"></div>
+        </section>
+    </div>
+</div>

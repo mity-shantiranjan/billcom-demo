@@ -1,0 +1,280 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Flyout Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Flyout-%5BDRAFT%5D.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel fl" id="html" style="height:1300px;">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;button class="global-header-button" type="button"&gt;&lt;/button&gt;
+
+                    &lt;ha-flyout class="declarative" titleText="Flyout title"&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;Lorem ipsum dolor sit amet&lt;/span&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                        &nbsp;&nbsp;&lt;/section&gt;
+                    &lt;/ha-flyout&gt;
+
+
+                    &lt;button class="global-header-button" type="button"&gt;&lt;/button&gt;
+
+                    &lt;ha-flyout class="declarative" titleText="Create" moreText="show more" lessText="show less"&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="flyout-less"&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="flyout-more"&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;table&gt;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Customers&lt;/th&gt;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu&gt;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu&gt;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+                        &nbsp;&nbsp;&lt;/section&gt;
+                    &lt;/ha-flyout&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div>
+            <h3>Non Menu Flyout</h3>
+            <nav class="global-header">
+                <ul class="list-unstyled">
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                    </li>
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                        <ha-flyout class="declarative" titleText="Flyout title">
+                            <section>
+                                <div>
+                                    <span>Lorem ipsum dolor sit amet</span>
+                                </div>
+                            </section>
+                        </ha-flyout>
+                    </li>
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                    </li>
+                </ul>
+            </nav>
+
+            <h3>Resizable Menu Flyout</h3>
+
+            <nav class="global-header">
+                <ul class="list-unstyled">
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                    </li>
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                        <ha-flyout class="declarative" titleText="Create" moreText="show more" lessText="show less">
+                            <section>
+                                <div class="flyout-less">
+                                    <ha-menu>
+                                        <ha-menu-item>Invoice</ha-menu-item>
+                                        <ha-menu-item>Expense</ha-menu-item>
+                                    </ha-menu>
+                                </div>
+                                <div class="flyout-more">
+                                    <table>
+                                        <tr>
+                                            <th>Customers</th>
+                                            <th>Vendors</th>
+                                            <th>Employees</th>
+                                            <th>Other</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ha-menu>
+                                                    <ha-menu-item>Invoice</ha-menu-item>
+                                                    <ha-menu-item>Receive Payment</ha-menu-item>
+                                                    <ha-menu-item>Estimate</ha-menu-item>
+                                                    <ha-menu-item>Credit Memo</ha-menu-item>
+                                                    <ha-menu-item>Sales Receipt</ha-menu-item>
+                                                    <ha-menu-item>Refund Receipt</ha-menu-item>
+                                                    <ha-menu-item>Delayed Credit</ha-menu-item>
+                                                    <ha-menu-item>Delayed Charge</ha-menu-item>
+                                                </ha-menu>
+                                            </td>
+                                            <td>
+                                                <ha-menu>
+                                                    <ha-menu-item>Expense</ha-menu-item>
+                                                    <ha-menu-item>Check</ha-menu-item>
+                                                    <ha-menu-item>Bill</ha-menu-item>
+                                                    <ha-menu-item>Pay Bills</ha-menu-item>
+                                                    <ha-menu-item>Purchase Order</ha-menu-item>
+                                                    <ha-menu-item>Vendor Credit</ha-menu-item>
+                                                    <ha-menu-item>Credit Card Credit</ha-menu-item>
+                                                    <ha-menu-item>Print Checks</ha-menu-item>
+                                                </ha-menu>
+                                            </td>
+                                            <td>
+                                                <ha-menu>
+                                                    <ha-menu-item>Payroll</ha-menu-item>
+                                                    <ha-menu-item>Single Time Activity</ha-menu-item>
+                                                    <ha-menu-item>Weekly Timesheet</ha-menu-item>
+                                                </ha-menu>
+                                            </td>
+                                            <td>
+                                                <ha-menu>
+                                                    <ha-menu-item>Bank Deposit</ha-menu-item>
+                                                    <ha-menu-item>Transfer</ha-menu-item>
+                                                    <ha-menu-item>Journal Entry</ha-menu-item>
+                                                    <ha-menu-item>Statement</ha-menu-item>
+                                                </ha-menu>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </section>
+                        </ha-flyout>
+                    </li>
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                    </li>
+                </ul>
+            </nav>
+
+            <h3>Blue Side Panel Flyout</h3>
+
+            <nav class="global-header">
+                <ul class="list-unstyled">
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                    </li>
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                        <ha-flyout class="declarative" titleText="Jon's Landscape">
+                            <section>
+                                <div class="flyout-side-panel">
+                                    <table>
+                                        <tr>
+                                            <th>Accountant</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ha-menu>
+                                                    <ha-menu-item>Reclassify Transactions</ha-menu-item>
+                                                    <ha-menu-item>Write Off Invoices</ha-menu-item>
+                                                </ha-menu>
+                                            </td>
+                                        <tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <th>Settings</th>
+                                            <th>Tools</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <ha-menu>
+                                                    <ha-menu-item>Customer Settings</ha-menu-item>
+                                                    <ha-menu-item>Write Off Invoices</ha-menu-item>
+                                                </ha-menu>
+                                            </td>
+                                            <td>
+                                                <ha-menu>
+                                                    <ha-menu-item>Import Data</ha-menu-item>
+                                                    <ha-menu-item>Export Data</ha-menu-item>
+                                                </ha-menu>
+                                            </td>
+                                        <tr>
+                                    </table>
+                                </div>
+                            </section>
+                        </ha-flyout>
+                    </li>
+                    <li>
+                        <button class="global-header-button" type="button"></button>
+                    </li>
+                </ul>
+            </nav>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        </div>
+    </section>
+</div>
+<div class="panel hidden" id="js" style="height:1300px;">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var flyout = document.createElement("ha-flyout"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;lessDiv = document.createElement("div"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;moreDiv = document.createElement("div");
+
+                    // Configure, populate, and append lessDiv
+                    lessDiv.classList.add("flyout-less");
+                    // Create menu, render, and add to the lessDiv
+
+                    // Configure, populate, and append moreDiv
+                    moreDiv.classList.add("flyout-more");
+                    // Create menus, render, and add to the moreDiv
+
+                    flyout.moreText = 'show more';
+                    flyout.lessText = 'show less';
+                    flyout.titleText = "Create";
+                    flyout.section = [lessDiv, moreDiv];
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+<div class="panel hidden" id="dojo" style="height:1300px;">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

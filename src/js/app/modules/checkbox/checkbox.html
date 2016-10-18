@@ -1,0 +1,44 @@
+<div>
+    <div>
+        <ha-checkbox-group name="Declarative Checkbox Group" label="Checkbox Group" data-automation-id="group_checkbox_default">
+            <ha-checkbox value="1" name="Enabled-Checkbox" label="Enabled Checkbox"></ha-checkbox>
+            <ha-checkbox value="2" name="Enabled-Checkbox-Default" label="Enabled Checkbox (default checked)" checked></ha-checkbox>
+            <ha-checkbox value="3" name="Disabled-Checkbox" label="Disabled Checkbox" disabled></ha-checkbox>
+            <ha-checkbox name="Enabled-Checkbox-Default" label="Disabled Checkbox (default checked)"  value="4" checked disabled></ha-checkbox>
+            <ha-checkbox value="off" label="With value OFF"></ha-checkbox>
+            <ha-checkbox value="5"></ha-checkbox>
+            <ha-checkbox value="6" checked></ha-checkbox>
+        </ha-checkbox-group>
+
+        <ha-checkbox-group name="Checkbox Group" label="Checkbox Group with a minimum amount of checked elements >= 2" minRequired="2" required noRequiredIndicator data-automation-id="group_checkbox_with_validation">
+            <ha-checkbox value="1" name="Enabled-Checkbox" label="Enabled Checkbox"></ha-checkbox>
+            <ha-checkbox value="2" name="Enabled-Checkbox-Default" label="Enabled Checkbox (default checked)" checked></ha-checkbox>
+            <ha-checkbox value="3" name="Disabled-Checkbox" label="Disabled Checkbox" disabled></ha-checkbox>
+            <ha-checkbox name="Enabled-Checkbox-Default" label="Disabled Checkbox (default checked)" value="4" checked disabled></ha-checkbox>
+            <ha-checkbox value="off" label="With value OFF"></ha-checkbox>
+            <ha-checkbox value="5"></ha-checkbox>
+            <ha-checkbox value="6" checked></ha-checkbox>
+        </ha-checkbox-group>
+        <button class="ha-button" onclick="javascript:this.previousElementSibling.reportValidity();" data-automation-id="btn_validation_01">Trigger Validation</button>
+
+        <ha-checkbox-group name="Checkbox Group" label="Required Checkbox Group No Indicator"  required noRequiredIndicator data-automation-id="group_checkbox_required_no_ind">
+            <ha-checkbox value="1" label="Checkbox 1"></ha-checkbox>
+            <ha-checkbox value="2" label="Checkbox 2" style="padding-bottom: 5.25px"></ha-checkbox>
+        </ha-checkbox-group>
+        <button class="ha-button" onclick="javascript:this.previousElementSibling.reportValidity();" data-automation-id="btn_validation_02">Trigger Validation</button>
+
+        <ha-checkbox-group name="Checkbox Group" label="Required Checkbox Group"  required data-automation-id="group_checkbox_required">
+            <ha-checkbox value="1" label="Checkbox 1"></ha-checkbox>
+            <ha-checkbox value="2" label="Checkbox 2" style="padding-bottom: 5.25px"></ha-checkbox>
+        </ha-checkbox-group>
+        <button class="ha-button" onclick="javascript:this.previousElementSibling.reportValidity();" data-automation-id="btn_validation_03">Trigger Validation</button>
+    </div>
+    <h3 class="subtitle">Checkbox Group with ha-inline class</h3>
+    <div>
+        <ha-checkbox-group class="ha-inline" name="Declarative Checkbox Group Inline" label="Checkbox Group" data-automation-id="group_checkbox_inline">
+            <ha-checkbox value="1" name="Enabled-Checkbox" label="Enabled Checkbox"></ha-checkbox>
+            <ha-checkbox value="2" name="Enabled-Checkbox-Default" label="Enabled Checkbox (default checked)" checked></ha-checkbox>
+            <ha-checkbox value="3" name="Disabled-Checkbox" label="Disabled Checkbox" disabled></ha-checkbox>
+        </ha-checkbox-group>
+    </div>
+</div>

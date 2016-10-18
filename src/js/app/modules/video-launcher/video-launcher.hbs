@@ -1,0 +1,174 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Video Link Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">JavaScript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="video">Video Player</button>
+        </ha-segmented-button>
+        <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/VideoLauncher.md" target="_blank">Design & API Document</a>
+        </div>
+    </div>
+
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;h3&gt;Horizontal Mini Link&lt;/h3&gt;
+                    &lt;ha-video-launcher url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;&lt;/ha-video-launcher&gt;
+                    &lt;h3&gt;Vertical Mini Link&lt;/h3&gt;
+                    &lt;ha-video-launcher orientation=&quot;vertical&quot; url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;&lt;/ha-video-launcher&gt;
+                    &lt;h3&gt;Giant Link&lt;/h3&gt;
+                    &lt;h4&gt;Without Description&lt;/h4&gt;
+                    &lt;ha-video-launcher size=&quot;giant&quot; url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;&lt;/ha-video-launcher&gt;
+                    &lt;h4&gt;With Description&lt;/h4&gt;
+                    &lt;ha-video-launcher description=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot;
+                    showDescription size=&quot;giant&quot; url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;&lt;/ha-video-launcher&gt;
+                    &lt;h3&gt;Grid of Links&lt;/h3&gt;
+                    &lt;ha-video-launcher size=&quot;large&quot; description=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot; url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;&lt;/ha-video-launcher&gt;
+
+                    &lt;ha-video-launcher size=&quot;large&quot; useYoutubeDescription url=&quot;https://www.youtube.com/embed/lp3snRxFt6Q&quot;&gt;&lt;/ha-video-launcher&gt;
+
+                    &lt;ha-video-launcher size=&quot;large&quot; description=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot; url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;&lt;/ha-video-launcher&gt;
+
+                    &lt;ha-video-launcher size=&quot;large&quot; description=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot; url=&quot;https://www.youtube.com/embed/lp3snRxFt6Q&quot;&gt;&lt;/ha-video-launcher&gt;
+
+                    &lt;ha-video-launcher size=&quot;large&quot; description=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot; url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;&lt;/ha-video-launcher&gt;
+
+                    &lt;ha-video-launcher size=&quot;large&quot; description=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot; url=&quot;https://www.youtube.com/embed/lp3snRxFt6Q&quot;&gt;&lt;/ha-video-launcher&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="video-demos examples">
+        <header class="title"><a>Examples</a></header>
+        <h3>Horizontal Mini Link</h3>
+        <ha-video-launcher url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video-launcher>
+        <h3>Vertical Mini Link</h3>
+        <ha-video-launcher orientation="vertical" url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video-launcher>
+        <h3>Giant Link</h3>
+        <h4>Without Description</h4>
+        <ha-video-launcher size="giant" url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video-launcher>
+        <h4>With Description</h4>
+        <ha-video-launcher description="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." showDescription size="giant" url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video-launcher>
+        <h3>Grid of Links</h3>
+        <ha-video-launcher size="large" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video-launcher>
+
+        <ha-video-launcher size="large" useYoutubeDescription url="https://www.youtube.com/embed/lp3snRxFt6Q"></ha-video-launcher>
+
+        <ha-video-launcher size="large" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+ sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video-launcher>
+
+        <ha-video-launcher size="large" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+ sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." url="https://www.youtube.com/embed/lp3snRxFt6Q"></ha-video-launcher>
+
+        <ha-video-launcher size="large" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+ sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video-launcher>
+
+        <ha-video-launcher size="large" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+ sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." url="https://www.youtube.com/embed/lp3snRxFt6Q"></ha-video-launcher>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                var video = document.createElement('ha-video'),
+                    videoWithHistory = document.createElement('ha-video'),
+                    videoWithOverlay = document.createElement('ha-video'),
+                    overlayButton = document.createElement('ha-video-overlay-button'),
+                    videoButton = document.createElement('button'),
+                    historyVideoButton = document.createElement('button'),
+                    overlayVideoButton = document.createElement('button'),
+                    title = document.createElement('h3'),
+                    title2 = document.createElement('h3'),
+                    title3 = document.createElement('h3');
+
+                title.textContent = 'Basic video, opened with a button';
+                title2.textContent = 'Video with history';
+                title3.textContent = 'Video with overlay';
+
+
+                videoButton.classList.add('ha-button');
+                videoButton.classList.add('ha-button-primary');
+                videoButton.textContent = 'Click to view';
+                videoButton.onclick = function() {
+                    video.show();
+                };
+
+                historyVideoButton.classList.add('ha-button');
+                historyVideoButton.classList.add('ha-button-primary');
+                historyVideoButton.textContent = 'Click to view';
+                historyVideoButton.onclick = function() {
+                    videoWithHistory.show();
+                };
+
+                overlayVideoButton.classList.add('ha-button');
+                overlayVideoButton.classList.add('ha-button-primary');
+                overlayVideoButton.textContent = 'Click to view';
+                overlayVideoButton.onclick = function() {
+                    videoWithOverlay.show();
+                };
+
+                overlayButton.type = 'primary';
+                overlayButton.textContent = 'Button';
+                overlayButton.label = 'Call to action';
+
+                videoWithOverlay.url = "https://www.youtube.com/embed/48QBRQdyRmU";
+                videoWithOverlay.section = overlayButton;
+
+                video.url = "https://www.youtube.com/embed/48QBRQdyRmU";
+
+                videoWithHistory.url = "https://www.youtube.com/embed/4by7kleQbmE";
+                videoWithHistory.userId = videoWithOverlay.userId = 'harmony-gallery-test-user';
+                videoWithHistory.enableHistoryView = true;
+
+                placeToAppend.appendChild(title);
+                placeToAppend.appendChild(videoButton);
+                placeToAppend.appendChild(video);
+
+                placeToAppend.appendChild(title2);
+                placeToAppend.appendChild(historyVideoButton);
+                placeToAppend.appendChild(videoWithHistory);
+
+                placeToAppend.appendChild(title3);
+                placeToAppend.appendChild(overlayVideoButton);
+                placeToAppend.appendChild(videoWithOverlay);                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <h2>Video Player Component</h2>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

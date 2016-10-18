@@ -1,0 +1,107 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Textarea Component
+    </h1>
+
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+</section>
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-textarea label="Name"&gt;&lt;/ha-textarea&gt;
+                    &lt;ha-textarea label="Name" placeholder="Your Name"&gt;&lt;/ha-textarea&gt;
+                    &lt;ha-textarea label="Name" disabled required&gt;&lt;/ha-textarea&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div>
+            <h3>Enabled</h3>
+            <ha-textarea label="Name"></ha-textarea>
+            <ha-textarea label="Name with Placeholder" placeholder="Your name"></ha-textarea>
+            <ha-textarea label="Name with Value" value="Default text"></ha-textarea>
+            <h3>Disabled</h3>
+            <ha-textarea label="Disabled Name" disabled="true"></ha-textarea>
+            <ha-textarea label="Disabled Name with Placeholder" placeholder="Your name" disabled="true"></ha-textarea>
+            <h3>With Error</h3>
+            <ha-textarea label="With Error" required="true" class="with-error"></ha-textarea>
+            <h3>Required</h3>
+            <ha-textarea label="Required Field" required="true"></ha-textarea>
+            <h3>Required No Indicator</h3>
+            <ha-textarea label="Required Field" required="true" noRequiredIndicator></ha-textarea>
+            <h3>Optional true</h3>
+            <ha-textarea label="Optional Field" optional="true" labelOptional="Optional"></ha-textarea>
+            <h3>No Label</h3>
+            <ha-textarea placeholder="No Label"></ha-textarea>
+            <h3>With name attribute</h3>
+            <ha-textarea name="Name test" placeholder="With name attribute"></ha-textarea>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var textarea = document.createElement('ha-textarea');
+
+                    textarea.label = 'Name';
+                    textarea.disabled = true;
+                    textarea.placeholder = 'Your name';
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay"></div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HATextarea label="Name"&gt;&lt;/HATextarea&gt;
+                    &lt;HATextarea label="Name" placeholder="Your Name"&gt;&lt;/HATextarea&gt;
+                    &lt;HATextarea label="Name" disabled required&gt;&lt;/HATextarea&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="reactWay"></div>
+    </section>
+</div>

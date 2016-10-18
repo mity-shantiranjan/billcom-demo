@@ -1,0 +1,30 @@
+{
+  "name": "qbo-ui-libs-plugins",
+  "version": "1.22.7",
+  "description": "QBO UI Libraries - Plugins Platform UI",
+  "dependencies": {
+    "requirejs": "git://github.com/jrburke/requirejs-bower.git#2.1.22",
+    "dojo": "git+ssh://git@github.intuit.com/dojo/dojo.git#1.10.3-qbo-patch.2",
+    "qbo-ui-libs-charts": "git+ssh://git@github.intuit.com/SBG/qbo-ui-libs-charts.git#1.0.5",
+    "qbo-ui-libs-neo": "git+ssh://git@github.intuit.com/SBG/qbo-ui-libs-neo.git#4.30.7",
+    "qbo-ui-libs-xdm": "git+ssh://git@github.intuit.com/SBG/qbo-ui-libs-xdm.git#1.0.8",
+    "requirejs-text": "git://github.com/requirejs/text.git#2.0.14",
+    "web-shell-core": "git+ssh://git@github.intuit.com/fabric-app-shells/web-shell-core.git#0.0.8"
+  },
+  "keywords": [
+    "qbo-ui libraries",
+    "plugins platform"
+  ],
+  "main": "release/qbo-ui-libs-plugins.js",
+  "ignore": [
+    ".*",
+    "npm-shrinkwrap.json",
+    "build-utils",
+    "Gruntfile.js",
+    "jsdocConf.json",
+    "README.md",
+    "CONTRIBUTING.md",
+    "test"
+  ],
+  "private": true
+}

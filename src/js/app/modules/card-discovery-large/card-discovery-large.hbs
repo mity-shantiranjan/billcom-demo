@@ -1,0 +1,114 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Card Discovery Large Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="react">React</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/CardDiscoveryLarge.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                   &lt;ha-card-discovery-large titleText=&quot;Some Title&quot; dismissible&gt;
+                        &nbsp;&nbsp;&lt;section&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- node or array of nodes --&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;Your message or child html elements here
+                        &nbsp;&nbsp;&lt;/section&gt;
+                        &nbsp;&nbsp;&lt;footer&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-footer-buttons&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- add buttons here, in order tertiary (if applicable), secondary, and primary --&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot;&gt;Secondary&lt;/button&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;Primary&lt;/button&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-footer-buttons&gt;
+                        &nbsp;&nbsp;&lt;/footer&gt;
+                    &lt;/ha-card-discovery-large&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var node = document.createElement("ha-card-discovery-large");
+                    node.titleText = "Title";
+                    node.dismissible = true;
+                    node.section = "Now that we've connected to your bank, let's get your customers into Quickbooks";
+                    // Create an array of buttons, in order: tertiary (if applicable), secondary, and primary
+                    footerButtons = document.createElemement('ha-footer-buttons');
+                    footerButtons.appendChild(buttonTertiary);
+                    footerButtons.appendChild(buttonSecondary);
+                    footerButtons.appendChild(buttonPrimary);
+                    // footer can have array of buttons or a simple text
+                    node.footer = footerButtons;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay"></div>
+    </section>
+</div>
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay"></div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+
+        <div class="highlight">
+            <pre>
+                    <code class="language-html" data-lang="html">
+                        &lt;HACardDiscoveryLarge
+                            title=&#39;Look a title! &amp; it&quot;s dismissible!&#39; dismissible={true} show={this.state.showCardDiscoveryLarge}&gt;
+                            &nbsp;&nbsp;&lt;HASection&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;Let&#39;s put something here...
+                            &nbsp;&nbsp;&lt;/HASection&gt;
+                            &nbsp;&nbsp;&lt;HAFooter&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-footer-buttons&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- add buttons here, in order tertiary (if applicable), secondary, and primary --&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot;&gt;Secondary&lt;/button&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;Primary&lt;/button&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-footer-buttons&gt;
+                            &nbsp;&nbsp;&lt;/HAFooter&gt;
+                        &lt;/HACardDiscoveryLarge&gt;
+                    </code>
+                </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="reactWay"></div>
+    </section>
+</div>

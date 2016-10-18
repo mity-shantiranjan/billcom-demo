@@ -1,0 +1,118 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Radio Button Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/RadioButtonGroup.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-radio-button-group label="Some Label" name="radioWithName"&gt;
+                    &nbsp;&nbsp;&lt;ha-radio-button label="Radio 1" value="1" disabled&gt;&lt;/ha-radio-button&gt;
+                    &nbsp;&nbsp;&lt;ha-radio-button label="Radio 2" value="2" checked&gt;&lt;/ha-radio-button&gt;
+                    &nbsp;&nbsp;&lt;ha-radio-button label="Radio 3" value="3"&gt;&lt;/ha-radio-button&gt;
+                    &lt;/ha-radio-button-group&gt;
+
+                    &lt;ha-radio-button-group label="With expected validation" expected="2" required&gt;
+                    &nbsp;&nbsp;&lt;ha-radio-button label="Radio 1" value="1"&gt;&lt;/ha-radio-button&gt;
+                    &nbsp;&nbsp;&lt;ha-radio-button label="Radio 2" value="2"&gt;&lt;/ha-radio-button&gt;
+                    &nbsp;&nbsp;&lt;ha-radio-button label="Radio 3" value="3"&gt;&lt;/ha-radio-button&gt;
+                    &lt;/ha-radio-button-group&gt;
+
+                    &lt;ha-radio-button-group label="Inline" class="ha-inline"&gt;
+                        &nbsp;&nbsp;&lt;ha-radio-button label="Radio 1" value="1"&gt;&lt;/ha-radio-button&gt;
+                        &nbsp;&nbsp;&lt;ha-radio-button label="Radio 2" value="2"&gt;&lt;/ha-radio-button&gt;
+                        &nbsp;&nbsp;&lt;ha-radio-button label="Radio 3" value="3"&gt;&lt;/ha-radio-button&gt;
+                    &lt;/ha-radio-button-group&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var radioButtonGroup = document.createElement('ha-radio-button-group'),
+                        &nbsp;&nbsp;&nbsp;&nbsp;radioButton1 = document.createElement('ha-radio-button'),
+                        &nbsp;&nbsp;&nbsp;&nbsp;radioButton2 = document.createElement('ha-radio-button'),
+                        &nbsp;&nbsp;&nbsp;&nbsp;radioButton3 = document.createElement('ha-radio-button');
+
+                    radioButton1.label = 'Radio 1';
+                    radioButton1.value = 1;
+                    radioButton1.disabled = true;
+
+                    radioButton2.label = 'Radio 2';
+                    radioButton2.value = 2;
+                    radioButton2.checked = true;
+
+                    radioButton3.label = 'Radio 3';
+                    radioButton3.value = 3;
+
+                    radioButtonGroup.radios = [radioButton1, radioButton2, radioButton3];
+                    radioButtonGroup.selectedItem = "2";
+                    radioButtonGroup.label = 'Some title';
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples"></section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HARadioButtonGroup label="Some Label" name="radioWithName" &gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 1" value="1" disabled &gt;&lt;/HARadioButton&gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 2" value="2" checked &gt;&lt;/HARadioButton&gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 3" value="3"&gt;&lt;/HARadioButton&gt;
+                    &lt;/HARadioButtonGroup&gt;
+
+                    &lt;HARadioButtonGroup label="With expected validation" expected="2" required={true}&gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 1" value="1" disabled &gt;&lt;/HARadioButton&gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 2" value="2"  checked &gt;&lt;/HARadioButton&gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 3" value="3"&gt;&lt;/HARadioButton&gt;
+                    &lt;/HARadioButtonGroup&gt;
+
+                    &lt;HARadioButtonGroup label="Inline" className="ha-inline"&gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 1" value="1"&gt;&lt;/HARadioButton&gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 2" value="2"&gt;&lt;/HARadioButton&gt;
+                        &nbsp;&nbsp;&lt;HARadioButton label="Radio 3" value="3"&gt;&lt;/HARadioButton&gt;
+                    &lt;/HARadioButtonGroup&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples"></section>
+</div>

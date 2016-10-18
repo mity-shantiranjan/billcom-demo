@@ -1,0 +1,43 @@
+{
+    "id": "billcom-demo",
+    "hasLayers": false,
+    "manifestVersion": "2",
+    "allowedOrigins": [
+        "*"
+    ],
+    "sourcePath": "/table-demo.html",
+    "accessPoints": [
+        {
+            "overrideAppRoute": "billdotcomdemo"
+        },
+        {
+            "sourcePath": "/BillsPaySettings.html",
+            "attachPoint": "_apCompanySettingsTab",
+            "linkText": "Pay Bills (BDC))",
+            "position": "10"
+        }
+    ],
+    "extensions": {
+        "shell/global-header/create/vendors": [
+            {
+                "id": "payBills",
+                "type": "menuItem",
+                "params": {
+                    "path": "billPaySettings",
+                    "label": "Pay Bills (BDC))",
+                    "priority": 100
+                }
+            }
+        ],
+        "routes": [
+            {
+                "path": "billPaySettings",
+                "controller": "qbo-ui-libs-plugins/addon/iFrameRouteController",
+                "xdmParameters": {
+                    "sourcePath": "/BillsPaySettings.html",
+                    "width": "100%"
+                }
+            }
+        ]
+    }
+}

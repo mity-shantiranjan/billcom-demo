@@ -1,0 +1,45 @@
+<div>
+    <h3>Default</h3>
+    <ha-textfield-type-ahead label="Some Label" placeholder="Choose an item">
+    </ha-textfield-type-ahead>
+
+    <h3>Disabled</h3>
+    <ha-textfield-type-ahead label="Some Label" placeholder="Choose an item" disabled>
+    </ha-textfield-type-ahead>
+
+    <h3>Required</h3>
+    <ha-textfield-type-ahead label="Some Label" placeholder="Choose an item" required>
+    </ha-textfield-type-ahead>
+
+    <h3>With Icon</h3>
+    <ha-textfield-type-ahead label="Some Label" placeholder="Choose an item" icon="hi-search">
+    </ha-textfield-type-ahead>
+
+    <h3>Open Items On Focus</h3>
+    <ha-textfield-type-ahead label="Some Label" openItemsOnFocus=true placeholder="Apple, Bananas" icon="hi-search">
+    </ha-textfield-type-ahead>
+
+    <h3>With Add New</h3>
+    <div>
+        <ha-textfield-type-ahead label="Some Label" addNew="true" placeholder="Choose an item">
+            <ha-popover>
+                <ha-popover-form addNewNameSelector="#addNewName">
+                    <section>
+                        <ha-text-field label="Name" id="addNewName"></ha-text-field>
+                    </section>
+                    <footer>
+                        <button class="ha-button ha-button-primary">Save</button>
+                        <button class="ha-button ha-button-secondary">Cancel</button>
+                    </footer>
+                </ha-popover-form>
+            </ha-popover>
+        </ha-textfield-type-ahead>
+    </div>
+    <div class="design-document">
+        <button class="ha-button ha-button-primary is-store-trigger">Add "breeze" entry to store</button>
+    </div>
+
+    <h3>With Wrapping Items</h3>
+    <ha-textfield-type-ahead id="wrapping" label="Some Label" placeholder="Choose an item">
+    </ha-textfield-type-ahead>
+</div>

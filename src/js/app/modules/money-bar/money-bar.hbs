@@ -1,0 +1,110 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Money Bar Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/MoneyBar.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-money-bar&gt;
+                        &nbsp;&nbsp;&lt;ha-money-bar-segment titleTextBold="50" titleText="Unbilled"&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-money-bar-cell class="mbDarkBlue" primaryText="$50.00" secondaryText="2 ESTIMATE"&gt;&lt;/ha-money-bar-cell&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-money-bar-cell class="mbLightBlue" primaryText="$50.00" secondaryText="2 UNBILLED ACTIVITY"&gt;&lt;/ha-money-bar-cell&gt;
+                        &nbsp;&nbsp;&lt;/ha-money-bar-segment&gt;
+
+                        &nbsp;&nbsp;&lt;ha-money-bar-segment titleTextBold="50" titleText="Unpaid"&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-money-bar-cell class="mbOrange outlay" primaryText="$50.00" secondaryText="2 OPEN INVOICES"&gt;&lt;/ha-money-bar-cell&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-money-bar-cell class="mbRed inlay" primaryText="$50.00" secondaryText="2 OVERDUE"&gt;&lt;/ha-money-bar-cell&gt;
+                        &nbsp;&nbsp;&lt;/ha-money-bar-segment&gt;
+
+                        &nbsp;&nbsp;&lt;ha-money-bar-segment titleTextBold="50" titleText="Paid" size="1"&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-money-bar-cell class="mbGreen" primaryText="$50.00" secondaryText="2 PAID LAST 30 DAYS"&gt;&lt;/ha-money-bar-cell&gt;
+                        &nbsp;&nbsp;&lt;/ha-money-bar-segment&gt;
+                    &lt;/ha-money-bar&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var moneyBarComponent = document.createElement("ha-money-bar"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mbSeg1 = document.createElement("ha-money-bar-segment"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mbSeg2 = document.createElement("ha-money-bar-segment"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mbSeg3 = document.createElement("ha-money-bar-segment"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mbcell1 = document.createElement("ha-money-bar-cell"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mbcell2 = document.createElement("ha-money-bar-cell"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mbcell3 = document.createElement("ha-money-bar-cell"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mbcell4 = document.createElement("ha-money-bar-cell"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;mbcell5 = document.createElement("ha-money-bar-cell");
+
+                    mbcell1.primaryText = "$50.00";
+                    mbcell1.secondaryText = "2 ESTIMATES";
+                    mbcell1.classList.add('mbDarkBlue');
+
+                    mbcell2.primaryText = "$500.00";
+                    mbcell2.secondaryText = "20 UNBILLED ACTIVITY";
+                    mbcell2.classList.add('mbLightBlue');
+
+                    mbcell3.primaryText = "$100.00";
+                    mbcell3.secondaryText = "40 OPEN INVOICES";
+                    mbcell3.classList.add('mbOrange');
+                    mbcell3.classList.add('outlay');
+
+                    mbcell4.primaryText = "$500.00";
+                    mbcell4.secondaryText = "2 OVERDUE INVOICES";
+                    mbcell4.classList.add('mbRed');
+                    mbcell4.classList.add('inlay');
+
+                    mbcell5.primaryText = "$150.00";
+                    mbcell5.secondaryText = "2 PAID LAST 30 DAYS";
+                    mbcell5.classList.add('mbGreen');
+
+                    mbSeg1.titleTextBold = "22";
+                    mbSeg1.titleText = "Unbilled";
+                    mbSeg1.cells = [mbcell1, mbcell2];
+
+                    mbSeg2.titleTextBold = "42";
+                    mbSeg2.titleText = "Unpaid";
+                    mbSeg2.cells = [mbcell3, mbcell4];
+
+                    mbSeg3.titleTextBold = "2";
+                    mbSeg3.titleText = "Paid";
+                    mbSeg3.cells = [mbcell5];
+                    mbSeg3.size = '1';
+
+                    moneyBarComponent.segments = [mbSeg1, mbSeg2, mbSeg3];
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>

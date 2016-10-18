@@ -1,0 +1,89 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Popover Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Popover.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;button class="ha-button" id="test" onclick="this.nextElementSibling.show()"&gt;Show Popover&lt;/button&gt;
+                    &lt;ha-popover&gt;
+                        &nbsp;&nbsp;&lt;ha-popover-form&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;section&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-text-field label="Name"&gt;&lt;/ha-text-field&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-text-field label="Name with Placeholder" placeholder="Your name"&gt;&lt;/ha-text-field&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/section&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;footer&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="ha-button" onclick="this.parentNode.parentNode.parentNode.close();"&gt;Cancel&lt;/button&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="ha-button" onclick="alert('save');this.parentNode.parentNode.parentNode.close();"&gt;Save&lt;/button&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/footer&gt;
+                        &nbsp;&nbsp;&lt;/ha-popover-form&gt;
+                    &lt;/ha-popover&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var button = document.createElement('button'),
+                        &nbsp;&nbsp;&nbsp;&nbsp;popover = document.createElement('ha-popover'),
+                        &nbsp;&nbsp;&nbsp;&nbsp;popoverForm = document.createElement('ha-popover-form');
+
+                    button.id = 'buttonTarget';
+                    placeToAppend.appendChild(button);
+
+                    popoverForm.section = sectionContent;
+                    popoverForm.footer = footerContent;
+
+                    popover.targetSelector = '#' + button.id;
+                    popover.appendChild(popoverForm);
+
+                    placeToAppend.appendChild(popover);
+
+                    button.onclick = function() {
+                    &nbsp;&nbsp;popover.show();
+                    };
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

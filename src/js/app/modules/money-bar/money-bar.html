@@ -1,0 +1,19 @@
+<div>
+    <header class="title"><a>Examples</a></header>
+    <div class="declarative-wrapper">
+    <h3>Money Bar</h3>
+        <ha-money-bar>
+            <ha-money-bar-segment titleTextBold="50" titleText="Unbilled">
+                <ha-money-bar-cell class="mbDarkBlue" primaryText="$50.00" secondaryText="2 ESTIMATE"></ha-money-bar-cell>
+                <ha-money-bar-cell class="mbLightBlue" primaryText="$50.00" secondaryText="2 UNBILLED ACTIVITY"></ha-money-bar-cell>
+            </ha-money-bar-segment>
+            <ha-money-bar-segment titleTextBold="50" titleText="Unpaid">
+                <ha-money-bar-cell class="mbOrange outlay" primaryText="$50.00" secondaryText="2 OPEN INVOICES"></ha-money-bar-cell>
+                <ha-money-bar-cell class="mbRed inlay" primaryText="$50.00" secondaryText="2 OVERDUE"></ha-money-bar-cell>
+            </ha-money-bar-segment>
+            <ha-money-bar-segment titleTextBold="50" titleText="Paid" size="1">
+                <ha-money-bar-cell class="mbGreen" primaryText="$50.00" secondaryText="2 PAID LAST 30 DAYS"></ha-money-bar-cell>
+            </ha-money-bar-segment>
+        </ha-money-bar>
+    </div>
+</div>

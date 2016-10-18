@@ -1,0 +1,174 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Status Badges
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;i class="ha-badge ha-error" aria-label="error"&gt;&lt;/i&gt;
+                    &lt;i class="ha-badge ha-confirm" aria-label="confirm"&gt;Confirm&lt;/i&gt;
+                    &lt;i class="ha-round-badge ha-error" aria-label="error"&gt;&lt;/i&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="usage">
+        <header class="title"><a>Classes</a></header>
+        <table class="buttonTable">
+            <tbody>
+                <tr>
+                    <th>Type</th>
+                    <th>Associated Classes</th>
+                </tr>
+                <tr>
+                    <td>Status Badge (teardrop) Error</td>
+                    <td>ha-badge ha-error</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (teardrop) Confirm</td>
+                    <td>ha-badge ha-confirm</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (teardrop) Error Inverse</td>
+                    <td>ha-badge ha-error ha-inverse</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (teardrop) Confirm Inverse</td>
+                    <td>ha-badge ha-confirm ha-inverse</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (round) Info</td>
+                    <td>ha-round-badge ha-info</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (round) Error</td>
+                    <td>ha-round-badge ha-error</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (round) Warn</td>
+                    <td>ha-round-badge ha-warn</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (round) Confirm</td>
+                    <td>ha-round-badge ha-confirm</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (text) Info</td>
+                    <td>ha-text-badge ha-info</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (text) Error</td>
+                    <td>ha-text-badge ha-error</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (text) Warn</td>
+                    <td>ha-text-badge ha-warn</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (text) Confirm</td>
+                    <td>ha-text-badge ha-confirm</td>
+                </tr>
+                <tr>
+                    <td>Status Badge (text) Pending</td>
+                    <td>ha-text-badge ha-pending</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <h3 class="subtitle"> Status Badge (teardrop)</h3>
+        <div>
+            <div class="separator">
+                <i class="ha-badge ha-error" aria-label="error"></i>
+            </div>
+            <div class="separator">
+                <i class="ha-badge ha-confirm" aria-label="confirm"></i>
+            </div>
+        </div>
+        <h3 class="subtitle"> Status Badge (teardrop) Inverse</h3>
+        <div>
+            <div class="separator">
+                <i class="ha-badge ha-error ha-inverse" aria-label="error"></i>
+            </div>
+            <div class="separator">
+                <i class="ha-badge ha-confirm ha-inverse" aria-label="confirm"></i>
+            </div>
+        </div>
+        <h3 class="subtitle"> Status Badge (teardrop) with label</h3>
+        <div>
+            <div class="separator">
+                <i class="ha-badge ha-error">Error</i>
+            </div>
+            <div class="separator">
+                <i class="ha-badge ha-confirm">Paid</i>
+            </div>
+        </div>
+        <h3 class="subtitle"> Status Round Badges</h3>
+        <div>
+            <div class="separator">
+                <i class="ha-round-badge ha-info" aria-label="info"></i>
+            </div>
+            <div class="separator">
+                <i class="ha-round-badge ha-error" aria-label="error"></i>
+            </div>
+            <div class="separator">
+                <i class="ha-round-badge ha-warn" aria-label="warn"></i>
+            </div>
+            <div class="separator">
+                <i class="ha-round-badge ha-confirm" aria-label="confirm"></i>
+            </div>
+        </div>
+
+        <h3 class="subtitle"> Status Text Badge</h3>
+        <div>
+            <div class="separator">
+                <i class="ha-text-badge ha-info">New</i>
+            </div>
+            <div class="separator">
+                <i class="ha-text-badge ha-error">Overdue</i>
+            </div>
+            <div class="separator">
+                <i class="ha-text-badge ha-warn">Alert</i>
+            </div>
+            <div class="separator">
+                <i class="ha-text-badge ha-confirm">Match</i>
+            </div>
+            <div class="separator">
+                <i class="ha-text-badge ha-pending">Match</i>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="panel hidden" id="plain">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;button&gt;&lt;/button&gt;
+                    &lt;button class="ha-button-primary"&gt;&lt;/button&gt;
+                    &lt;button class="ha-button-dark"&gt;&lt;/button&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+</div>
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

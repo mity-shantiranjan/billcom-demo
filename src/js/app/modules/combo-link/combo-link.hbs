@@ -1,0 +1,171 @@
+<style>
+    .ha-paginated-messages {
+        margin-bottom: 10px;
+    }
+
+</style>
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Combo Link Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/ComboLink.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code>
+                    NEW WAY:
+
+                    &lt;ha-combo-link label="Create New"&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="AppleValue"&gt;Apple&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BananaValue"&gt;Banana&lt;/ha-item&gt;
+                        &nbsp;&nbsp;&lt;ha-item value="BalloonValue"&gt;Balloon&lt;/ha-item&gt;
+                    &lt;/ha-combo-link&gt;
+
+                    DEPRECATED WAY:
+
+                    &lt;ha-combo-link label="Create New"&gt;
+                        &nbsp;&nbsp;&lt;ha-popover connector="none"&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu role="menu" aria-labelledby="ha-combo-link-1"&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-item&gt;Basic paragraph style&lt;/ha-menu-item&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-item&gt;Basic paragraph style&lt;/ha-menu-item&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-item&gt;Basic paragraph style&lt;/ha-menu-item&gt;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ha-menu-item&gt;Basic paragraph style&lt;/ha-menu-item&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ha-menu&gt;
+                        &nbsp;&nbsp;&lt;/ha-popover&gt;
+                    &lt;/ha-combo-link&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div class="declarative-wrapper">
+            <h3>Common Combo Link</h3>
+            <ha-combo-link label="Combo Link One">
+                <ha-item value="AppleValue">Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-combo-link>
+            <h3>With Disabled Item</h3>
+            <ha-combo-link label="Combo Link One">
+                <ha-item value="AppleValue" disabled="disabled">Apple</ha-item>
+                <ha-item value="BananaValue">Banana</ha-item>
+                <ha-item value="BalloonValue">Balloon</ha-item>
+            </ha-combo-link>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    NEW WAY:
+
+                    var comboLink = document.createElement('ha-combo-link'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item1 = document.createElement('ha-item'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item2 = document.createElement('ha-item'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item3 = document.createElement('ha-item');
+
+                    item1.label = 'Apple';
+                    item1.value = 'Apple';
+                    item2.label = 'Banana';
+                    item2.value = 'Banana';
+                    item3.label = 'Cherry';
+                    item3.value = 'Cherry';
+
+                    comboLink.label = 'Combo Link 1';
+                    comboLink.disabled = false;
+                    comboLink.items = [item1, item2, item3];
+
+
+                    DEPRECATED WAY:
+
+                    var comboLink = document.createElement('ha-combo-link'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;popover = document.createElement('ha-popover'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;menu = document.createElement('ha-menu'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item1 = document.createElement('ha-menu-item'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item2 = document.createElement('ha-menu-item'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;item3 = document.createElement('ha-menu-item');
+
+                    item1.label = 'Apple';
+                    item2.label = 'Banana';
+                    item3.label = 'Cherry';
+
+                    menu.items = [item1, item2, item3];
+
+                    popover.addContent(menu);
+
+                    comboLink.label = 'Combo Link 1';
+                    comboLink.disabled = false;
+                    comboLink.popover = popover;
+                 </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="programmaticWay"></div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="dojoProgrammaticWay"></div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                        &lt;HAComboLink placeholder="Choose a method" label="Same title"&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="AppleValue"&gt;Apple&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="BananaValue"&gt;Banana&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="BalloonValue"&gt;Balloon&lt;/HAItem&gt;
+                        &nbsp;&nbsp;&lt;HAItem value="MelonValue"&gt;Melon&lt;/HAItem&gt;
+                        &lt;/HAComboLink&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="reactWay"></div>
+    </section>
+</div>

@@ -1,0 +1,220 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Text Field Component
+    </h1>
+
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button type="button" class="segmented-nav" value="html" selected="true">HTML</button>
+            <button type="button" class="segmented-nav" value="js">Javascript</button>
+            <button type="button" class="segmented-nav" value="dojo">Dojo</button>
+            <button type="button" class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/TextField.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;!-- Enabled --&gt;
+                    &lt;h3&gt;Enabled&lt;/h3&gt;
+                    &lt;ha-text-field label="Name"&gt;&lt;/ha-text-field&gt;
+                    &lt;ha-text-field label="Name with Placeholder" placeholder="Your name"&gt;&lt;/ha-text-field&gt;
+                    &lt;ha-text-field label="Name with Value" value="Default text"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- Disabled --&gt;
+                    &lt;h3&gt;Disabled&lt;/h3&gt;
+                    &lt;ha-text-field label="Disabled Name" disabled="true"&gt;&lt;/ha-text-field&gt;
+                    &lt;ha-text-field label="Disabled Name with Placeholder" placeholder="Your name" disabled="true"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- With Error --&gt;
+                    &lt;h3&gt;With Error&lt;/h3&gt;
+                    &lt;ha-text-field label="With Error" required="true"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- Required --&gt;
+                    &lt;h3&gt;Required&lt;/h3&gt;
+                    &lt;ha-text-field label="Required Field" required="true"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- Optional true --&gt;
+                    &lt;h3&gt;Optional true&lt;/h3&gt;
+                    &lt;ha-text-field label="Optional Field" optional="true" labelOptional="optional"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- Optional false --&gt;
+                    &lt;h3&gt;Optional false&lt;/h3&gt;
+                    &lt;ha-text-field label="Optional Field" optional="false"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- No Label --&gt;
+                    &lt;h3&gt;No Label&lt;/h3&gt;
+                    &lt;ha-text-field placeholder="No Label"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- With name --&gt;
+                    &lt;h3&gt;With name&lt;/h3&gt;
+                    &lt;ha-text-field name="Name test"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- Auto Complete ON --&gt;
+                    &lt;h3&gt;Auto Complete ON&lt;/h3&gt;
+                    &lt;ha-text-field autoComplete="on"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- Auto Complete OFF --&gt;
+                    &lt;h3&gt;Auto Complete OFF&lt;/h3&gt;
+                    &lt;ha-text-field autoComplete="off"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- Size --&gt;
+                    &lt;h3&gt;Size&lt;/h3&gt;
+                    &lt;ha-text-field size="30"&gt;&lt;/ha-text-field&gt;
+
+                    &lt;!-- With Icon --&gt;
+                    &lt;h3&gt;With Icon&lt;/h3&gt;
+                    &lt;ha-text-field label="With Icon" icon="hi-search"&gt;&lt;/ha-text-field&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div>
+            <h3>Enabled</h3>
+            <ha-text-field label="Name"></ha-text-field>
+            <ha-text-field label="Name with Placeholder" placeholder="Your name"></ha-text-field>
+            <ha-text-field label="Name with Value" value="Default text"></ha-text-field>
+            <ha-text-field placeholder="No Label"></ha-text-field>
+            <h3>Disabled</h3>
+            <ha-text-field label="Disabled Name" disabled="true"></ha-text-field>
+            <ha-text-field label="Disabled Name with Placeholder" placeholder="Your name" disabled="true"></ha-text-field>
+            <h3>With Error</h3>
+            <ha-text-field label="With Error" required="true" class="with-error"></ha-text-field>
+            <h3>Required</h3>
+            <ha-text-field label="Required Field" required="true"></ha-text-field>
+            <h3>Required No Indicator</h3>
+            <ha-text-field label="Required Field No Indicator" required="true" noRequiredIndicator></ha-text-field>
+            <h3>Optional true</h3>
+            <ha-text-field label="Optional Field" optional="true" labelOptional="optional"></ha-text-field>
+            <h3>Optional false</h3>
+            <ha-text-field label="Optional Field" optional="false"></ha-text-field>
+            <h3>No Label</h3>
+            <ha-text-field placeholder="No Label"></ha-text-field>
+            <h3>No Label required</h3>
+            <ha-text-field required placeholder="Required"></ha-text-field>
+            <h3>With name</h3>
+            <ha-text-field label="Field with name" name="Name test"></ha-text-field>
+            <h3>Auto Complete ON</h3>
+            <ha-text-field label="With auto complete" autoComplete="on"></ha-text-field>
+            <h3>Auto Complete OFF</h3>
+            <ha-text-field label="Without auto complete" autoComplete="off"></ha-text-field>
+            <h3>Size</h3>
+            <ha-text-field label="With size" size="30"></ha-text-field>
+            <h3>With Icon</h3>
+            <ha-text-field label="Name" icon="hi-search"></ha-text-field>
+            <ha-text-field label="Name with Placeholder" placeholder="Your name" icon="hi-search"></ha-text-field>
+            <ha-text-field label="name with value" value="default text" icon="hi-search"></ha-text-field>
+            <div class="hidden-desktop">
+                <h3>With Attachment</h3>
+                <ha-text-field label="Choose a file" attachment></ha-text-field>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var textField = document.createElement("ha-text-field"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;errorTextField = document.createElement("ha-text-field"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;requiredTextField = document.createElement("ha-text-field"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;optionalTextField = document.createElement("ha-text-field"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;iconTextField = document.createElement("ha-text-field");
+
+                    /* Disabled with placeholder */
+                    textField.label = 'Disabled Name with Placeholder';
+                    textField.disabled = true;
+                    textField.placeholder = 'Your name';
+
+                    /* With error */
+                    errorTextField.label = 'With error';
+                    errorTextField.required = true;
+
+                    /* Required */
+                    requiredTextField.label = 'Required Field';
+                    requiredTextField.required = true;
+
+                    /* Optional */
+                    optionalTextField.label = 'Optional Field';
+                    optionalTextField.labelOptional = 'Same Optional field';
+                    optionalTextField.optional = true;
+
+                    /* With Icon */
+                    textField.label = 'With Icon';
+                    textField.icon = 'hi-search';
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="programmaticWay"></div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="dojoProgrammaticWay"></div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    /* onChange & onInput event listeners */
+                    &lt;HATextField label="On Change" onChange={eventLog} onInput={eventLog}&gt;&lt;/HATextField&gt;
+
+                    /* Disabled with placeholder */
+                    &lt;HATextField label="Disabled Name with Placeholder" disabled={true} placeholder="Your name"&gt;&lt;/HATextField&gt;
+
+                    /* With error */
+                    &lt;HATextField label="With error" required={true}&gt;&lt;/HATextField&gt;
+
+                    /* Required */
+                    &lt;HATextField label="Required Field" required={true}&gt;&lt;/HATextField&gt;
+
+                    /* Optional */
+                    &lt;HATextField label="Optional Field" labelOptional="Same Optional field" optional={true}&gt;&lt;/HATextField&gt;
+
+                    /* With Icon */
+                    &lt;HATextField label="With Icon" icon="hi-search"&gt;&lt;/HATextField&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="reactWay"></div>
+    </section>
+</div>

@@ -1,0 +1,548 @@
+<section class="post box clearfix">
+	<h1 class="entry-title">Grid System</h1>
+	<div class="meta">
+		<ha-segmented-button class="usage-tab-buttons">
+			<button class="segmented-nav" value="demo" selected="true">Demo</button>
+			<button class="segmented-nav" value="classes">CSS Classes</button>
+		</ha-segmented-button>
+	</div>
+</section>
+
+<div class="panel grid-demo" id="demo">
+	<section class="examples container">
+		<h2>Grid columns</h2>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 1</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 2</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 3</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 4</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 5</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 6</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 7</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 8</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 9</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 10</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 11</div></div>
+				<div class="col-xs-3 col-md-2 col-lg-1"><div class="cell">cell 12</div></div>
+			</div>
+		</div>
+
+		<div class="legend">
+			<div class="xs">|0px</div>
+			<div class="sm">320px|</div>
+			<div class="md">480px|</div>
+			<div class="lg">768px|</div>
+			<div class="xl">1024px|</div>
+		</div>
+
+		<h2>Responsive layout with grid</h2>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-md-6 col-lg-3">
+					<div class="widget">
+						<label>First Name:
+							<input type="text">
+						</label>
+						<br>
+						<label>Last Name:
+							<input type="text">
+						</label>
+						<br>
+						<button>Button</button>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-md-6 col-lg-3">
+					<div class="widget">
+						<label>City:
+							<input type="text">
+						</label>
+						<br>
+						<label>State:
+							<input type="text">
+						</label>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-md-6 hidden-sm-down">
+					<div class="widget">
+						<h3>Large mobile / desktop</h3>
+
+						<p>This content only displays at > 480px.</p>
+					</div>
+				</div>
+
+				<div class="col-xs-12 hidden-md-up">
+					<div class="widget">
+						<h3>Small mobile</h3>
+
+						<p>This content only displays at <= 480px.</p>
+					</div>
+				</div>
+
+				<div class="col-lg-3 hidden-lg-down">
+					<div class="widget">
+						<ul>
+							<li>Bonus</li>
+							<li>Content</li>
+							<li>for</li>
+							<li>Big</li>
+							<li>Screens</li>
+							<li>>= 1024px</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="hidden-md-down">
+			<h2>Offsetting content in the grid</h2>
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-5 offset-lg-3">
+						<div class="widget">
+							<p>5 wide, offset by 3</p>
+						</div>
+					</div>
+
+					<div class="col-lg-3 offset-lg-1">
+						<div class="widget">
+							<p>3 wide, offset by 1</p>
+							<p>Offset is relative, not absolute - the offset classes increase the left margin
+								of the item by the specified number of grid columns.<p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 offset-lg-9">
+						<div class="widget">
+							<p>3 wide, offset by 9</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6 offset-lg-3">
+						<div class="widget">
+							<p>6 wide, offset by 3</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2">
+						<div class="widget">
+							<p>8 wide, offset by 2</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" style="-ms-justify-content: center; -webkit-justify-content: center; justify-content: center">
+					<div class="col-lg-7">
+						<div class="widget">
+							<p>7 wide, center justify</p>
+							<p>Justification is achieved by specifying the <code>justify-content</code>
+								CSS property on the item's containing <code>row</code> element.</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" style="-ms-justify-content: flex-end; -webkit-justify-content: flex-end; justify-content: flex-end">
+					<div class="col-lg-2">
+						<div class="widget">
+							<p>2 wide, end justify</p>
+						</div>
+					</div>
+
+					<div class="col-lg-3">
+						<div class="widget">
+							<p>3 wide, end justify</p>
+						</div>
+					</div>
+				</div>
+			</div>
+	    <h2>Creating a grid</h2>
+
+	    <p>Create a container element (<code>div</code>) and give it the <code>container-fluid</code> CSS class.
+	    Within the container, you can have any number of rows (<code>&lt;div class="row"></code>), and rows can
+	    contain other rows for fine-tuned layouts (but do not nest containers). Page elements are placed within
+	    rows and use the grid classes for width, indentation, and conditional visibility.</p>
+
+	    <pre><code class="html">&lt;div class="container-fluid">
+    &lt;div class="row">
+	&lt;div>grid content&lt;/div>
+    &lt;/div>
+&lt;/div></code></pre>
+
+	    <h2>Understanding the grid</h2>
+
+	    <p>The grid provides a mobile-first design. Mobile-first means first you design for mobile, then scale up
+	    as necessary. There are 12 classes (since the grid has 12 columns) defined that can be applied to an
+	    element to specify its width:</p>
+
+	    <pre><code>col-xs-1, col-xs-2, ..., col-xs-12</code></pre>
+
+	    <p>The trailing number in the class name specifies how many grid columns the element will span horizontally.
+	    If you assign an element the class <code>col-xs-8</code> and nothing else, then at all screen sizes the
+	    element will span 8 columns. In order to change the layout for larger screens you assign additional classes.
+	    </p>
+
+	    <h3>Grid breakpoints</h3>
+
+	    <p>The grid has named breakpoints at the following screen widths:</p>
+
+	    <ul>
+		<li>xs: <= 320px</li>
+		<li>sm: <= 480px</li>
+		<li>md: <= 768px</li>
+		<li>lg: <= 1024px</li>
+		<li>xl: > 1024px</li>
+	    </ul>
+
+	    <p>The breakpoint names are used within grid CSS class names to define behavior at (or above) that breakpoint.
+	    Let's take a look at how this works:</p>
+
+	    <ul>
+		<li><code>&lt;div class="col-xs-8"></code>: this element will always span 8 columns</li>
+		<li><code>&lt;div class="col-xs-8 col-md-4"></code>: this element will span 8 columns on xs and sm
+		screens, but at md and larger it will only span 4 columns</li>
+		<li><code>&lt;div class="col-xs-8 col-md-4 col-xl-2"></code>: this element will span 8 columns on xs and
+		sm screens, 4 columns on md and lg screens, and 2 columns on xl screens</li>
+	    </ul>
+
+	    <p>By combining classes in this way you can change the layout at each breakpoint. Breakpoint names are also
+	    used in other classes:</p>
+
+	    <ul>
+		<li><code>offset-xs-1</code>: offsets the element by the specified number of columns</li>
+		<li><code>hidden-md-up</code>: hides the element at screen sizes md and up</li>
+		<li><code>hidden-md-down</code>: hides the element at screen sizes md and down</li>
+	    </ul>
+
+	    <p>As you hover the mouse cursor over elements in the visual grid demos above you will see a tooltip
+	    displaying what classes have been applied to the element to achieve its sizing and positioning.</p>
+		</div>
+	</section>
+</div>
+
+<div class="panel grid-classes hidden" id="classes">
+	<section class="examples container">
+		<header class="title"><a>Responsive breakpoints</a></header>
+		<p>Harmony UI Components provides a handful of <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries" target="_blank">media queries</a> to create sensible breakpoints for out layouts and interfaces. These breakpoints are based on minimum viewport widths and allow you us to scale up elements as the viewport changes.</p>
+		<p>The following media query ranges - or breakpoints - are provided:</p>
+		<div class="code-sample">
+			<pre>
+				<code data-lang="scss">
+					// No media query for extra small devices since this is the default in Bootstrap
+
+					// Small devices (landscape phones, 320px and up)
+					@media (min-width: 320px) { ... }
+
+					// Medium devices (tablets, 480px and up)
+					@media (min-width: 480px) { ... }
+
+					// Large devices (desktops, 768px and up)
+					@media (min-width: 768px) { ... }
+
+					// Extra large devices (large desktops, 1024px and up)
+					@media (min-width: 1024px) { ... }
+				</code>
+			</pre>
+		</div>
+		<p>Occasionally, we use media queries that go in the other direction (the given screen size or smaller):</p>
+		<div class="code-sample">
+			<pre>
+				<code data-lang="scss">
+					// Extra small devices (portrait phones, less than 320px)
+					@media (max-width: 320px) { ... }
+
+					// Small devices (landscape phones, less than 450px)
+					@media (max-width: 450px) { ... }
+
+					// Medium devices (tablets, less than 708px)
+					@media (max-width: 708px) { ... }
+
+					// Large devices (desktops, less than 964px)
+					@media (max-width: 964px) { ... }
+
+					// Extra large devices (large desktops)
+					// No media query since the extra-large breakpoint has no upper bound on its width
+				</code>
+			</pre>
+		</div>
+		<header class="title"><a>Predefined classes</a></header>
+		<p>We are including an extensive set of prebuilt classes for creating grid columns. It includes options for device-based column sizing, reordering columns, and more.</p>
+		<h4>Example: Stacked-to-horizontal</h4>
+		<p>Using a single set of .col-md-* grid classes, you can create a basic grid system that starts out stacked on mobile devices and tablet devices (the extra small to small range) before becoming horizontal on desktop (medium) devices. Place grid columns in any .row.</p>
+
+		<div id="desktopExample">
+			<div class="row">
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+				<div class="col-md-1">.col-md-1</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">.col-md-8</div>
+				<div class="col-md-4">.col-md-4</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">.col-md-4</div>
+				<div class="col-md-4">.col-md-4</div>
+				<div class="col-md-4">.col-md-4</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">.col-md-6</div>
+				<div class="col-md-6">.col-md-6</div>
+			</div>
+		</div>
+
+		<div class="code-sample">
+			<pre>
+				<code data-lang="html">
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-1"&gt;.col-md-1&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-8"&gt;.col-md-8&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-6"&gt;.col-md-6&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-6"&gt;.col-md-6&lt;/div&gt;
+					&lt;/div&gt;
+				</code>
+			</pre>
+		</div>
+		<h4>Example: Mobile and desktop</h4>
+		<p>Don’t want your columns to simply stack in smaller devices? Use the extra small and medium device grid classes by adding .col-xs-* and .col-md-* to your columns. See the example below for a better idea of how it all works.</p>
+
+		<div id="mobileDesktopExample">
+			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+			<div class="row">
+				<div class="col-xs-12 col-md-8">.col-xs-12 .col-md-8</div>
+				<div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+			</div>
+
+			<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+			<div class="row">
+				<div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+				<div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+				<div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+			</div>
+
+			<!-- Columns are always 50% wide, on mobile and desktop -->
+			<div class="row">
+				<div class="col-xs-6">.col-xs-6</div>
+				<div class="col-xs-6">.col-xs-6</div>
+			</div>
+		</div>
+
+		<div class="code-sample">
+			<pre>
+				<code data-lang="html">
+					&lt;!-- Stack the columns on mobile by making one full-width and the other half-width --&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-12 col-md-8"&gt;.col-xs-12 .col-md-8&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6 col-md-4"&gt;.col-xs-6 .col-md-4&lt;/div&gt;
+					&lt;/div&gt;
+
+					&lt;!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop --&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6 col-md-4"&gt;.col-xs-6 .col-md-4&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6 col-md-4"&gt;.col-xs-6 .col-md-4&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6 col-md-4"&gt;.col-xs-6 .col-md-4&lt;/div&gt;
+					&lt;/div&gt;
+
+					&lt;!-- Columns are always 50% wide, on mobile and desktop --&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6"&lt;.col-xs-6&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6"&lt;.col-xs-6&lt;/div&gt;
+					&lt;/div>
+				</code>
+			</pre>
+		</div>
+		<h4>Example: Mobile, tablet, desktop</h4>
+		<p>Build on the previous example by creating even more dynamic and powerful layouts with tablet .col-sm-* classes.</p>
+		<div id="mobileTabletDesktopExample">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-8">.col-xs-12 .col-sm-6 .col-md-8</div>
+				<div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+				<div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+			</div>
+		</div>
+		<div class="code-sample">
+			<pre>
+				<code data-lang="html">
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-12 col-sm-6 col-md-8"&gt;.col-xs-12 .col-sm-6 .col-md-8&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6 col-md-4"&gt;.col-xs-6 .col-md-4&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6 col-sm-4"&gt;.col-xs-6 .col-sm-4&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6 col-sm-4"&gt;.col-xs-6 .col-sm-4&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6 col-sm-4"&gt;.col-xs-6 .col-sm-4&lt;/div&gt;
+					&lt;/div&gt;
+				</code>
+			</pre>
+		</div>
+		<h4>Example: Column wrapping</h4>
+		<p>If more than 12 columns are placed within a single row, each group of extra columns will, as one unit, wrap onto a new line.</p>
+		<div id="columnWrappingExample">
+			<div class="row">
+				<div class="col-xs-9">.col-xs-9</div>
+				<div class="col-xs-4">.col-xs-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.</div>
+				<div class="col-xs-6">.col-xs-6<br>Subsequent columns continue along the new line.</div>
+			</div>
+		</div>
+		<div class="code-sample">
+			<pre>
+				<code data-lang="html">
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-9"&gt;.col-xs-9&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-4"&gt;.col-xs-4&lt;br&gt;Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-6"&gt;.col-xs-6&lt;br&gt;Subsequent columns continue along the new line.&lt;/div&gt;
+					&lt;/div&gt;
+				</code>
+			</pre>
+		</div>
+		<h4>Responsive column resets</h4>
+		<p>We don't provide the class "clearfix" for current grid system. So there is no column reset as in bootstrap.</p>
+		<h4>Example: Offsetting columns</h4>
+		<p>Move columns to the right using .offset-md-* classes. These classes increase the left margin of a column by * columns. For example, .offset-md-4 moves .col-md-4 over four columns.</p>
+		<div id="responsiveColumnExample">
+			<div class="row">
+				<div class="col-md-4">.col-md-4</div>
+				<div class="col-md-4 offset-md-4">.col-md-4 .offset-md-4</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+				<div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 offset-md-3">.col-md-6 .offset-md-3</div>
+			</div>
+		</div>
+		<div class="code-sample">
+			<pre>
+				<code data-lang="html">
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-4"&gt;.col-md-4&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-4 offset-md-4"&gt;.col-md-4 .offset-md-4&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-3 offset-md-3"&gt;.col-md-3 .offset-md-3&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-3 offset-md-3"&gt;.col-md-3 .offset-md-3&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-6 offset-md-3"&gt;.col-md-6 .offset-md-3&lt;/div&gt;
+					&lt;/div&gt;
+				</code>
+			</pre>
+		</div>
+		<h4>Example: Nesting columns</h4>
+		<p>To nest your content with the default grid, add a new .row and set of .col-sm-* columns within an existing .col-sm-* column. Nested rows should include a set of columns that add up to 12 or fewer (it is not required that you use all 12 available columns).</p>
+		<div id="nestingColumnsExample">
+			<div class="row">
+				<div class="col-sm-9">
+					Level 1: .col-sm-9
+					<div class="row">
+						<div class="col-xs-8 col-sm-6">
+							Level 2: .col-xs-8 .col-sm-6
+						</div>
+						<div class="col-xs-4 col-sm-6">
+							Level 2: .col-xs-4 .col-sm-6
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="code-sample">
+			<pre>
+				<code data-lang="html">
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-sm-9"&gt;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level 1: .col-sm-9
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="row"&gt;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-8 col-sm-6"&gt;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level 2: .col-xs-8 .col-sm-6
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-xs-4 col-sm-6"&gt;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level 2: .col-xs-4 .col-sm-6
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+					&lt;/div&gt;
+				</code>
+			</pre>
+		</div>
+		<h4>Example: Column ordering</h4>
+		<p>Easily change the order of our built-in grid columns with .col-md-push-* and .col-md-pull-* modifier classes.</p>
+		<div id="columnOrderingExample">
+			<div class="row">
+				<div class="col-md-9 col-md-push-3">.col-md-9 .col-md-push-3</div>
+				<div class="col-md-3 col-md-pull-9">.col-md-3 .col-md-pull-9</div>
+			</div>
+		</div>
+		<div class="code-sample">
+			<pre>
+				<code data-lang="html">
+					&lt;div class="row"&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-9 col-md-push-3"&gt;.col-md-9 .col-md-push-3&lt;/div&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-3 col-md-pull-9"&gt;.col-md-3 .col-md-pull-9&lt;/div&gt;
+					&lt;/div&gt;
+				</code>
+			</pre>
+		</div>
+		<h4>Example: Flex columns adjust to the tallest column</h4>
+		<div id="flexHeightExample">
+			<div class="row">
+				<div class="col-md-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque fringilla tellus, in luctus leo fermentum ac. Mauris semper in orci quis ultricies. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer tincidunt consectetur neque. Fusce vitae arcu placerat, ornare eros ut, euismod elit. Nunc molestie tristique volutpat. Suspendisse potenti. Vestibulum consectetur elementum vulputate.
+					Nullam vitae gravida massa, non feugiat nunc. Etiam aliquet mattis ipsum vel consequat. Sed dignissim ante nisl, quis rutrum odio pharetra eu. Phasellus leo mauris, viverra interdum dui quis, lobortis pulvinar justo. Nulla sollicitudin ac neque in convallis. Donec hendrerit efficitur erat, id interdum dolor placerat nec. Phasellus eget velit non lorem tristique placerat. Maecenas non lorem non sem congue lacinia eget ut turpis. Sed in iaculis quam. Mauris venenatis arcu eget arcu pellentesque convallis at a sapien. Proin a scelerisque enim, vitae consequat magna. Aenean eleifend mauris sit amet fringilla fermentum. Morbi facilisis tempor felis, fermentum viverra quam placerat quis. Aliquam auctor, sem at posuere imperdiet, sem enim mollis sapien, at luctus enim lectus vel lectus. Morbi laoreet hendrerit sodales.
+				</div>
+				<div class="col-md-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+			</div>
+		</div>
+		<div class="note">
+			<h5>Flex order</h5>
+			<p>If the developer changes the default value for the property 'flex-direction', he must take care of the accesibility. Refer to this link for more information: <a href="http://sprungmarker.de/wp-content/uploads/css-a11y-group/css-a11y-flexbox.html" target="_blank">Accesibility</a>.</p>
+		</div>
+	</section>
+</div>

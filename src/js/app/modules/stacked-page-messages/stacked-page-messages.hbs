@@ -1,0 +1,119 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Stacked Page Messages Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+    <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/StackedPageMessages.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-stacked-page-messages&gt;
+                        &nbsp;&nbsp;&lt;ha-page-message titleText="Info Title" type="error" dismissible="false"&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet...
+                        &nbsp;&nbsp;&lt;/ha-page-message&gt;
+                        &nbsp;&nbsp;&lt;ha-page-message titleText="Info Title" type="warn" dismissible="true"&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet...
+                        &nbsp;&nbsp;&lt;/ha-page-message&gt;
+                        &nbsp;&nbsp;&lt;ha-page-message titleText="Info Title" type="info" dismissible="true"&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet...
+                        &nbsp;&nbsp;&lt;/ha-page-message&gt;
+                    &lt;/ha-stacked-page-messages&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var stack = document.createElement('ha-stacked-page-messages'),
+                    &nbsp;&nbsp;&nbsp;&nbsp;msgInfo = document.createElement("ha-page-message"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;msgWarn = document.createElement("ha-page-message"),
+                    &nbsp;&nbsp;&nbsp;&nbsp;msgError = document.createElement("ha-page-message");
+
+                    msgError.message = "Lorem ipsum dolor sit amet...";
+                    msgError.titleText = "Info Title";
+                    msgError.dismissible = false;
+                    msgError.type = "error";
+
+                    msgWarn.message = "Lorem ipsum dolor sit amet...";
+                    msgWarn.titleText = "Info Title";
+                    msgWarn.dismissible = true;
+                    msgWarn.type = "warn";
+
+                    msgInfo.message = "Lorem ipsum dolor sit amet...";
+                    msgInfo.titleText = "Info Title";
+                    msgInfo.type = "info";
+
+                    stack.messages = [msgError, msgWarn, msgInfo];
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay" style="position:relative; height:500px; width:100%; margin:20px auto; overflow-y: auto;">
+        </div>
+    </section>
+    <button class="ha-button ha-button-dark close-alert">Click to close the Alert Page Message</button>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HAStackedPageMessages&gt;
+                        &lt;HAPageMessage titleText="Info Title" type="info" dismissible&gt;
+                            Hi there!
+                        &lt;/HAPageMessage&gt;
+                        &lt;HAPageMessage titleText="Warn Title" type="warn" dismissible&gt;
+                            You are about to run out of money.
+                        &lt;/HAPageMessage&gt;
+                        &lt;HAPageMessage titleText="Error Title" type="error" dismissible={false}&gt;
+                            Your payment was rejected!
+                        &lt;/HAPageMessage&gt;
+                    &lt;/HAStackedPageMessages&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="reactWay" style="position:relative; height:500px; width:100%; margin:20px auto; overflow-y: auto;">
+        </div>
+    </section>
+    <button class="ha-button ha-button-dark close-alert">Click to close the Alert Page Message</button>
+</div>

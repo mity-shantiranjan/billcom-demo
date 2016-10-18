@@ -1,0 +1,131 @@
+<style>
+.ha-message{
+    margin-bottom: 10px;
+}
+</style>
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Page Level Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/PageMessage.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-page-message titleText="Info Title" type="error" dismissible="true"&gt;
+                        &nbsp;&nbsp;Lorem ipsum dolor sit amet...
+                    &lt;/ha-page-message&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div class="declarative-wrapper">
+            <ha-page-message titleText="Alert Title" type="error" dismissible="false">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-page-message>
+            <ha-page-message titleText="Warn Title" type="warn" dismissible="true">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-page-message>
+            <ha-page-message titleText="Info Title" type="info" dismissible="true">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-page-message>
+            <ha-page-message titleText="Discovery Title" type="discovery" dismissible="true">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-page-message>
+            <ha-page-message type="info" dismissible="true">
+                No titleText. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </ha-page-message>
+            <ha-page-message type="info" dismissible="true">
+                <span>Using html inside the message with <a>links</a> no titleText</span>
+            </ha-page-message>
+            <ha-page-message titleText="With Title" type="info" dismissible="true">
+                <span>Using html inside the message with <a>links</a> with titleText</span>
+            </ha-page-message>
+        </div>
+    </section>
+</div>
+
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var node = document.createElement("ha-page-message");
+
+                    node.titleText = "Info Title";
+                    node.dismissible = true;
+                    node.type = "info";
+                    node.message = "Lorem ipsum dolor sit amet..."
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+<section class="usage">
+    <header class="title">
+        <a>Usage</a>
+    </header>
+
+    <div class="highlight">
+        <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HAPageMessage titleText="Look a title! & it's dismissible!" type="info"&gt;
+                        Let's put something here...
+                    &lt;/HAPageMessage&gt;
+
+                    &lt;HAPageMessage titleText="Look a title!" dismissible={false} type="error"&gt;
+                        Oh No!
+                    &lt;/HAPageMessage&gt;
+                </code>
+            </pre>
+    </div>
+</section>
+
+<section class="examples">
+    <header class="title">
+        <a>Examples</a>
+    </header>
+    <div id="reactWay"></div>
+</section>
+</div>

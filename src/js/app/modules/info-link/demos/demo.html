@@ -1,0 +1,31 @@
+<div>
+    <h3>Inline Text and Message</h3>
+    <ha-info-link
+        linkText="Hello, world!"
+        message="Goodbye, world!">
+    </ha-info-link>
+
+    <h3>Inline Text and Nested Message</h3>
+    <ha-info-link linkText="Hello, world!">
+        <ha-message>
+            <u>Goodbye</u>, world!
+        </ha-message>
+    </ha-info-link>
+
+    <h3>Nested Text and Inline Message</h3>
+    <ha-info-link message="Goodbye, world!">
+        <ha-text>
+            <em>Hello</em>, <strong>world</strong>!
+        </ha-text>
+    </ha-info-link>
+
+    <h3>Nested Text and Message</h3>
+    <ha-info-link>
+        <ha-text>
+            <em>Hello</em>, <strong>world</strong>!
+        </ha-text>
+        <ha-message>
+            <u>Goodbye</u>, world!
+        </ha-message>
+    </ha-info-link>
+</div>

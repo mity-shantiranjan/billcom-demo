@@ -1,0 +1,149 @@
+<div>
+    <h3>Non Menu Flyout</h3>
+    <nav class="global-header">
+        <ul class="list-unstyled">
+            <li>
+                <button class="global-header-button" type="button"></button>
+            </li><li>
+                <button class="global-header-button" type="button"></button>
+                <ha-flyout class="declarative" titleText="Flyout title">
+                    <section>
+                        <div>
+                            <span>Lorem ipsum dolor sit amet</span>
+                        </div>
+                    </section>
+                </ha-flyout>
+            </li><li>
+                <button class="global-header-button" type="button"></button>
+            </li>
+        </ul>
+    </nav>
+    <h3>Resizable Menu Flyout</h3>
+    <nav class="global-header">
+        <ul class="list-unstyled">
+            <li>
+                <button class="global-header-button" type="button"></button>
+            </li><li>
+                <button class="global-header-button" type="button"></button>
+                <ha-flyout class="declarative" titleText="Create" moreText="show more" lessText="show less">
+                    <section>
+                        <div class="flyout-less">
+                            <ha-menu>
+                                <ha-menu-item>Invoice</ha-menu-item>
+                                <ha-menu-item>Expense</ha-menu-item>
+                            </ha-menu>
+                        </div>
+                        <div class="flyout-more">
+                            <table>
+                                <tr>
+                                    <th>Customers</th>
+                                    <th>Vendors</th>
+                                    <th>Employees</th>
+                                    <th>Other</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ha-menu>
+                                            <ha-menu-item>Invoice</ha-menu-item>
+                                            <ha-menu-item>Receive Payment</ha-menu-item>
+                                            <ha-menu-item>Estimate</ha-menu-item>
+                                            <ha-menu-item>Credit Memo</ha-menu-item>
+                                            <ha-menu-item>Sales Receipt</ha-menu-item>
+                                            <ha-menu-item>Refund Receipt</ha-menu-item>
+                                            <ha-menu-item>Delayed Credit</ha-menu-item>
+                                            <ha-menu-item>Delayed Charge</ha-menu-item>
+                                        </ha-menu>
+                                    </td>
+                                    <td>
+                                        <ha-menu>
+                                            <ha-menu-item>Expense</ha-menu-item>
+                                            <ha-menu-item>Check</ha-menu-item>
+                                            <ha-menu-item>Bill</ha-menu-item>
+                                            <ha-menu-item>Pay Bills</ha-menu-item>
+                                            <ha-menu-item>Purchase Order</ha-menu-item>
+                                            <ha-menu-item>Vendor Credit</ha-menu-item>
+                                            <ha-menu-item>Credit Card Credit</ha-menu-item>
+                                            <ha-menu-item>Print Checks</ha-menu-item>
+                                        </ha-menu>
+                                    </td>
+                                    <td>
+                                        <ha-menu>
+                                            <ha-menu-item>Payroll</ha-menu-item>
+                                            <ha-menu-item>Single Time Activity</ha-menu-item>
+                                            <ha-menu-item>Weekly Timesheet</ha-menu-item>
+                                        </ha-menu>
+                                    </td>
+                                    <td>
+                                        <ha-menu>
+                                            <ha-menu-item>Bank Deposit</ha-menu-item>
+                                            <ha-menu-item>Transfer</ha-menu-item>
+                                            <ha-menu-item>Journal Entry</ha-menu-item>
+                                            <ha-menu-item>Statement</ha-menu-item>
+                                        </ha-menu>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </section>
+                </ha-flyout>
+            </li><li>
+                <button class="global-header-button" type="button"></button>
+            </li>
+        </ul>
+    </nav>
+
+    <h3>Blue Side Panel Flyout</h3>
+
+    <nav class="global-header">
+        <ul class="list-unstyled">
+            <li>
+                <button class="global-header-button" type="button"></button>
+            </li><li>
+                <button class="global-header-button" type="button"></button>
+                <ha-flyout class="declarative" titleText="Jon's Landscape">
+                    <section>
+                        <div class="flyout-side-panel">
+                            <table>
+                                <tr>
+                                    <th>Accountant</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ha-menu>
+                                            <ha-menu-item>Reclassify Transactions</ha-menu-item>
+                                            <ha-menu-item>Write Off Invoices</ha-menu-item>
+                                        </ha-menu>
+                                    </td>
+                                <tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>Settings</th>
+                                    <th>Tools</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ha-menu>
+                                            <ha-menu-item>Customer Settings</ha-menu-item>
+                                            <ha-menu-item>Write Off Invoices</ha-menu-item>
+                                        </ha-menu>
+                                    </td>
+                                    <td>
+                                        <ha-menu>
+                                            <ha-menu-item>Import Data</ha-menu-item>
+                                            <ha-menu-item>Export Data</ha-menu-item>
+                                        </ha-menu>
+                                    </td>
+                                <tr>
+                            </table>
+                        </div>
+                    </section>
+                </ha-flyout>
+            </li><li>
+                <button class="global-header-button" type="button"></button>
+            </li>
+        </ul>
+    </nav>
+</div>

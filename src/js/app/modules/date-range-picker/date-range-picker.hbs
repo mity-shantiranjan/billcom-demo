@@ -1,0 +1,117 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Date Range Picker Component
+    </h1>
+
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+    <div class="design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/DateRangePicker.md"
+           target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-date-range-picker &gt;&lt;/ha-date-range-picker&gt;
+
+                    &lt;ha-date-range-picker aria-label="Select date range - Disabled" disabled="true"&gt;&lt;/ha-date-range-picker&gt;
+
+                    &lt;ha-date-range-picker label="With Error" class="ha-validatable input-error"&gt;&lt;/ha-date-range-picker&gt;
+
+                    &lt;ha-date-range-picker label="Required Field" required="true"&gt;&lt;/ha-date-range-picker&gt;
+
+                    &lt;ha-date-range-picker label="Optional Field" optional="true" labelOptional="Same Optional field"&gt;&lt;/ha-date-range-picker&gt;
+
+                    &lt;ha-date-range-picker&gt;&lt;/ha-date-range-picker&gt;
+
+                    &lt;ha-date-range-picker name="Name test"&gt;&lt;/ha-date-range-picker&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div>
+            <h3>Enabled</h3>
+            <ha-date-range-picker></ha-date-range-picker>
+            <h3>Disabled</h3>
+            <ha-date-range-picker aria-label="Select date range - Disabled" disabled="true"></ha-date-range-picker>
+            <h3>Required</h3>
+            <ha-date-range-picker startDatelabel="Required Field" endDateLabel="Also required" required="true"></ha-date-range-picker>
+            <h3>Optional label</h3>
+            <ha-date-range-picker optional="true" labelOptional="Optional"></ha-date-range-picker>
+            <h3>With name attribute</h3>
+            <ha-date-range-picker startDateName="Start range name test" endDateName="End range name test"></ha-date-range-picker>
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var datePicker = document.createElement('ha-date-range-picker'),
+                        disabledDatePicker = document.createElement('ha-date-range-picker'),
+                        requiredDatePicker = document.createElement('ha-date-range-picker'),
+                        optionalDatePicker = document.createElement('ha-date-range-picker'),
+                        nameDatePicker = document.createElement('ha-date-range-picker');
+
+                    disabledDatePicker.disabled = true;
+                    disabledDatePicker.ariaLabel = 'Select date range - Disabled';
+
+                    requiredDatePicker.startDateLabel = 'Required Field';
+                    requiredDatePicker.endDateLabel = 'Also required';
+                    requiredDatePicker.required = true;
+
+                    optionalDatePicker.labelOptional = 'Optional';
+                    optionalDatePicker.optional = true;
+
+                    nameDatePicker.startDateName = 'Start range name test';
+                    nameDatePicker.endDateName = 'End range name test';
+
+                    this._appendTitle('Enabled', placeToAppend);
+                    this._appendChildWithWrapper(datePicker, placeToAppend);
+
+                    this._appendTitle('Disabled', placeToAppend);
+                    this._appendChildWithWrapper(disabledDatePicker, placeToAppend);
+
+                    this._appendTitle('Required', placeToAppend);
+                    this._appendChildWithWrapper(requiredDatePicker, placeToAppend);
+
+                    this._appendTitle('Optional Label', placeToAppend);
+                    this._appendChildWithWrapper(optionalDatePicker, placeToAppend);
+
+                    this._appendTitle('With name attribute', placeToAppend);
+                    this._appendChildWithWrapper(nameDatePicker, placeToAppend);
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

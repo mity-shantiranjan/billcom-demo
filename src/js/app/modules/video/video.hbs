@@ -1,0 +1,136 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Video Player Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">JavaScript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="video-launcher">Video Links</button>
+        </ha-segmented-button>
+        <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Video.md" target="_blank">Design & API Document</a>
+        </div>
+    </div>
+
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;h3&gt;Basic video, opened with a button&lt;/h3&gt;
+                    &lt;button class=&quot;ha-button ha-button-primary&quot; onclick=&quot;document.querySelector('#basic-video-example').show()&quot;&gt;Click to view&lt;/button&gt;
+                    &lt;ha-video userId=&quot;harmony-gallery-test-user&quot; id=&quot;basic-video-example&quot; url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;&lt;/ha-video&gt;
+
+                    &lt;h3&gt;Video with history&lt;/h3&gt;
+                    &lt;button class=&quot;ha-button ha-button-primary&quot; onclick=&quot;document.querySelector('#history-video-example').show()&quot;&gt;Click to view&lt;/button&gt;
+                    &lt;ha-video enableHistoryView userId=&quot;harmony-gallery-test-user&quot; id=&quot;history-video-example&quot; url=&quot;https://www.youtube.com/embed/4by7kleQbmE&quot;&gt;&lt;/ha-video&gt;
+
+                    &lt;h3&gt;Video with overlay&lt;/h3&gt;
+                    &lt;button class=&quot;ha-button ha-button-primary&quot; onclick=&quot;document.querySelector('#basic-video-example').show()&quot;&gt;Click to view&lt;/button&gt;
+                    &lt;ha-video userId=&quot;harmony-gallery-test-user&quot overlayText=&quot;Call to action&quot; id=&quot;overlay-video-example&quot; url=&quot;https://www.youtube.com/embed/48QBRQdyRmU&quot;&gt;
+                        &lt;section&gt;
+                            &lt;button class=&quot;ha-button ha-button-primary&quot;&gt;Button&lt;/button&gt;
+                        &lt;/section&gt;
+                    &lt;/ha-video&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <h3>Basic video, opened with a button</h3>
+        <button class="ha-button ha-button-primary" onclick="document.querySelector('#basic-video-example').show()">Click to view</button>
+        <ha-video userId="harmony-gallery-test-user" id="basic-video-example" url="https://www.youtube.com/embed/48QBRQdyRmU"></ha-video>
+
+        <h3>Video with history</h3>
+        <button class="ha-button ha-button-primary" onclick="document.querySelector('#history-video-example').show()">Click to view</button>
+        <ha-video enableHistoryView userId="harmony-gallery-test-user" id="history-video-example" url="https://www.youtube.com/embed/4by7kleQbmE"></ha-video>
+
+        <h3>Video with overlay</h3>
+        <button class="ha-button ha-button-primary" onclick="document.querySelector('#overlay-video-example').show()">Click to view</button>
+        <ha-video userId="harmony-gallery-test-user" id="overlay-video-example" url="https://www.youtube.com/embed/48QBRQdyRmU">
+            <section>
+                <ha-video-overlay-button label="Call to action" type="primary">Button</ha-video-overlay-button>
+            </section>
+        </ha-video>
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                var video = document.createElement('ha-video'),
+                    videoWithOverlay = document.createElement('ha-video'),
+                    overlayFragment = document.createDocumentFragment(),
+                    overlayDiv = document.createElement('div'),
+                    overlayButton = document.createElement('button'),
+                    videoButton = document.createElement('button'),
+                    overlayVideoButton = document.createElement('button'),
+                    title = document.createElement('h3'),
+                    title2 = document.createElement('h3');
+
+                title.textContent = 'Basic video, opened with a button';
+                title2.textContent = 'Video with overlay';
+
+                overlayButton.classList.add('ha-button');
+                overlayButton.classList.add('ha-button-primary');
+                overlayButton.textContent = 'Button';
+
+                videoButton.classList.add('ha-button');
+                videoButton.classList.add('ha-button-primary');
+                videoButton.textContent = 'Click to view';
+                videoButton.onclick = function() {
+                    video.show();
+                };
+
+                overlayVideoButton.classList.add('ha-button');
+                overlayVideoButton.classList.add('ha-button-primary');
+                overlayVideoButton.textContent = 'Click to view';
+                overlayVideoButton.onclick = function() {
+                    videoWithOverlay.show();
+                };
+
+                overlayDiv.textContent = 'Call to action';
+                overlayFragment.appendChild(overlayDiv);
+                overlayFragment.appendChild(overlayButton);
+
+                videoWithOverlay.url = "https://www.youtube.com/embed/lp3snRxFt6Q";
+                video.url = "https://www.youtube.com/embed/48QBRQdyRmU";
+                video.userId = videoWithOverlay.userId = 'harmony-gallery-test-user';
+                videoWithOverlay.overlayContent = overlayFragment;
+
+                placeToAppend.appendChild(title);
+                placeToAppend.appendChild(videoButton);
+                placeToAppend.appendChild(video);
+
+                placeToAppend.appendChild(title2);
+                placeToAppend.appendChild(overlayVideoButton);
+                placeToAppend.appendChild(videoWithOverlay);
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <h2>Video Player Component</h2>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

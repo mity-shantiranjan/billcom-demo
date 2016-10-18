@@ -1,0 +1,91 @@
+<style>
+.ha-paginated-messages{
+    margin-bottom: 10px;
+}
+</style>
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Paginated Messages Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/PaginatedMessages.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code>
+                    &lt;ha-paginated-messages dismissible&gt;
+                        &nbsp;&nbsp;&lt;ha-paginated-message titleText="Your trial expires in 7 days!" dismissible&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;Feel free to keep testing QuickBooks. &lt;a href="#"&gt;Subscribe now and save 20%&lt;/a&gt;&lt;/span&gt;
+                        &nbsp;&nbsp;&lt;/ha-paginated-message&gt;
+
+                        &nbsp;&nbsp;&lt;ha-paginated-message titleText="Your sesion is about to expire!" dismissible&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;Please refresh the page&lt;/span&gt;
+                        &nbsp;&nbsp;&lt;/ha-paginated-message&gt;
+
+                        &nbsp;&nbsp;&lt;ha-paginated-message titleText="This is an alert"&gt;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;This is an alert message&lt;/span&gt;
+                        &nbsp;&nbsp;&lt;/ha-paginated-message&gt;
+                    &lt;/ha-paginated-messages&gt;
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var node1 = document.createElement('ha-paginated-messages'),
+                        &nbsp;&nbsp;&nbsp;&nbsp;message1 = document.createElement('ha-paginated-message'),
+                        &nbsp;&nbsp;&nbsp;&nbsp;message2 = document.createElement('ha-paginated-message'),
+                        &nbsp;&nbsp;&nbsp;&nbsp;message3 = document.createElement('ha-paginated-message');
+
+                    message1.titleText = "Title 1";
+                    message1.message = "Lorem ipsum dolor sit amet.";
+
+                    message2.titleText = "Title 2";
+                    message2.message = "Lorem ipsum dolor sit amet.";
+
+                    message3.titleText = "Title 3";
+                    message3.message = "Lorem ipsum dolor sit amet.";
+
+                    node1.messages = [message1, message2, message3];
+                    node1.dismissible = true;
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>

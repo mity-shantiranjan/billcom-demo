@@ -1,0 +1,122 @@
+<section class="post box clearfix">
+    <h1 class="entry-title">
+        Checkbox Component
+    </h1>
+    <div class="meta">
+        <ha-segmented-button class="usage-tab-buttons" data-automation-id="btn_segmented">
+            <button class="segmented-nav" value="html" selected="true">HTML</button>
+            <button class="segmented-nav" value="js">Javascript</button>
+            <button class="segmented-nav" value="dojo">Dojo</button>
+            <button class="segmented-nav" value="react">React</button>
+        </ha-segmented-button>
+    </div>
+   <div class = "design-document">
+        <a href="https://github.intuit.com/SBG/harmony-ui-components/blob/develop/docs/design/Checkbox.md" target="_blank">Design & API Document</a>
+    </div>
+</section>
+<div class="panel" id="html">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;ha-checkbox-group name="Checkbox Group" label="Checkbox Group"&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox label="Enabled Checkbox" checked&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox disabled checked&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox disabled&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox readonly&gt;&lt;/ha-checkbox&gt;
+                    &lt;/ha-checkbox-group&gt;
+
+                    &lt;ha-checkbox-group name="Checkbox Group" label="Checkbox Group with requried amount = 2" minRequired="2" required&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox label="Enabled Checkbox" checked&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox disabled checked&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox disabled&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox readonly&gt;&lt;/ha-checkbox&gt;
+                    &lt;/ha-checkbox-group&gt;
+
+                    &lt;ha-checkbox-group class="ha-inline" name="Checkbox Group" label="Checkbox Group"&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox label="Enabled Checkbox" checked&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox disabled checked&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox disabled&gt;&lt;/ha-checkbox&gt;
+                        &nbsp;&nbsp;&lt;ha-checkbox readonly&gt;&lt;/ha-checkbox&gt;
+                    &lt;/ha-checkbox-group&gt;
+
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        {{{componentDemoTemplate}}}
+    </section>
+</div>
+
+<div class="panel hidden" id="js">
+    <section class="usage">
+        <header class="title"><a>Usage</a></header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    var checkbox = document.createElement("ha-checkbox");
+                    checkbox.label = "Some Label";
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="programmaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="dojo">
+    <section class="examples">
+        <header class="title"><a>Examples</a></header>
+        <div id="dojoProgrammaticWay">
+        </div>
+    </section>
+</div>
+
+<div class="panel hidden" id="react">
+    <section class="usage">
+        <header class="title">
+            <a>Usage</a>
+        </header>
+        <div class="highlight">
+            <pre>
+                <code class="language-html" data-lang="html">
+                    &lt;HACheckboxGroup name="Checkbox Group" label="Checkbox Group"&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Enabled Checkbox (default checked)" checked&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Disabled Checkbox (default checked)" disabled checked&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Disabled Checkbox" disabled&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Enabled Checkbox"&gt;&lt;/HACheckbox&gt;
+                    &lt;/HACheckboxGroup&gt;
+
+                    &lt;HACheckboxGroup className="ha-inline" name="Checkbox Group" label="Checkbox Group"&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Enabled Checkbox" checked&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Disabled Checkbox (default checked)" disabled checked&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Disabled Checkbox" disabled&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Enabled Checkbox"&gt;&lt;/HACheckbox&gt;
+                    &lt;/HACheckboxGroup&gt;
+
+                    &lt;HACheckboxGroup name="Checkbox Group" label="Checkbox Group with requried amount = 2" minRequired="2" required={true}&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Enabled Checkbox" checked&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Disabled Checkbox (default checked)" disabled checked&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Disabled Checkbox" disabled&gt;&lt;/HACheckbox&gt;
+                        &nbsp;&nbsp;&lt;HACheckbox label="Enabled Checkbox"&gt;&lt;/HACheckbox&gt;
+                    &lt;/HACheckboxGroup&gt;
+
+                </code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="examples">
+        <header class="title">
+            <a>Examples</a>
+        </header>
+        <div id="reactWay"></div>
+    </section>
+</div>

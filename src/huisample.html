@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="vendor/hui/dist/css/hui.css" />
+    <link rel="stylesheet" href="vendor/hui/dist/css/hui-table.css" />
+
+    <style>
+        body {
+            padding: 20px;
+            margin: auto;
+        }
+
+        div {
+            padding: 10px;
+        }
+    </style>
+
+    </head>
+    <body>
+        <div>
+            <ha-segmented-button property="">
+                <button label="Cash"></button>
+                <button label="Credit"></button>
+                <button label="Check"></button>
+            </ha-segmented-button>
+        </div>
+        <div>
+            <button class="ha-button">Button</button>
+            <button class="ha-button ha-button-dark">Button</button>
+            <button class="ha-button ha-button-primary">Button</button>
+            <button class="ha-button ha-button-primary ha-button-dark">Button</button>
+        </div>
+        <div>
+            <ha-switch-button checked={{status}} class="ha-switch-button" title="on"></ha-switch-button>
+        </div>
+
+        <script type="text/javascript" data-main="js/main" src="vendor/requirejs/require.js"></script>
+
+    </body>
+</html>
