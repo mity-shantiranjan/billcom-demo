@@ -1,15 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        
-    </head>
-    <body>
-        <h2>Use the links below to access table demos:</h2>
-        <ul>
-            <li><a href="./table-simple.html" target="_self">Simple table</a></li>
-            <li><a href="./table-expandable-row.html" target="_self">Expandable row table</a></li>
-            <li><a href="./table-edit.html" target="_self">Editable table</a></li>
-            <li><a href="./table-filter.html" target="_self">Filter table</a></li>
-        </ul>
-    </body>
-</table>
+<html>
+<head>
+    <!-- Harmony stylesheets -->
+    <link rel="stylesheet" href="https://ds2p3umyqz5ps.cloudfront.net/vendor/hui/dist/css/hui.css"></link>
+    <link rel="stylesheet" href="https://ds2p3umyqz5ps.cloudfront.net/vendor/hui/dist/css/hui-table.css"></link>
+</head>
+<body>
+   <div style="font-size:36px">Hello World!</div><br/><br/>
+   <ha-text-field label="Customer Name" id="custName"></ha-text-field><br/><br/>
+   <button class="ha-button" onclick="showPageMessage();">Page Message</button>
+   <button class="ha-button" onclick="showSimpleDialog();">Show Dialog</button>
+   <button class="ha-button" onclick="showVideo();">Show Video</button>
+   <button class="ha-button" onclick="callV3CompanyInfoService();">Call V3 Company</button>
+   <button class="ha-button" onclick="callV3AddVendorService();">Call V3 Add Vendor</button><br/><br/>
+   <div><a onclick="goToTrowser('123')" href="">Trowser with id 123</a></div>
+   <div><a onclick="goToTrowser('1234')" href="">Trowser with id 1234</a></div>
+   <div><a onclick="goToTrowser('2993')" href="">Trowser with id 2993</a></div>
+   <div><a onclick="goToTrowser('1433')" href="">Trowser with id 1433</a></div>
+
+   <ha-money-bar>
+       <ha-money-bar-segment titleTextBold="50" titleText="Unbilled">
+           <ha-money-bar-cell class="mbDarkBlue" primaryText="$50.00" secondaryText="2 ESTIMATE"></ha-money-bar-cell>
+           <ha-money-bar-cell class="mbLightBlue" primaryText="$50.00" secondaryText="2 UNBILLED ACTIVITY"></ha-money-bar-cell>
+       </ha-money-bar-segment>
+   </ha-money-bar>
+
+       <!-- Harmony elements -->
+       <script type="text/javascript" src="https://ds2p3umyqz5ps.cloudfront.net/vendor/document-register-element/build/document-register-element.js"></script>
+       <script type="text/javascript" data-main="https://ds2p3umyqz5ps.cloudfront.net/js/loader.js" src="https://ds2p3umyqz5ps.cloudfront.net/vendor/requirejs/require.js"></script>
+       <script type="text/javascript" src="./main.js"></script>
+ </body>
+</html>
