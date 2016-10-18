@@ -1,9 +1,3 @@
-QBO UI Plugin Development
-==================
-
-These are instructions for getting started with QBO plugin development. Plugins are iFrames that you can insert into various places inside QBO.
-
-[Power Point Presentation](https://intuitcloud-my.sharepoint.com/personal/jeffb531_corp_intuit_net/_layouts/15/guestaccess.aspx?guestaccesstoken=78LBdUpBPuqmGe7t%2fb0sePY2BPL9mrX1tKS0FduO86M%3d&docid=06cb70646ccfc46eaa142bd04d431bc9a)
 
 Getting started with local development
 -------
