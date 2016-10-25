@@ -1,0 +1,71 @@
+<html>
+<head>
+
+    <!-- Harmony stylesheets -->
+    <link rel="stylesheet" href="https://ds2p3umyqz5ps.cloudfront.net/vendor/hui/dist/css/hui.css"></link>
+
+    <style>
+        #step-flow ha-text-field,
+        #step-flow ha-text-field input {
+            width: 100%;
+        }
+
+        #setStepTitle {
+            margin-top: 24px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Step Flow Demonstration</h1>
+    <div class="row">
+        <button class="ha-button ha-button-primary" id="step-flow-button" onclick="">Open Step Flow</button>
+        <ha-trowser titleText="Step Flow Demonstration" id="step-flow-trowser" help="false" type="step-flow">
+            <section>
+                <ha-step-flow id="step-flow" progressIndicator closeParentTrowser>
+                    <ha-flow-landing>
+                        <section>
+                            <h3>Some landing text</h3>
+                        </section>
+                    </ha-flow-landing>
+                    <ha-flow-step hideStepButtons="true" titleText="Some information about you...">
+                        <section>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-6 col-sm-12">
+                                    <ha-text-field label="First Name"></ha-text-field>
+                                </div>
+                                <div class="col-xl-4 col-lg-6 col-sm-12">
+                                    <ha-text-field label="Last Name"></ha-text-field>
+                                </div>
+                                <div class="col-xl-4 col-lg-12 col-sm-12">
+                                    <ha-text-field label="Address"></ha-text-field>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                    <ha-select label="Pick a color">
+                                        <ha-item>Blue</ha-item>
+                                        <ha-item>Red</ha-item>
+                                        <ha-item>Green</ha-item>
+                                        <ha-item>Yellow</ha-item>
+                                    </ha-select>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                    <ha-select label="Pick a shape">
+                                        <ha-item>Square</ha-item>
+                                        <ha-item>Circle</ha-item>
+                                        <ha-item>Triangle</ha-item>
+                                        <ha-item>Rectangle</ha-item>
+                                    </ha-select>
+                                </div>
+                            </div>
+                        </section>
+                    </ha-flow-step>
+                </ha-step-flow>
+            </section>
+        </ha-trowser>
+    </div>
+
+    <script type="text/javascript" src="https://ds2p3umyqz5ps.cloudfront.net/vendor/document-register-element/build/document-register-element.js"></script>
+    <script type="text/javascript" data-main="./trowser-sample.js" src="https://ds2p3umyqz5ps.cloudfront.net/vendor/requirejs/require.js"></script>
+
+</body>
+</html>
