@@ -13,8 +13,7 @@
         {
             "sourcePath": "/BillsPaySettings.html",
             "attachPoint": "_apCompanySettingsTab",
-            "linkText": "Pay Bills (BDC))",
-            "position": "10"
+            "linkText": "Pay Bills (BDC))"
         }
     ],
     "extensions": {
@@ -34,6 +33,7 @@
                 "path": "billPaySettings",
                 "controller": "qbo-ui-libs-plugins/addon/iFrameRouteController",
                 "xdmParameters": {
+                    "useTrowser": true,
                     "sourcePath": "/BillsPaySettings.html",
                     "width": "100%"
                 }
