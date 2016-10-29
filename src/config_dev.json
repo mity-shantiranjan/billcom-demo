@@ -17,6 +17,18 @@
         }
     ],
     "extensions": {
+        "general-extension/name-status-section": [
+            {
+                "type": "billPayment",
+                "controller": "qbo-ui-libs-plugins/addon/iFrameViewController",
+                "xdmParameters": {
+                    "sourcePath":"/InfoMessage.html",
+                    "cssPosition":"relative",
+                    "height": "70%",
+                    "style":"transform:translateZ(0)"
+                }
+            }
+        ],
         "shell/global-header/create/vendors": [
             {
                 "id": "payBills",
