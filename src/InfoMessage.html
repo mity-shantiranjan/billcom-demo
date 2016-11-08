@@ -25,6 +25,7 @@
                 qboXDM.getContext(function(context) {
                     if(context)
                     {
+                        console.log(context.qbo.realmId);
                         if(context.qbo.pathname.indexOf('billpayment') != -1)
                         {
                             growHeight(100);
@@ -52,16 +53,19 @@
                 expand(0, 0)
             };
 
-            showSimpleDialog = function() {
-                qboXDM.showOkDialog("Title", "My Own Message", function() { console.log("ok"); });
+            showSimpleDialog = function(msg) {
+                qboXDM.showOkDialog("Title", msg, function() { console.log("ok"); });
             };
 
             qboXDMReceiveMessage = function(message) {
                 // for the message.eventName === "qbo-transaction"
                 // message.data.id will have the id of the transaction
                 // message.data.typeName will be invoice, bill, etc.
+                if(message.eventName == "onLoad")
+                    showSimpleDialog("onLoad event raised");
+
                 if(message.eventName == "onBeforeSave")
-                    showSimpleDialog();
+                    showSimpleDialog("onBeforeSave event raised");
 
                 //console.log(message.data);
             }
