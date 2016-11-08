@@ -5,6 +5,10 @@
     "allowedOrigins": [
         "*"
     ],
+    "subscribedEvents": [
+        "onLoad",
+        "onBeforeSave"
+    ],
     "sourcePath": "/table-demo.html",
     "accessPoints": [
         {
@@ -19,12 +23,11 @@
     "extensions": {
         "general-extension/name-status-section": [
             {
-                "type": "billPayment",
                 "controller": "qbo-ui-libs-plugins/addon/iFrameViewController",
                 "xdmParameters": {
                     "sourcePath":"/InfoMessage.html",
                     "cssPosition":"relative",
-                    "height": "70%",
+                    "height": "0px",
                     "style":"transform:translateZ(0)"
                 }
             }
@@ -46,6 +49,14 @@
                 "controller": "qbo-ui-libs-plugins/addon/iFrameRouteController",
                 "xdmParameters": {
                     "useTrowser": true,
+                    "sourcePath": "/BillsPaySettings.html",
+                    "width": "100%"
+                }
+            },
+            {
+                "path": "simpleBillPay",
+                "controller": "qbo-ui-libs-plugins/addon/iFrameRouteController",
+                "xdmParameters": {
                     "sourcePath": "/BillsPaySettings.html",
                     "width": "100%"
                 }

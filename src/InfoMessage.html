@@ -6,9 +6,66 @@
 
         <style>
             ha-page-message {
-                height:70%;
+                height: 100%;
             }
         </style>
+
+        <script>
+            window.addEventListener("message", function(a) {
+                if(a.origin.indexOf("intuit.com")>=1&&a.data&&a.data.initXDM)
+                {
+                    var b=document.createElement("script");
+                    b.setAttribute("type","text/javascript");
+                    b.innerHTML=a.data.initXDM;
+                    document.getElementsByTagName("head")[0].appendChild(b);
+                }
+            });
+
+            qboXDMReady = function() {
+                qboXDM.getContext(function(context) {
+                    if(context)
+                    {
+                        if(context.qbo.pathname.indexOf('billpayment') != -1)
+                        {
+                            growHeight(100);
+                        }
+                    }
+                });
+            }
+
+            execute = function(action, params){
+                qboXDM.showSpinner();
+            };
+
+            expand = function(width, height){
+                width = width || 0;
+                height = height || 0;
+                qboXDM.adjustFrameWidth(width + 'px');
+                qboXDM.adjustFrameHeight(height + 'px');
+            };
+
+            growHeight = function(height){
+                qboXDM.adjustFrameHeight(height + 'px');
+            };
+
+            collapse = function(){
+                expand(0, 0)
+            };
+
+            showSimpleDialog = function() {
+                qboXDM.showOkDialog("Title", "My Own Message", function() { console.log("ok"); });
+            };
+
+            qboXDMReceiveMessage = function(message) {
+                // for the message.eventName === "qbo-transaction"
+                // message.data.id will have the id of the transaction
+                // message.data.typeName will be invoice, bill, etc.
+                if(message.eventName == "onBeforeSave")
+                    showSimpleDialog();
+
+                //console.log(message.data);
+            }
+        </script>
 
     </head>
 	<body>   
