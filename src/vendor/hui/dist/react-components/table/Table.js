@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "react-dom", "dstore/Memory", "./config", "hui/table/LazyRowExpansionRenderer", "hui/table", "hui/table-virtual", "xstyle/css!hui-css/hui-table.min.css"], factory);
+        define(["exports", "react", "react-dom", "dstore/Memory", "./CallbackCollection", "./config", "./PropUtils", "hui/table/LazyRowExpansionRenderer", "hui/table", "hui/table-virtual", "xstyle/css!hui-css/hui-table.min.css"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("react-dom"), require("dstore/Memory"), require("./config"), require("hui/table/LazyRowExpansionRenderer"), require("hui/table"), require("hui/table-virtual"), require("xstyle/css!hui-css/hui-table.min.css"));
+        factory(exports, require("react"), require("react-dom"), require("dstore/Memory"), require("./CallbackCollection"), require("./config"), require("./PropUtils"), require("hui/table/LazyRowExpansionRenderer"), require("hui/table"), require("hui/table-virtual"), require("xstyle/css!hui-css/hui-table.min.css"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.reactDom, global.Memory, global.config, global.LazyRowExpansionRenderer, global.table, global.tableVirtual, global.huiTableMin);
+        factory(mod.exports, global.react, global.reactDom, global.Memory, global.CallbackCollection, global.config, global.PropUtils, global.LazyRowExpansionRenderer, global.table, global.tableVirtual, global.huiTableMin);
         global.Table = mod.exports;
     }
-})(this, function (exports, _react, _reactDom, _Memory, _config, _LazyRowExpansionRenderer) {
+})(this, function (exports, _react, _reactDom, _Memory, _CallbackCollection, _config, _PropUtils, _LazyRowExpansionRenderer) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -25,7 +25,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     var _Memory2 = _interopRequireDefault(_Memory);
 
+    var _CallbackCollection2 = _interopRequireDefault(_CallbackCollection);
+
     var _config2 = _interopRequireDefault(_config);
+
+    var _PropUtils2 = _interopRequireDefault(_PropUtils);
 
     var _LazyRowExpansionRenderer2 = _interopRequireDefault(_LazyRowExpansionRenderer);
 
@@ -96,9 +100,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             get: function get() {
                 return {
                     columns: _react2.default.PropTypes.object.isRequired,
-                    data: _react2.default.PropTypes.array,
+                    data: _PropUtils2.default.validateData,
+                    onDataChanged: _react2.default.PropTypes.func,
                     collection: _react2.default.PropTypes.object,
-                    options: _react2.default.PropTypes.object
+                    options: _PropUtils2.default.validateOptions
                 };
             }
         }]);
@@ -116,7 +121,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             _this.store = null;
             _this.totals = null;
             _this.table = null;
-            _this.rowExpansionNodeCache = {};
             _this.cache = {};
             _this.otherSettingsNode = null;
             _this.tableBarCustomNode = null;
@@ -141,16 +145,31 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "shouldComponentUpdate",
             value: function shouldComponentUpdate(nextProps) {
-                // Only allow option updates to the underlying table. No store or column changes.
+                // Note: It's harder than you might think to find a good way to intelligently
+                // and efficiently refresh only the props that changed. So we refresh all of them
+                // each time. It's not an impossible problem to solve but will require some thinking to
+                // overcome some of the challenges below.
+                //
+                // Some of the challenges for a smart refresh include:
+                //   * It's expensive to do a diff to see if the row data set has changed
+                //   * Some of the table properties require you to call table.refresh()
+                //     for the changes to show up. Others like changing rowsPerPage or columns will trigger
+                //     a refresh automatically. That's why we have the column setter last so it does a refresh.
+                //   * If the user is using data callbacks to control the data for pagination or virtual scrolling,
+                //     calling table.refresh will also trigger a call from us to request the data from the server again.
+                //     So we have to be careful about when we trigger that outbound request for data. We don't, for example,
+                //     want to trigger it for simple option changes. To make that work we set the data and refresh it each
+                //     time. If you use diffs to isolate data only state changes in an attempt to bypass the full table
+                //     refresh and simply resolve the data promise, the table will load very efficiently but data will
+                //     not be available the next time you do a simple prop change. When that happens it will issue
+                //     an outboud request.
+
+                // Only allow specific updates to the underlying table.
                 this.mixinOptions(this.table, nextProps.options);
                 this.connectCallbacks(this.table, nextProps.options);
 
                 // Update the store data (if needed)
                 this.setStoreData(nextProps.data);
-
-                //remove the render modes from the current props a.k.a this.props.options
-                //new render modes from nextProps.options will be processed as part of postTableRender
-                this.preTableRender(this.table, this.props.options);
 
                 // Apply any post render changes
                 this.postTableRender(this.table, nextProps.options, nextProps.data);
@@ -176,10 +195,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     _reactDom2.default.unmountComponentAtNode(this.tableBarCustomActionNode);
                 }
 
-                //clear out row expansion nodes
-                this.clearRowExpansionNodeCache();
                 // Clear the cache
                 this.clearCache();
+
+                // Clean up the store
+                if (this.store.destroy) {
+                    this.store.destroy();
+                }
 
                 // Clean up all our table references
                 this.table = null;
@@ -190,7 +212,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 this.otherSettingsNode = null;
                 this.tableBarCustomNode = null;
                 this.tableBarCustomActionNode = null;
-                this.rowExpansionNodeCache = null;
                 this.cache = null;
             }
         }, {
@@ -205,24 +226,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 this.cache = {};
             }
         }, {
-            key: "clearRowExpansionNodeCache",
-            value: function clearRowExpansionNodeCache() {
-                var _this3 = this;
-
-                Object.keys(this.rowExpansionNodeCache).forEach(function (key) {
-                    _reactDom2.default.unmountComponentAtNode(_this3.rowExpansionNodeCache[key]);
-                });
-
-                this.rowExpansionNodeCache = {};
-            }
-        }, {
             key: "handleWrapperRef",
             value: function handleWrapperRef(wrapper) {
                 this.wrapper = wrapper;
             }
         }, {
-            key: "shouldUpdateTablePropery",
-            value: function shouldUpdateTablePropery(table, key, value) {
+            key: "shouldUpdateTableProperty",
+            value: function shouldUpdateTableProperty(table, key, value) {
                 // Don't update the key if it's already set or if it's a key that requires special handling
                 return !_config2.default.customOptions[key] && !_config2.default.eventsToCallbacks[key] && table[key] !== value;
             }
@@ -257,56 +267,36 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "mixinOptions",
             value: function mixinOptions(table, options) {
-                var _this4 = this;
+                var _this3 = this;
 
                 if (table && options) {
                     Object.keys(options).forEach(function (key) {
                         var value = options[key];
 
                         // Only update the key if we need to
-                        // FIXME What do we do if the value is a complex object or array?
-                        if (_this4.shouldUpdateTablePropery(table, key, value)) {
+                        if (_this3.shouldUpdateTableProperty(table, key, value)) {
                             table[key] = value;
                         }
                     });
                 }
             }
         }, {
-            key: "isReactComponent",
-            value: function isReactComponent(obj) {
-                // Using instanceof does not work for some reason
-                return _react2.default.Component.isPrototypeOf(obj);
-            }
-        }, {
             key: "adaptColumns",
             value: function adaptColumns(cols) {
-                var _this5 = this;
+                var _this4 = this;
 
                 var columns = {};
 
                 // Loop through all of the columns
                 Object.keys(cols).forEach(function (key) {
-                    var Renderer = undefined,
-                        renderCell = undefined,
-                        onRenderCell = undefined;
-                    var that = _this5;
+                    var onRenderCell = undefined;
+                    var that = _this4;
 
                     columns[key] = cols[key];
-                    renderCell = columns[key].renderCell; // eslint-disable-line prefer-const
                     onRenderCell = columns[key].onRenderCell; // eslint-disable-line prefer-const
 
                     // If the column has a custom renderer, adapt it so it is compatible with HATable.
-                    if (_this5.isReactComponent(renderCell)) {
-                        // If it's a react component...
-                        // FIXME Remove support for this...
-                        console.warn("DEPRECATION WARNING: Passing React components to renderCell is deprecated. Use the onRender callback instead.");
-
-                        Renderer = renderCell;
-                        columns[key].renderCell = function (rowData, value, node, options) {
-                            return that.renderReactCell(Renderer, this.field, rowData, value, node, options);
-                        };
-                    } else if (onRenderCell) {
-                        // If it's a custom callback function...
+                    if (onRenderCell) {
                         columns[key].renderCell = function (rowData, value, node, options) {
                             var Element = onRenderCell({
                                 // Don't pass the node to the consumer. It doesn't make sense in a React world.
@@ -315,7 +305,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                 options: options,
                                 column: this.field
                             });
-                            return that.renderReactCell(Element, this.field, rowData, value, node, options);
+                            return that.renderReactCell(Element, this.field, rowData, value, node);
                         };
                     } else {
                         // No overrides. Do nothing...
@@ -326,7 +316,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
         }, {
             key: "renderReactCell",
-            value: function renderReactCell(ComponentOrElement, columnId, rowData, value, node, options) {
+            value: function renderReactCell(Element, columnId, rowData, value, node) {
                 var id = this.store.getIdentity(rowData),
                     key = this.getCellKey(id, columnId),
                     cachedNode = this.cache[key],
@@ -335,14 +325,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 // Otherwise create an empty node to put it in.
                 n = cachedNode || document.createElement("div");
 
-                // Render the component or element to the node for the row
-                if (_react2.default.isValidElement(ComponentOrElement)) {
-                    // It's an element so we don't need to write JSX to pass in the props
-                    _reactDom2.default.render(ComponentOrElement, n);
-                } else {
-                    // It's a component that needs to be rendered to JSX
-                    _reactDom2.default.render(_react2.default.createElement(ComponentOrElement, { rowData: rowData, value: value, node: node, options: options, columnId: columnId }), n);
-                }
+                // Render the element to the node for the row
+                _reactDom2.default.render(Element, n);
 
                 // Add the React node to the cache so we can use it later (if needed)
                 this.cache[key] = n;
@@ -364,6 +348,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     store = this.store;
                 } else if (this.props.collection) {
                     store = this.props.collection;
+                } else if (this.props.onDataChanged) {
+                    store = new _CallbackCollection2.default({
+                        onDataChanged: this.props.onDataChanged,
+                        allowMultipleConcurrentRequests: this.props.options.virtual
+                    });
                 } else {
                     store = new _Memory2.default();
                 }
@@ -371,19 +360,37 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 return store;
             }
         }, {
+            key: "shouldSyncCallbackCollection",
+            value: function shouldSyncCallbackCollection() {
+                return this.table && this.table.table && this.table.table._renderedCollection && this.table.table._renderedCollection.name === "CallbackCollection";
+            }
+        }, {
             key: "setStoreData",
             value: function setStoreData(data) {
                 if (data) {
                     this.store.setData(data);
+
+                    // For sorting operations HA Table maintains a copy of the store data. It is cloned via
+                    // https://github.com/SitePen/dstore/blob/master/src/QueryMethod.ts#L56
+                    // In these cases our store's fetchRange method may be called with the copy of the store
+                    // (_renderedCollection). It looks like there is some type of race condition where the
+                    // CallbackCollection store is setting state on the main store after the collection has
+                    // been cloned. In that case the copy of the store needs to have the updated state set on it
+                    // so it is available to the store during fetchRange.
+                    //
+                    // This if statement transfers the state to the copy
+                    if (this.shouldSyncCallbackCollection()) {
+                        this.table.table._renderedCollection.state = this.store.state;
+                    }
                 }
             }
         }, {
             key: "exposeApi",
             value: function exposeApi(table) {
-                var _this6 = this;
+                var _this5 = this;
 
                 Object.keys(_config2.default.apiToExpose).forEach(function (key) {
-                    _this6.api[key] = function () {
+                    _this5.api[key] = function () {
                         // Proxy the call on this component to the API method on the underlying
                         // HATable instance
                         return table[key].apply(table, arguments); //eslint-disable-line prefer-spread
@@ -392,13 +399,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
         }, {
             key: "addRenderModes",
-            value: function addRenderModes(table, nextOptions) {
+            value: function addRenderModes(table, options) {
                 var that = this;
                 //add render modes now
-                if (nextOptions && nextOptions.renderModes) {
-                    nextOptions.renderModes.forEach(function (renderModeItem) {
+                if (options && options.renderModes) {
+                    options.renderModes.forEach(function (renderModeItem) {
                         var expansionHeight = renderModeItem.renderer.expansionHeight,
-                            activatorSelector = renderModeItem.renderer.activatorSelector;
+                            activatorSelector = renderModeItem.renderer.activatorSelector,
+                            autoResizeTable = renderModeItem.renderer.autoResizeTable,
+                            scrollingThreshold = renderModeItem.renderer.scrollingThreshold,
+                            expansionClassName = renderModeItem.renderer.expansionClassName,
+                            useFocusIndicator = renderModeItem.renderer.useFocusIndicator,
+                            focusIndicatorLabel = renderModeItem.renderer.focusIndicatorLabel;
+
                         var renderRowExpansionContent = null,
                             CustomRowExpansionRenderer = null;
 
@@ -410,14 +423,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     object: object,
                                     hideExpansion: hideExpansion
                                 });
-                                return that.renderReactRowExpansionContent(ExpansionContent, object.id, renderModeItem.renderMode);
+                                return that.renderReactRowExpansionContent(ExpansionContent);
                             };
                         }
                         //use the internal LazyRowExpansionRenderer
                         CustomRowExpansionRenderer = _LazyRowExpansionRenderer2.default.bind(null, {
                             activatorSelector: activatorSelector,
                             expansionHeight: expansionHeight,
-                            renderRowExpansionContent: renderRowExpansionContent
+                            renderRowExpansionContent: renderRowExpansionContent,
+                            autoResizeTable: autoResizeTable,
+                            scrollingThreshold: scrollingThreshold,
+                            expansionClassName: expansionClassName,
+                            useFocusIndicator: useFocusIndicator,
+                            focusIndicatorLabel: focusIndicatorLabel
                         });
                         //Add render mode to the main table
                         table.addRenderMode(renderModeItem.renderMode, new CustomRowExpansionRenderer());
@@ -425,71 +443,45 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
             }
         }, {
-            key: "removeRenderModes",
-            value: function removeRenderModes(table, prevOptions) {
-                //remove render nodes
-                if (prevOptions && prevOptions.renderModes) {
-                    prevOptions.renderModes.forEach(function (renderModeItem) {
-                        table.removeRenderMode(renderModeItem.renderMode);
-                    });
-                }
-            }
-        }, {
-            key: "preTableRender",
-            value: function preTableRender(table, prevOptions) {
-                //process row rendering
-                if (prevOptions && prevOptions.renderModes) {
-                    //renderModes may have been removed or updated by the user in options settings
-                    //we need to clean up and add again as part of postTableRender
-                    this.removeRenderModes(table, prevOptions);
-                }
-            }
-        }, {
             key: "renderReactRowExpansionContent",
-            value: function renderReactRowExpansionContent(ExpansionContent, objectId, renderMode) {
-                //generate a unique key for a React element per row based on the render mode
-                var key = objectId + "-" + renderMode,
-                    cachedNode = this.rowExpansionNodeCache[key],
+            value: function renderReactRowExpansionContent(ExpansionContent) {
 
-                //reuse React node from the cache or create a new one
-                n = cachedNode || document.createElement("div");
-                //render the expansion content
+                var n = document.createElement("div");
+                // Render the expansion content
                 _reactDom2.default.render(ExpansionContent, n);
-
-                // Add the React node to the cache so we can use and clean it up later (if needed)
-                this.rowExpansionNodeCache[key] = n;
 
                 return n;
             }
         }, {
-            key: "selectRows",
-            value: function selectRows(table, data) {
-                var _this7 = this;
+            key: "updateRowSelection",
+            value: function updateRowSelection(table, data) {
+                var _this6 = this;
 
-                data.forEach(function (dataRow) {
-                    if (dataRow._selected) {
-                        var id = _this7.store.getIdentity(dataRow),
+                var d = data.results || data;
+
+                // Only select rows if there are rows to select.
+                // d could be null if the user is using data callbacks and it's the first one
+                // where data hasn't been loaded into the table.
+                if (d && d.length > 0) {
+                    d.forEach(function (dataRow) {
+                        var id = _this6.store.getIdentity(dataRow),
                             row = table.row(id);
 
-                        table.select(row);
-                    }
-                });
+                        // Table consumers must explicitly define if rows are selected
+                        if (dataRow._selected === true) {
+                            table.select(row);
+                        } else if (dataRow._selected === false) {
+                            table.deselect(row);
+                        } else {
+                            // Leave the section alone
+                        }
+                    });
+                }
             }
         }, {
             key: "applyOtherSettings",
             value: function applyOtherSettings(table, options) {
-                var SettingsRenderer = options.settingsRenderer;
-
-                // See if the options have a custom settings Renderer component
-                if (SettingsRenderer) {
-                    // Render the component to the node for Other Settings
-                    // FIXME Remove support for this
-                    console.warn("DEPRECATION WARNING: Passing React components to settingsRenderer is deprecated. Use the onOtherSettingsRender callback instead.");
-                    _reactDom2.default.render(_react2.default.createElement(SettingsRenderer, null), table.otherSettingsNode);
-
-                    // Keep a reference so we can unmount it later
-                    this.otherSettingsNode = table.otherSettingsNode;
-                } else if (options.onOtherSettingsRender) {
+                if (options.onOtherSettingsRender) {
                     var Element = options.onOtherSettingsRender();
 
                     // Render the React Element
@@ -526,13 +518,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "applyTotals",
             value: function applyTotals(table, options) {
-                var _this8 = this;
+                var _this7 = this;
 
                 // Handle totals with a resize event.
                 // Only attach the listener once
                 if (options.totals && !this.totals) {
                     table.on("table-resize", function () {
-                        table.totals = _this8.totals;
+                        table.totals = _this7.totals;
                     });
                 }
 
@@ -546,16 +538,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     this.applyOtherSettings(table, options);
                     this.applyTableBarCustomContent(table, options);
                     this.applyTotals(table, options);
-
-                    //process row rendering, if any
-                    if (options.renderModes) {
-                        this.addRenderModes(table, options);
-                    }
                 }
 
                 if (data) {
-                    // Select any rows during loading
-                    this.selectRows(table, data);
+                    // Select or deselect any rows during loading
+                    this.updateRowSelection(table, data);
                 }
             }
         }, {
@@ -583,6 +570,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                 // Apply any post render changes
                 this.postTableRender(table, options, this.props.data);
+
+                //process row rendering, if any
+                if (options && options.renderModes) {
+                    this.addRenderModes(table, options);
+                }
 
                 return table;
             }

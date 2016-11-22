@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react"], factory);
+        define(["exports", "react", "hui/core/utils"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"));
+        factory(exports, require("react"), require("hui/core/utils"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react);
+        factory(mod.exports, global.react, global.utils);
         global.HAZeroState = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -90,7 +90,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 if (this.props.simulateViewport) {
                     var viewports = document.getElementsByName("viewport");
 
-                    if (viewports) {
+                    if (viewports && viewports.length > 0) {
                         viewports[0].content = "width=device-width, initial-scale=1";
                     }
                 }
@@ -101,10 +101,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 if (this.props.simulateViewport) {
                     var viewports = document.getElementsByName("viewport");
 
-                    if (viewports) {
+                    if (viewports && viewports.length > 0) {
                         viewports[0].content = "";
                     }
                 }
+            }
+        }, {
+            key: "renderFooter",
+            value: function renderFooter(HAFooter) {
+                return _react2.default.createElement(
+                    "div",
+                    { className: "footer zero-state-footer" },
+                    HAFooter
+                );
             }
         }, {
             key: "render",
@@ -115,7 +124,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     HASection = undefined,
                     HAFooter = undefined,
                     h3 = undefined,
-                    name = undefined;
+                    typeName = undefined;
 
                 if (this.props.buttonText) {
                     button = _react2.default.createElement(
@@ -134,26 +143,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
 
                 if (this.props.children) {
-                    this.props.children.forEach(function (child) {
-
-                        if (!_react2.default.isValidElement(child)) return;
-
-                        if (child.type.name) {
-                            name = child.type.name;
-                        } else {
-                            //Required to fix QBO-118646, function.name is not supported in IE11 hence using regular expression to extract the function name
-                            name = child.type.toString().match(/^function\s*([^\s(]+)/)[1];
+                    _react2.default.Children.forEach(this.props.children, function (child) {
+                        if (!_react2.default.isValidElement(child)) {
+                            return;
                         }
-
-                        var childName = name;
-
-                        if (childName === "HAHeader") {
+                        typeName = (0, _utils.getReactTypeName)(child);
+                        if (typeName === "HAHeader") {
                             HAHeader = child;
                         }
-                        if (childName === "HASection") {
+                        if (typeName === "HASection") {
                             HASection = child;
                         }
-                        if (childName === "HAFooter") {
+                        if (typeName === "HAFooter") {
                             HAFooter = child;
                         }
                     });
@@ -191,11 +192,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                             button
                         )
                     ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "footer zero-state-footer" },
-                        HAFooter
-                    )
+                    HAFooter && this.renderFooter(HAFooter)
                 );
             }
         }]);
@@ -210,23 +207,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         onButtonClick: _react2.default.PropTypes.func,
         simulateViewport: _react2.default.PropTypes.bool,
         children: function children(props, propName, componentName) {
-            var prop = props[propName],
+            var prop = props[propName] || [],
                 types = ["HASection", "HAHeader", "HAFooter"],
-                name = undefined;
+                typeName = undefined;
 
+            prop = Array.isArray(prop) ? prop : [prop];
             for (var child in prop) {
                 if (prop[child] && prop[child].type) {
-                    if (prop[child].type.name) {
-                        name = prop[child].type.name;
-                    } else {
-                        //Required to fix QBO-118646, function.name is not supported in IE11 hence using regular expression to extract the function name
-                        name = prop[child].type.toString().match(/^function\s*([^\s(]+)/)[1];
-                    }
+                    typeName = (0, _utils.getReactTypeName)(prop[child]);
                     // Only accept a single child, of the appropriate type
-                    if (types.indexOf(name) === -1) {
+                    if (types.indexOf(typeName) === -1) {
                         return new Error(componentName + "'s children can only have one instance of the following types: " + types.join(", "));
                     } else {
-                        types[types.indexOf(name)] = "";
+                        types[types.indexOf(typeName)] = "";
                     }
                 }
             }

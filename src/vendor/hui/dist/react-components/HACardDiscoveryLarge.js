@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/card-discovery-large"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/card-discovery-large"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/card-discovery-large"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/card-discovery-large"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.cardDiscoveryLarge);
+        factory(mod.exports, global.react, global.utils, global.cardDiscoveryLarge);
         global.HACardDiscoveryLarge = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -110,6 +110,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         _createClass(HACardDiscoveryLarge, [{
             key: "componentDidMount",
             value: function componentDidMount() {
+                // handle React 15 partial rewrite
+                this.fixRenderedChildren();
                 this.mountCardDiscoveryLarge();
             }
         }, {
@@ -170,22 +172,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         this.setupListeners();
                         if (this._cardDiscoveryLarge.show) {
                             this._cardDiscoveryLarge.show(); // show card discvoery large in DOM using hui/card-discovery-large
-
-                            // handle React 15 partial rewrite
-                            this.fixRenderedChildren();
                         } else {
-                            // on browsers that doesn't support custom elements natively,
-                            // the component is not upgraded yet so show is not available, wait for event
-                            var componentUpgraded = function componentUpgraded(event) {
-                                event.stopPropagation();
-                                _this3._cardDiscoveryLarge.show(); // show card discvoery large in DOM using hui/card-discovery-large
-
-                                // handle React 15 partial rewrite
-                                _this3.fixRenderedChildren();
-                            };
-                            this._listeners.componentUpgraded = componentUpgraded.bind(this);
-                            this._cardDiscoveryLarge.addEventListener("component-upgraded", this._listeners.componentUpgraded);
-                        }
+                                // on browsers that doesn't support custom elements natively,
+                                // the component is not upgraded yet so show is not available, wait for event
+                                var componentUpgraded = function componentUpgraded(event) {
+                                    event.stopPropagation();
+                                    _this3._cardDiscoveryLarge.show(); // show card discvoery large in DOM using hui/card-discovery-large
+                                };
+                                this._listeners.componentUpgraded = componentUpgraded.bind(this);
+                                this._cardDiscoveryLarge.addEventListener("component-upgraded", this._listeners.componentUpgraded);
+                            }
                     } else if (prevProps.show) {
                         // remove Card from DOM using hui/card-discovery-large
                         this._cardDiscoveryLarge.close();
@@ -256,17 +252,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     HACardDiscoveryLarge.propTypes = {
         children: function children(props, propName, componentName) {
-            var prop = props[propName] || [];
-            var types = ['HASection', 'HAFooter'];
+            var prop = props[propName] || [],
+                types = ["HASection", "HAFooter"],
+                typeName;
             // handle single child prop http://facebook.github.io/react/tips/children-props-type.html
             prop = Array.isArray(prop) ? prop : [prop];
 
             for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
                 // Only accept a single child, of the appropriate type
-                if (types.indexOf(prop[child].type.name) === -1) {
+                if (types.indexOf(typeName) === -1) {
                     return new Error(componentName + "'s children can only have one instance of the following types: " + types.join(', '));
                 } else {
-                    types[types.indexOf(prop[child].type.name)] = '';
+                    types[types.indexOf(typeName)] = '';
                 }
             }
         },

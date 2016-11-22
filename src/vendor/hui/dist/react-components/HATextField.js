@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/text-field"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/text-field"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/text-field"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/text-field"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.textField);
+        factory(mod.exports, global.react, global.utils, global.textField);
         global.HATextField = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -103,6 +103,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             _this._huiComponent = null;
             _this._listeners = {};
+            _this.state = {
+                classAttributes: null
+            };
             return _this;
         }
 
@@ -179,6 +182,37 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     }
                     _this2.testValidity(); // We need to do initial notification of validity state.
                 }, 0);
+
+                // merge pre-existing custom element classes with props
+                if (this.props.className) {
+                    this.updateElementClasses();
+                }
+            }
+        }, {
+            key: "updateElementClasses",
+            value: function updateElementClasses(newProps) {
+                var mergedClassString = undefined;
+                if (newProps) {
+                    mergedClassString = (0, _utils.updateClassWithProps)(this._huiComponent, newProps.className);
+                } else {
+                    mergedClassString = (0, _utils.updateClassWithProps)(this._huiComponent, this.props.className);
+                }
+
+                // re-render the element with addition / removal of props
+                if (mergedClassString) {
+                    this.setState({
+                        classAttributes: mergedClassString
+                    });
+                }
+            }
+        }, {
+            key: "componentWillReceiveProps",
+            value: function componentWillReceiveProps(nextProps) {
+                // ensure that H-UI supported classes on the element aren't erased on props change
+                var existingClasses = this.state.classAttributes;
+                if (existingClasses !== nextProps.className) {
+                    this.updateElementClasses(nextProps);
+                }
             }
         }, {
             key: "componentWillUnmount",
@@ -207,7 +241,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     "ha-text-field",
                     _extends({
                         ref: this.handleRef,
-                        "class": this.props.className
+                        "class": this.state.classAttributes
                     }, this.props),
                     this.props.children
                 );

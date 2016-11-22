@@ -6,7 +6,7 @@ require.config({
         "register-component": "../vendor/register-component/src",
         "mustache": "https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.0.0/mustache.min",
         "text": "https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min",
-        'ua-parser': '../vendor/ua-parser/dist/ua-parser.min'
+        'ua-parser': '../vendor/ua-parser-js/dist/ua-parser.min'
     },
     packages: [
         { name: 'dojo', location: '../vendor/dojo' },
@@ -59,9 +59,9 @@ require([
         table.showTableBar = true;
         table.showEditMode = true;
         table.showSettings = true;
-        table.showDisplayDensitySettings = true;
+        table.showDisplayDensitySettings = false;
         table.showRowsPerPageSettings = true;
-        table.showColumnHider = true;
+        table.showColumnHider = false;
         table.filterType = 'simple-filter';
         table.collection = store;
         // table.allowBatchMode = true;

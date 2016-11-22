@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "react-dom", "./HAPortal", "hui/modal"], factory);
+        define(["exports", "react", "react-dom", "./HAPortal", "hui/core/utils", "hui/modal"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("react-dom"), require("./HAPortal"), require("hui/modal"));
+        factory(exports, require("react"), require("react-dom"), require("./HAPortal"), require("hui/core/utils"), require("hui/modal"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.reactDom, global.HAPortal, global.modal);
+        factory(mod.exports, global.react, global.reactDom, global.HAPortal, global.utils, global.modal);
         global.HAModal = mod.exports;
     }
-})(this, function (exports, _react, _reactDom, _HAPortal) {
+})(this, function (exports, _react, _reactDom, _HAPortal, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -128,6 +128,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             key: "componentDidUpdate",
             value: function componentDidUpdate(prevProps) {
                 this.mountModal(prevProps);
+                this.removeWebRenderComp();
             }
         }, {
             key: "mountModal",
@@ -162,6 +163,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 var modalChild = this._modal.querySelectorAll('.modal');
                 if (modalChild && modalChild.length > 1) {
                     this._modal.removeChild(modalChild[0]);
+                } else {
+                    // on Safari mobile, updated compID state hasn't been set
+                    // before component's type change callback fires - this fixes dupe header
+                    var modalTitles = this._modal.querySelectorAll(".modal-title h2");
+                    if (modalTitles && modalTitles.length > 1) {
+                        modalTitles[0].parentElement.removeChild(modalTitles[0]);
+                    }
                 }
             }
         }, {
@@ -303,7 +311,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                         _react2.default.createElement(
                                             "header",
                                             null,
-                                            _react2.default.createElement("button", { type: "button", className: "btn btn-link hi hi-close medium pull-right", "aria-label": "Close" }),
+                                            this.props.dismissible ? _react2.default.createElement("button", { type: "button", className: "btn btn-link hi hi-close medium pull-right", "aria-label": "Close" }) : null,
                                             _react2.default.createElement(
                                                 "div",
                                                 { className: classes["title"] },
@@ -320,11 +328,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                             )
                                         ),
                                         _react2.default.Children.map(this.props.children, function (child) {
-                                            if (child.type.name === "HASection") {
+                                            if ((0, _utils.getReactTypeName)(child) === "HASection") {
                                                 return _react2.default.cloneElement(child, { id: "modal-text-" + _this5.compID, key: "1" });
-                                            } else if (child.type.name === "HAFooter") {
-                                                return _react2.default.cloneElement(child, { className: countClassMap[child.props.children.length], key: "2" });
-                                            } else if (child.type.name === "HAAside") {
+                                            } else if ((0, _utils.getReactTypeName)(child) === "HAFooter") {
+                                                var footClassName = countClassMap[_react2.default.Children.count(child.props.children)];
+                                                footClassName = child.props.className ? footClassName + " " + child.props.className : footClassName;
+                                                return _react2.default.cloneElement(child, { className: footClassName, key: "2" });
+                                            } else if ((0, _utils.getReactTypeName)(child) === "HAAside") {
                                                 return _react2.default.cloneElement(child, { key: "3" });
                                             }
                                         })
@@ -343,17 +353,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     HAModal.propTypes = {
         children: function children(props, propName, componentName) {
-            var prop = props[propName] || [];
-            var types = ['HASection', 'HAAside', 'HAFooter'];
+            var prop = props[propName] || [],
+                types = ["HASection", "HAAside", "HAFooter"],
+                typeName;
             // handle single child prop http://facebook.github.io/react/tips/children-props-type.html
             prop = Array.isArray(prop) ? prop : [prop];
 
             for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
                 // Only accept a single child, of the appropriate type
-                if (types.indexOf(prop[child].type.name) === -1) {
-                    return new Error(componentName + "'s children can only have one instance of the following types: " + types.join(', '));
+                if (types.indexOf(typeName) === -1) {
+                    return new Error(componentName + "'s children can only have one instance of the following types: " + types.join(", "));
                 } else {
-                    types[types.indexOf(prop[child].type.name)] = '';
+                    types[types.indexOf(typeName)] = "";
                 }
             }
         },

@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "react-dom", "./HAPortal", "hui/drawer-large"], factory);
+        define(["exports", "react", "react-dom", "./HAPortal", "hui/core/utils", "hui/drawer-large"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("react-dom"), require("./HAPortal"), require("hui/drawer-large"));
+        factory(exports, require("react"), require("react-dom"), require("./HAPortal"), require("hui/core/utils"), require("hui/drawer-large"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.reactDom, global.HAPortal, global.drawerLarge);
+        factory(mod.exports, global.react, global.reactDom, global.HAPortal, global.utils, global.drawerLarge);
         global.HADrawerLarge = mod.exports;
     }
-})(this, function (exports, _react, _reactDom, _HAPortal) {
+})(this, function (exports, _react, _reactDom, _HAPortal, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -246,7 +246,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                 )
                             ),
                             _react2.default.Children.map(this.props.children, function (child) {
-                                if (child.type.name === "HASection") {
+                                if ((0, _utils.getReactTypeName)(child) === "HASection") {
                                     return _react2.default.createElement(
                                         "section",
                                         { key: "1", className: "content", tabIndex: "-1" },
@@ -261,7 +261,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                             child
                                         )
                                     );
-                                } else if (child.type.name === "HAFooter") {
+                                } else if ((0, _utils.getReactTypeName)(child) === "HAFooter") {
                                     return _react2.default.createElement(
                                         "footer",
                                         { key: "2", className: "footer", tabIndex: "-1" },
@@ -280,17 +280,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     HADrawerLarge.propTypes = {
         children: function children(props, propName, componentName) {
-            var prop = props[propName] || [];
-            var types = ['HASection', 'HAFooter'];
+            var prop = props[propName] || [],
+                types = ["HASection", "HAFooter"],
+                typeName;
             // handle single child prop http://facebook.github.io/react/tips/children-props-type.html
             prop = Array.isArray(prop) ? prop : [prop];
 
             for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
                 // Only accept a single child, of the appropriate type
-                if (types.indexOf(prop[child].type.name) === -1) {
+                if (types.indexOf(typeName) === -1) {
                     return new Error(componentName + "'s children can only have one instance of the following types: " + types.join(', '));
                 } else {
-                    types[types.indexOf(prop[child].type.name)] = '';
+                    types[types.indexOf(typeName)] = '';
                 }
             }
         },
@@ -299,6 +301,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         titleText: _react2.default.PropTypes.string,
         onShow: _react2.default.PropTypes.func,
         onClose: _react2.default.PropTypes.func,
+        noCloseOnDismiss: _react2.default.PropTypes.bool,
         onDismiss: _react2.default.PropTypes.func
     };
 

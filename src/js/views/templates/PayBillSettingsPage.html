@@ -1,0 +1,182 @@
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../../../vendor/hui/dist/css/hui.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <style>
+            ha-page-message {
+                height: 100px;
+            }
+        </style>
+
+        <script>
+            window.addEventListener("message", function(a) {
+                if(a.origin.indexOf("intuit.com")>=1&&a.data&&a.data.initXDM)
+                {
+                    var b=document.createElement("script");
+                    b.setAttribute("type","text/javascript");
+                    b.innerHTML=a.data.initXDM;
+                    document.getElementsByTagName("head")[0].appendChild(b);
+                }
+            });
+
+            qboXDMReady = function() {
+                qboXDM.getContext(function(context) {
+                    if(context)
+                    {
+                        console.log(context.qbo.realmId);
+                        if(context.qbo.pathname.indexOf('billpayment') != -1)
+                        {
+                            growHeight(100);
+                        }
+                    }
+                });
+            }
+
+            execute = function(action, params){
+                qboXDM.showSpinner();
+            };
+
+            expand = function(width, height){
+                width = width || 0;
+                height = height || 0;
+                qboXDM.adjustFrameWidth(width + 'px');
+                qboXDM.adjustFrameHeight(height + 'px');
+            };
+
+            growHeight = function(height){
+                qboXDM.adjustFrameHeight(height + 'px');
+            };
+
+            collapse = function(){
+                expand(0, 0)
+            };
+
+            showSimpleDialog = function(msg) {
+                qboXDM.showOkDialog("Title", msg, function() { console.log("ok"); });
+            };
+
+            qboXDMReceiveMessage = function(message, successFn, errorFn) {
+                // for the message.eventName === "qbo-transaction"
+                // message.data.id will have the id of the transaction
+                // message.data.typeName will be invoice, bill, etc.
+                if(message.eventName == "onLoad")
+                    showSimpleDialog("onLoad event raised");
+
+                if(message.eventName == "onBeforeSave")
+                    showSimpleDialog("onBeforeSave event raised");
+
+                //console.log(message.data);
+
+                if (message) {
+                    if (message.eventName === "qbo-action-settings-dirty_check") {
+                        console.log(message.eventName);
+                        console.log(message.data);
+                        
+                        successFn({
+                            result: false
+                        });
+                        // var dirtyAction = getRadioValue("settingsDirtyCheck");
+                        // if (dirtyAction === "settingsDirtySuccess") {
+                        //     s({result: document.getElementById("settingsDirtyModel").checked});
+                        // }
+                        // if (dirtyAction === "settingsDirtyFailure") {
+                        //     f();
+                        // }
+                        // if (dirtyAction === "settingsDirtyTimeout") {
+                        //     // just waiting
+                        // }
+                    }
+
+                   
+                    if (message.eventName === "qbo-action-settings-switch") {
+                        console.log(message.eventName);
+                        console.log(message.data);
+                        console.log(message.data.editMode);
+                        // if (message.data.editMode) {
+                        //     document.getElementById("settingsStatus").innerHTML = new Date().getTime() + " Edit mode on";
+                        // } else {
+                        //     document.getElementById("settingsStatus").innerHTML = new Date().getTime() + " Edit mode off";
+                        // }
+                    }
+                    if (message.eventName === "qbo-action-settings-save") {
+                        console.log(message.eventName);
+                        console.log(message.data);
+                        setTimeout(qboXDM.emitEvent.bind(this, "close-settings-section"), 50);
+                        // var saveAction = getRadioValue("settingsSaveStatus");
+                        // if (saveAction === "settingsSaveValidationFailure") {
+                        // document.getElementById("settingsStatus").innerHTML = new Date().getTime() + " Validation failure! Edit mode on";
+                        //     f({handled: true});
+                        // } else {
+                        //     document.getElementById("settingsStatus").innerHTML = new Date().getTime() + " Edit mode on";
+                        // }
+                        // if (saveAction === "settingsSaveSuccess") {
+                        //     s();
+                        // }
+                        // if (saveAction === "settingsSaveError") {
+                        //     f({message: "Failed to save your data in plugin!"});
+                        // }
+                        // if (saveAction === "settingsSaveTimeout") {
+                        //     // nothing, just waiting
+                        // }
+                        // if (saveAction === "settingsSaveTakesLong") {
+                        //     if (saveTryCount == 0) {
+                        //         setTimeout(f.bind(this, {extend: true}), message.data.timeout - 500);
+                        //         saveTryCount++;
+                        //     } else if (saveTryCount == 1) {
+                        //         setTimeout(s.bind(this), (message.data.timeout - 500));
+                        //         saveTryCount = 0;
+                        //     }
+                        // }
+                        // if (saveAction === "settingsSaveTakesTooLong") {
+                        //     if (saveTryCount == 0) {
+                        //         setTimeout(f.bind(this, {extend: true}), message.data.timeout - 500);
+                        //         saveTryCount++;
+                        //     } else if (saveTryCount == 1) {
+                        //         setTimeout(f.bind(this, {extend: true}), (message.data.timeout - 500));
+                        //         saveTryCount++;
+                        //     } else if (saveTryCount == 2) {
+                        //         setTimeout(f.bind(this, {extend: true}), (message.data.timeout - 500));
+                        //         saveTryCount = 0;
+                        //     }
+                        // }
+                    }
+                }
+                    
+            }
+        </script>
+
+    </head>
+	<body>   
+
+        <ha-page-message titleText="Info Title" type="info" dismissible="false">
+            Lorem ipsum dolor sit amet...
+        </ha-page-message>
+
+        <div id="programmatic-1">
+        </div>
+
+        <section>
+            <h4>Buttons Buttons Buttons!</h4>
+            <button class="ha-button" id="openButton">Open Calendar</button>
+            <div id="changedValue"></div>
+        </section>
+
+        <section>
+            <h3>DatePicker With Label</h3>
+            <ha-date-picker label="When is your Birthday?" id="testPicker"></ha-date-picker>
+        </section>
+
+        <button class="ha-button" onclick="alert('Cicked')">Click Me</button>
+        
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/document-register-element/0.5.4/document-register-element.js"></script>
+        <script type="text/javascript" data-main="PayBillSettingsPage" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js"></script>
+        
+	</body>
+</html>

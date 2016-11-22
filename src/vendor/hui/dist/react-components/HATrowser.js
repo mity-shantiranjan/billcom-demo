@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "react-dom", "./HAPortal", "hui/trowser/page-modal"], factory);
+        define(["exports", "react", "react-dom", "./HAPortal", "hui/core/utils", "hui/trowser/page-modal", "hui/trowser/page-modal-header", "hui/trowser/page-modal-footer", "hui/trowser/page-modal-header-item"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("react-dom"), require("./HAPortal"), require("hui/trowser/page-modal"));
+        factory(exports, require("react"), require("react-dom"), require("./HAPortal"), require("hui/core/utils"), require("hui/trowser/page-modal"), require("hui/trowser/page-modal-header"), require("hui/trowser/page-modal-footer"), require("hui/trowser/page-modal-header-item"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.reactDom, global.HAPortal, global.pageModal);
+        factory(mod.exports, global.react, global.reactDom, global.HAPortal, global.utils, global.pageModal, global.pageModalHeader, global.pageModalFooter, global.pageModalHeaderItem);
         global.HATrowser = mod.exports;
     }
-})(this, function (exports, _react, _reactDom, _HAPortal) {
+})(this, function (exports, _react, _reactDom, _HAPortal, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -107,6 +107,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             // keep track if we have set any event listeners on trowser
             _this._listeners = {};
             _this.showModal = props.show;
+
+            _this.state = {
+                classAttributes: null
+            };
             return _this;
         }
 
@@ -140,6 +144,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 if (this._trowser && this.props.show !== prevProps.show) {
                     if (this.props.show) {
                         this.setupListeners();
+
+                        // handle showing trowser
+                        if (this.state.classAttributes !== this.props.className) {
+                            this._trowser.classList.remove('hidden');
+                            this.updateElementClasses();
+                        }
+
                         if (this._trowser.show) {
                             this._trowser.show();
                         } else {
@@ -154,8 +165,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         }
                     } else if (prevProps.show) {
                         this._trowser.close(); // remove trowser from DOM using hui/trowser
+
+                        // handle className props being passed to custom element
+                        if (this.props.className !== prevProps.className) {
+                            this.updateElementClasses();
+                        }
                     }
-                    // this.removeWebRenderComp();
+                }
+            }
+        }, {
+            key: "updateElementClasses",
+            value: function updateElementClasses() {
+                var mergedClassString = (0, _utils.updateClassWithProps)(this._trowser, this.props.className);
+                if (mergedClassString) {
+                    this.setState({
+                        classAttributes: mergedClassString
+                    });
                 }
             }
         }, {
@@ -269,7 +294,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                             "ha-page-modal",
                             _extends({
                                 ref: this.handleRef,
-                                "class": this.props.className,
+                                "class": this.state.classAttributes,
                                 reactLayering: true
                             }, this.props),
                             _react2.default.createElement(
@@ -302,13 +327,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     )
                                 ),
                                 _react2.default.Children.map(this.props.children, function (child) {
-                                    if (child.type.name === "HASection") {
+                                    if ((0, _utils.getReactTypeName)(child) === "HASection") {
                                         return _react2.default.createElement(
                                             "section",
                                             { key: "1", tabIndex: "-1" },
                                             child
                                         );
-                                    } else if (child.type.name === "HATrowserFooter") {
+                                    } else if ((0, _utils.getReactTypeName)(child) === "HATrowserFooter") {
                                         return _react2.default.createElement(
                                             "footer",
                                             { key: "2", tabIndex: "-1" },
@@ -409,17 +434,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     Trowser.propTypes = {
         children: function children(props, propName, componentName) {
-            var prop = props[propName] || [];
-            var types = ['HASection', 'HATrowserFooter'];
+            var prop = props[propName] || [],
+                types = ["HASection", "HATrowserFooter"],
+                typeName;
             // handle single child prop http://facebook.github.io/react/tips/children-props-type.html
             prop = Array.isArray(prop) ? prop : [prop];
 
             for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
                 // Only accept a single child, of the appropriate type
-                if (types.indexOf(prop[child].type.name) === -1) {
-                    return new Error(componentName + "'s children can only have one instance of the following types: " + types.join(', '));
+                if (types.indexOf(typeName) === -1) {
+                    return new Error(componentName + "'s children can only have one instance of the following types: " + types.join(", "));
                 } else {
-                    types[types.indexOf(prop[child].type.name)] = '';
+                    types[types.indexOf(typeName)] = "";
                 }
             }
         },
@@ -432,6 +459,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         history: _react2.default.PropTypes.bool,
         dismissible: _react2.default.PropTypes.bool,
         autofocus: _react2.default.PropTypes.bool,
+        noCloseOnDismiss: _react2.default.PropTypes.bool,
         onShow: _react2.default.PropTypes.func,
         onClose: _react2.default.PropTypes.func,
         onDismiss: _react2.default.PropTypes.func

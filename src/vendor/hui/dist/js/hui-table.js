@@ -3805,7 +3805,7 @@ define('hui/table/TableBase',[
 
         /**
          * Temporarily disables any rendering functions, and prevents refreshing. This is helpful for preventing errors
-         * that might happen in situations such as refreshing after setting columsn from a new render mode but before
+         * that might happen in situations such as refreshing after setting columns from a new render mode but before
          * setup is called and performs the necessary configuration. It also helps reduce unnecessary rendering in
          * those types of situations.
          * @private
@@ -3923,12 +3923,10 @@ define('hui/table/TableBase',[
                         newSort = [];
                         sort = this.sort[0];
                         if (sort && sort.property === field) {
-                            if (!sort.descending) {
-                                newSort.push({
-                                    property: field,
-                                    descending: true
-                                });
-                            }
+                            newSort.push({
+                                property: field,
+                                descending: !sort.descending
+                            });
                         } else {
                             newSort.push({
                                 property: field,
@@ -5214,684 +5212,6 @@ define('hui/table-column',[
     return register('ha-table-column', HATableColumn);
 });
 
-define('hui/drawer/DrawerBase',[
-    '../core/a11y',
-    '../core/keys',
-    '../core/utils',
-    'register-component/v2/UIComponent',
-    'object-utils/classes',
-    '../core/contentNode'
-], function(a11y, keys, utils, UIComponent, classes, contentNode) {
-    'use strict';
-
-    /**
-     * Inserts the title in the rendered component
-     * @param {HTMLElement} component The Drawer
-     * @param {String} title   The title text
-     */
-    function setTitle(component, title) {
-        var titleEl = component.querySelector('.content h3');
-        if (titleEl) {
-            titleEl.textContent = title;
-        }
-    }
-
-    /**
-     * Determines whether the element is a child of the drawer
-     * @param {HTMLElement} element The possible child element
-     * @param {HTMLElement} drawer The drawer
-     */
-    function elementIsInsideDrawer(element, drawer) {
-        var parent = element && element.parentNode;
-        while (parent) {
-            if (parent === drawer) {
-                return true;
-            }
-            parent = parent.parentNode;
-        }
-
-        return false;
-    }
-
-    var DrawerBase = classes.createObject(UIComponent, {
-
-        init: function _() {
-
-            _.super(this);
-            /**
-             * Used for accesibility reasons to set the focus to the last active element
-             * before the Drawer appeareanse.
-             * @private
-             * @type {HTMLElement}
-             */
-            this._lastFocus = null;
-
-            /**
-             * Indicates whether the component is visible after calling show
-             * @private
-             * @type {Boolean}
-             */
-            this._open = false;
-
-            this.setupProperties({
-                /**
-                 * A string that the consumer can set as an atributte/property
-                 * which is going to be displayed on the Drawer as a Title.
-                 * @type {String}
-                 */
-                titleText: {
-                    default: '',
-                    change: function(newValue) {
-                        setTitle(this, newValue);
-                    }
-                }
-            });
-
-            this.on('show', function(evt) {
-                if ((evt.target.localName === 'ha-drawer-large' || evt.target.localName === 'ha-drawer-small') && this._open && evt.type === 'show') {
-                    // here we send the content of the drawer instead of the drawer itself, because
-                    // we want to avoid focusing the close button
-                    var content = this.querySelector('.content'),
-                        element = a11y.getBoundariesTabableElement(content).first;
-                    if (element) {
-                        element.focus();
-                    }
-                    content.scrollTop = 0;
-                }
-            });
-
-            /**
-             * @emits dismiss.
-             */
-            this.on('keydown', function(evt) {
-                if (keys.ESCAPE === evt.keyCode) {
-                    utils.stopEvent(evt);
-                    this.emit('dismiss');
-                    this.close();
-                } else {
-                    a11y.keepFocusInsideListener(evt, this);
-                }
-            });
-
-            this.listenTo(window, 'resize', function() {
-                if (this._open && this.ownerDocument.activeElement.tagName === 'INPUT' &&
-                    elementIsInsideDrawer(this.ownerDocument.activeElement, this)) {
-                    setTimeout(function() {
-                        if (this.ownerDocument.activeElement && this.ownerDocument.activeElement.scrollIntoViewIfNeeded) {
-                            this.ownerDocument.activeElement.scrollIntoViewIfNeeded();
-                        }
-                    }.bind(this), 0);
-                }
-            }.bind(this));
-        },
-
-        /**
-         * @deprecated. The 'close' method should be used instead
-         */
-        hide: function() {
-            console.warn('DEPRECATION WARNING: The "hide" method is going to be deprecated. From now on, please use the "close" method instead.');
-            this.close();
-        },
-
-        /**
-         * Callback attached after the Component render
-         * Here we check if the element was already rendered, if not we render it for the first time.
-         * If it was rendered, we check if some property has change to apply the visual changes.
-         */
-        postRender: function _() {
-            _.super(this);
-            a11y.addA11yFocus(this);
-            //Setting up things related to accesibility
-            this.tabIndex = -1;
-            this.role = 'dialog';
-
-        },
-
-        /**
-         * This method must be removed, once the hide method is also removed.
-         */
-        addEventListener: function _() {
-            HTMLElement.prototype.addEventListener.apply(this, arguments);
-            if (arguments[0] === 'hide') {
-                console.warn('DEPRECATION WARNING: The hide event is going to be deprecated. From now on, please use "close" instead.');
-            }
-        },
-
-        /**
-         * Adds content to the component
-         * @param {object} config Mapping between HTML and properties
-         * @deprecated Properties should be used directly instead
-         */
-        addContent: function(config) {
-            var _contentPropertyMap = {
-                'section': 'section',
-                'main': 'section',
-                'footer': 'footer'
-            };
-            contentNode.addContent(this, config, _contentPropertyMap);
-        }
-    });
-
-    return DrawerBase;
-});
-
-define('hui/drawer-large',[
-    'register-component/v2/register',
-    './drawer/DrawerBase',
-    './core/position',
-    './core/underlay',
-    'object-utils/classes',
-    './core/utils'
-], function(register, DrawerBase, position, Underlay, classes, utils) {
-    'use strict';
-
-    var el = utils.createElement,
-
-        renderedFooter = function(component) {
-            return component.querySelector('aside > footer > *');
-        },
-
-        renderedSection = function(component) {
-            return component.querySelector('aside > section > div.inner-content > *');
-        },
-
-        userProvidedMain = function(component) {
-            var mainTag = component.querySelector('main'),
-                message = 'DEPRECATION WARNING: <main> tags should not be used anymore to add ' +
-                    'content to <ha-drawer-large>. Please add content through a <section> tag.';
-
-            if (mainTag) {
-                console.warn(message);
-            }
-
-            return mainTag;
-        },
-
-        userProvidedSection = function(component) {
-            return component.querySelector('section');
-        },
-
-        userProvidedFooter = function(component) {
-            return component.querySelector('footer');
-        },
-
-        renderCloseButton = function() {
-            var closeButton = el('button', {'className': 'drawer-close first-focus'}, [
-                    el('span', {'className': 'hi hi-close'})
-                ]);
-
-            closeButton.setAttribute('aria-label', 'close');
-
-            return closeButton;
-        },
-
-        renderAside = function(sectionContent, componentId, footerContent) {
-            var aside = el('aside', {'className': 'drawer-panel'}, [
-                    renderHeader(),
-                    renderSection(sectionContent, componentId),
-                    renderFooter(footerContent)
-                ]);
-
-            aside.setAttribute('aria-labelledby', 'drawer-large-title-' + componentId);
-            aside.setAttribute('tabindex', '-1');
-
-            return aside;
-        },
-
-        renderHeader = function() {
-            return el('header', {'className': 'header'}, [renderCloseButton()]);
-        },
-
-        renderSection = function(content, id) {
-            var section = el('section', {'className': 'content'}, [
-                    el('h3', {'id': 'drawer-large-title-' + id}),
-                    el('div', {'className': 'inner-content'}, [content])
-                ]);
-
-            section.setAttribute('tabindex', '-1');
-
-            return section;
-        },
-
-        renderFooter = function(content) {
-            var footer = el('footer', {'className': 'footer'}, [content]);
-
-            footer.setAttribute('tabindex', '-1');
-
-            return footer;
-        },
-
-        HADrawerLarge;
-
-    HADrawerLarge = classes.createObject(DrawerBase, {
-
-        init: function _() {
-            _.super(this);
-
-            var animationEvts = utils.getAnimationEventNames();
-
-            this.setupProperties({
-                /**
-                 * Indicates whether or not the Drawer needs to have a full
-                 * screen overlay with opacity.
-                 * @type {Boolean}
-                 */
-                backdrop: {
-                    default: false,
-                    type: Boolean
-                },
-                /**
-                 * Indicates whether the component is rendered into the body by react
-                 * @type {Boolean}
-                 */
-                reactLayering: {
-                    type: Boolean,
-                    default: false
-                },
-                /**
-                 * @deprecated 'backdrop' should be used instead
-                 * @type {Boolean}
-                 */
-                overlay: {
-                    default: false,
-                    type: Boolean,
-                    change: function(newValue, oldValue) {
-                        /* istanbul ignore if */
-                        if (newValue !== oldValue) {
-                            this.backdrop = newValue;
-                            console.warn('DEPRECATION WARNING: The "overlay" property is going to be deprecated. From now on, please use the "backdrop" property instead.');
-                        }
-                    }
-                }
-            });
-
-            /**
-             * @emits dismiss.
-             */
-            this.on('button.drawer-close:click', function() {
-                this.emit('dismiss');
-                this.close();
-            }.bind(this));
-
-            //Listener for removing show class after ha-drawer-slide-out is completed
-            this.on(animationEvts.animationend, function(ev) {
-                if (ev.animationName === 'ha-drawer-slide-out') {
-                    this.classList.remove('show');
-                }
-            }.bind(this));
-        },
-
-        get footer() {
-            return utils.arrayOfChildrenFrom(renderedFooter(this));
-        },
-
-        /**
-         * Set a node or an array of nodes for footer
-         * @param {HTMLElement|[HTMLElement]} newFooter Node or nodes to set
-         */
-        set footer(newFooter) {
-            utils.replaceChildrenOf(
-                this.querySelector('aside > footer'),
-                utils.wrapIfNotWrapped('footer', newFooter));
-        },
-
-        get section() {
-            return utils.arrayOfChildrenFrom(renderedSection(this));
-        },
-
-        /**
-         * Set a node or an array of nodes for section
-         * @param {HTMLElement|[HTMLElement]} newSection Node or nodes to set
-         */
-        set section(newSection) {
-            utils.replaceChildrenOf(
-                this.querySelector('aside > section > div.inner-content'),
-                utils.wrapIfNotWrapped('section', newSection));
-        },
-
-        // When drawer show called, the detachedCallback might be called depends on the drawer's previous parent node whether body or not.
-        // Therefore, if the Underlay of drawer or itself behavior flicker and disappear, then need look at and modify this part.
-        detachedCallback: function _() {
-            if (this.backdrop && this.parentElement && this.parentElement !== this.ownerDocument.body) {
-                Underlay.hide();
-                setTimeout(function() {
-                    this.ownerDocument.documentElement.style.overflow = 'auto';
-                    this.ownerDocument.body.classList.remove('overflow-hidden');
-                }.bind(this), 350);
-            }
-        },
-
-        /**
-         * Opens the Drawer, and makes the elements inside to be accessible from the keyboard.
-         * @emits show
-         */
-        show: function() {
-            if (!this._open) {
-                this._open = true;
-
-                // making elements inside the Drawer visible for the keyboard
-                // the show class makes the drawer visible in order to execute the corresponding animations
-                this.classList.add('show');
-                this.classList.remove('slide-out');
-                this.classList.add('slide-in');
-
-                if (this.backdrop) {
-                    if (!this.reactLayering) {
-                        Underlay.show(this);
-                    }
-                    this.ownerDocument.body.classList.add('overflow-hidden');
-                    // adding a class to the html tag does not work, we need to add the style inline
-                    this.ownerDocument.documentElement.style.overflow = 'hidden';
-                }
-
-                if (!this.reactLayering) {
-                    position.bringToFront(this);
-                }
-                this._lastFocus = this.ownerDocument.activeElement;
-
-                this.emit('show');
-            }
-        },
-
-        /**
-         * Closes the Drawer, and remove the elements inside from the keyboard access.
-         * @emits close
-         * @emits hide - for backward compatibility
-         */
-        close: function() {
-            if (this._open) {
-                this._open = false;
-                this.classList.remove('slide-in');
-                this.classList.add('slide-out');
-
-                // remove backdrop if we have one
-                if (this.backdrop) {
-                    if (!this.reactLayering) {
-                        Underlay.hide();
-                    }
-                    setTimeout(function() {
-                        this.ownerDocument.documentElement.style.overflow = 'auto';
-                        this.ownerDocument.body.classList.remove('overflow-hidden');
-                    }.bind(this), 350);
-                }
-
-                // restore focus to last active element before drawer was opened
-                if (this._lastFocus) {
-                    this._lastFocus.focus();
-                }
-
-                this._lastFocus = null;
-
-                this.emit('close');
-                this.emit('hide'); // for backward compatibility
-            }
-        },
-
-        postRender: function _() {
-            _.super(this);
-
-            // Cache input
-            var section = renderedSection(this) || userProvidedMain(this) || userProvidedSection(this),
-                footer = renderedFooter(this) || userProvidedFooter(this);
-
-            // Destroy children
-            utils.removeAllChildrenFrom(this);
-
-            // Create and append "template"
-            this.appendChild(renderAside(section, this.componentId, footer));
-        }
-    });
-
-    return register('ha-drawer-large', HADrawerLarge);
-});
-
-
-define('text!hui/page-message/page-message.html',[],function () { return '<template>\n    <span class="hi-icon-{{type}}"></span>\n    <button class="btn hi hi-close" aria-label="Close"></button>\n    <header>\n        <h4>{{titleText}}</h4>\n    </header>\n    <div class="message-content">{{message}}</div>\n</template>\n';});
-
-
-define('hui/page-message',[
-    'register-component/v2/UIComponent',
-    'register-component/v2/register',
-    'object-utils/classes',
-    './core/a11y',
-    'register-component/template!./page-message/page-message.html'
-], function(UIComponent, register, classes, a11y) {
-    'use strict';
-
-    var HAPageMessage;
-
-    /**
-     * When a message is closed, finds a new target to give focus to
-     * @param  {HTMLElement} component The page message component
-     */
-    function _handleFocusOnClose(component) {
-        var destinationFocus;
-
-        destinationFocus = component.previousElementSibling || component.parentElement.previousElementSibling;
-        if (destinationFocus) {
-            destinationFocus.focus();
-        }
-    }
-
-    HAPageMessage = classes.createObject(UIComponent, {
-
-        /**
-         * Executed on show message.
-         * @emits PageMessage#show
-         */
-        show: function() {
-            this.classList.remove('hidden');
-            this.emit('show');
-        },
-
-        init: function _() {
-            _.super(this);
-
-            /**
-             * Content of the message
-             */
-            this._message = null;
-
-            /**
-             * Show a close button.
-             * @type {Boolean}
-             */
-            this._dismissible = true;
-
-            this.setupProperties({
-                /**
-                 * Title of the message.
-                 * @type {String}
-                 */
-                titleText: {
-                    default: '',
-                    type: String,
-                    change: function(newValue) {
-                        var headerNode = this.querySelector('header'),
-                            textContainer = this.querySelector('h4');
-
-                        if (newValue) {
-                            if (!headerNode) {
-                                headerNode = this.ownerDocument.createElement('header');
-                                textContainer = this.ownerDocument.createElement('h4');
-
-                                headerNode.appendChild(textContainer);
-                                this.insertBefore(headerNode, this.querySelector('.message-content'));
-                            }
-                            textContainer.textContent = newValue;
-                            this.setAttribute('aria-label', newValue);
-                        } else {
-                            if (headerNode) {
-                                this.removeChild(headerNode);
-                            }
-                            this.removeAttribute('aria-label');
-                        }
-                    }
-                },
-
-                /**
-                 * Type of the message:
-                 *  - info
-                 *  - warn
-                 *  - alert for backward compatibility
-                 *  - error
-                 * @type {String}
-                 * @default: info
-                 */
-                type: {
-                    default: 'info',
-                    type: String,
-                    change: function(newValue) {
-                        var iconEl = this.querySelector('span.message-icon');
-
-                        if (newValue === 'alert' || newValue === 'warn' || newValue === 'error') {
-                            iconEl.className = 'message-icon hi hi-circle-alert';
-                        } else if (newValue === 'discovery') {
-                            iconEl.className = 'message-icon hi hi-lightbulb-o';
-                        } else {
-                            iconEl.className = 'message-icon hi hi-circle-info';
-                        }
-                        if (newValue === 'alert') {
-                            console.warn('DEPRECATION WARNING: The "alert" type is going to be deprecated. From now on, please use "error" type instead.');
-                        }
-                    }
-                }
-            });
-
-            /**
-             * Executed when the user click on close button.
-             * @emits PageMessage#dismiss
-             */
-            this.on('button.btn.hi-close:click', function() {
-                this.emit('dismiss');
-                this.close();
-            }.bind(this));
-        },
-
-        set message(newValue) {
-            var content = this.querySelector('.message-content');
-            if (typeof newValue === 'string') {
-                content.innerHTML = newValue;
-                this._message = newValue;
-            } else if (newValue.nodeType) {
-                content.innerHTML = '';
-                content.appendChild(newValue);
-                this._message = newValue;
-            }
-        },
-
-        get message() {
-            return this._message;
-        },
-
-        /**
-         * Show a close button.
-         * @type {Boolean}
-         */
-        set dismissible(newValue) {
-            var closeButton = this.querySelector('button');
-            if (newValue) {
-                closeButton.classList.add('show');
-                closeButton.removeAttribute('aria-hidden');
-            } else {
-                closeButton.classList.remove('show');
-                closeButton.setAttribute('aria-hidden', true);
-            }
-            this._dismissible = newValue;
-        },
-
-        get dismissible() {
-            return this._dismissible;
-        },
-
-        /**
-         * Callback attached after the Component render
-         * Set the attributes for the component.
-         */
-        postRender: function _() {
-            var contentEl = this.querySelector('.message-content'),
-                typeIconEl = this.querySelector('span.message-icon'),
-                titleEl = this.querySelector('h4'),
-                closeButtonEl = this.querySelector('button'),
-                headerEl,
-                messageContent;
-
-            _.super(this);
-            a11y.addA11yFocus(this);
-            if (contentEl) {
-                messageContent = contentEl.innerHTML;
-            } else {
-                messageContent = this.innerHTML;
-
-                this.innerHTML = '';
-
-                closeButtonEl = this.ownerDocument.createElement('button');
-                closeButtonEl.className = 'btn hi hi-close';
-                closeButtonEl.setAttribute('aria-hidden', true);
-                closeButtonEl.setAttribute('aria-label', 'close');
-
-                contentEl = this.ownerDocument.createElement('div');
-                contentEl.className = 'message-content';
-                headerEl = this.ownerDocument.createElement('header');
-
-                if (!typeIconEl) {
-                    typeIconEl = this.ownerDocument.createElement('span');
-                    typeIconEl.classList.add('message-icon');
-                }
-
-                typeIconEl.setAttribute('aria-hidden', true);
-
-                titleEl = this.ownerDocument.createElement('h4');
-
-                headerEl.appendChild(titleEl);
-
-                this.appendChild(typeIconEl);
-                this.appendChild(closeButtonEl);
-                this.appendChild(headerEl);
-                this.appendChild(contentEl);
-            }
-
-            this.setAttribute('role', 'alert');
-            this.dismissible = this.getAttribute('dismissible') !== 'false';
-            this.message = messageContent;
-            this.tabIndex = -1;
-        },
-
-        /**
-         * Hides the element.
-         * @emits PageMessage#hide
-         * @deprecated Should be use PageMessage#close instead of PageMessage#hide.
-         */
-        hide: function() {
-            console.warn('DEPRECATION WARNING: The "hide" event is going to be deprecated. From now on, please use "close" method instead.');
-            this.emit('hide');
-            this.close();
-        },
-
-        /**
-         * Closes the element.
-         * @emits PageMessage#close
-         */
-        close: function() {
-            _handleFocusOnClose(this);
-            this.classList.add('hidden');
-            this.emit('close');
-        },
-
-        /**
-         * This method must be removed, once the hide method is also removed.
-         */
-        addEventListener: function _() {
-            HTMLElement.prototype.addEventListener.apply(this, arguments);
-            if (arguments[0] === 'hide') {
-                console.warn('DEPRECATION WARNING: The hide event is going to be deprecated. From now on, please use "close" instead.');
-            }
-        }
-    });
-
-    return register('ha-page-message', HAPageMessage);
-});
-
 /**
  * @module
  * @class HATable
@@ -6870,7 +6190,9 @@ define('hui/table',[
             }
 
             var dgrid = this._get('domNode'),
-                height = 0;
+                height = 0,
+                minHeight = 124;
+
             if (dgrid) {
 
                 /* istanbul ignore else */
@@ -6896,6 +6218,10 @@ define('hui/table',[
                     // add 35 for top margin on no-data node
                     height += this._lastNoDataHeight + 35;
                 }
+
+                // Make sure we maintain a minimum height in all cases
+                height = Math.max(minHeight, height);
+
                 dgrid.style.height = height + 'px';
             }
 
@@ -9103,7 +8429,9 @@ define('hui/table',[
         _getSortOptions: function() {
             var columns = this.table ? this.table.get('_columns') : [],
                 sortableColumns = [],
-                currentSort = this.table ? this.table.get('sort')[0] : undefined;
+                currentSort = this.table ? this.table.get('sort')[0] : undefined,
+                isSorted = false,
+                sortDescending;
 
             columns.forEach(function(column) {
                 if (column.sortable !== false) {
@@ -9116,24 +8444,39 @@ define('hui/table',[
                     if (currentSort !== undefined && currentSort.property === column.field) {
                         def.sorted = true;
                         def.descending = currentSort.descending;
+
+                        isSorted = true;
+                        sortDescending = currentSort.descending;
                     }
 
                     sortableColumns.push(def);
                 }
             });
 
-            return sortableColumns;
+            // If nothing was sorted, sort the first column by default
+            if (!isSorted && sortableColumns.length > 0) {
+                sortableColumns[0].sorted = true;
+                sortableColumns[0].descending = false;
+                sortDescending = false;
+            }
+
+            return {
+                options: sortableColumns,
+                sortDescending: sortDescending
+            };
         },
 
         _buildMobileSortOptions: function() {
             var doc = this.ownerDocument,
                 root = this._sortOptionsNode,
                 sortOptions = this._getSortOptions(),
-                option, group, sortAscending, radios;
+                options = sortOptions.options,
+                sortDescending = sortOptions.sortDescending,
+                option, group, radios;
 
             root.innerHTML = '';
 
-            if (sortOptions.length > 0 && this.showMobileSortOptions) {
+            if (options.length > 0 && this.showMobileSortOptions) {
                 this._sortNode.style.display = 'block';
 
                 group = doc.createElement('ha-radio-button-group');
@@ -9141,7 +8484,7 @@ define('hui/table',[
 
                 radios = [];
 
-                sortOptions.forEach(function(sortOption) {
+                options.forEach(function(sortOption) {
                     option = doc.createElement('ha-radio-button');
                     option.value = sortOption.field;
                     option.label = sortOption.label;
@@ -9149,7 +8492,6 @@ define('hui/table',[
 
                     if (sortOption.sorted) {
                         option.checked = true;
-                        sortAscending = !sortOption.descending;
                     }
 
                     radios.push(option);
@@ -9171,17 +8513,13 @@ define('hui/table',[
                 radios[0].value = 'asc';
                 radios[0].label = this.mobileSortAscendingText;
                 radios[0].name = 'sortDir';
-                if (sortAscending !== undefined) {
-                    radios[0].checked = sortAscending;
-                }
+                radios[0].checked = !sortDescending;
 
                 radios.push(doc.createElement('ha-radio-button'));
                 radios[1].value = 'desc';
                 radios[1].label = this.mobileSortDescendingText;
                 radios[1].name = 'sortDir';
-                if (sortAscending !== undefined) {
-                    radios[1].checked = !sortAscending;
-                }
+                radios[1].checked = sortDescending;
 
                 group.radios = radios;
 
@@ -9812,6 +9150,714 @@ define('hui/table/ContentGroupRequest',['dojo/_base/declare',
     });
 });
 
+define('hui/table/RendererFactoryRegistry',[
+    '../core/utils',
+    'object-utils/classes',
+    './rendererFactoryFactory'
+], function(utils, classes, rendererFactoryFactory) {
+    /**
+     * @deprecated since 0.13.0 Use HA-TABLE#addRenderMode instead for adding render modes
+     */
+    var RendererFactoryRegistry = classes.extend(Object, {
+        constructor: function(rendererClassesMap) {
+            this.rendererClassesMap = rendererClassesMap || {};
+            console.warn('DEPRECATION WARNING: The RendererFactoryRegistry is deprecated and should should not be used ' +
+                'anymore. Use the Table#addRenderMode method instead to directly add a render mode to a table');
+        },
+
+        getRendererFactory: function() {
+            var renderers = {},
+                key;
+
+            for (key in this.rendererClassesMap) {
+                if (this.rendererClassesMap.hasOwnProperty(key)) {
+                    renderers[key] = new this.rendererClassesMap[key]();
+                }
+            }
+
+            return rendererFactoryFactory(renderers);
+        },
+
+        registerRenderer: function(name, RendererClass) {
+            this.rendererClassesMap[name] = RendererClass;
+        }
+    });
+
+    return RendererFactoryRegistry;
+});
+
+define('hui/table-virtual',[
+    'register-component/v2/register',
+    'object-utils/classes',
+    './table',
+    './table/TableBase',
+    './core/keys'
+], function(register, classes, HATable, TableBase, keys) {
+    /**
+     * @class HATableVirtual
+     * @extends HATable
+     */
+    var HATableVirtual = classes.createObject(HATable.prototype, /** @lends HATableVirtual# */ {
+        _createGrid: function() {
+            var grid = TableBase.factory({
+                table: this,
+                virtual: true,
+                columns: this._getColumns()
+            }, this._gridNode);
+
+            grid.addKeyHandler(keys.ESCAPE, this._escapeHandler.bind(this));
+
+            return grid;
+        },
+
+        _escapeHandler: function() {
+            var node = this._getNextFocusableSibling() || this.querySelector('.table-escape-node');
+            node.focus();
+        },
+
+        _getNextFocusableSibling: function() {
+            var node = this.nextElementSibling;
+
+            while (node) {
+                if (node.focus) {
+                    node.focus();
+
+                    if (this.ownerDocument.activeElement === node) {
+                        return node;
+                    }
+                }
+
+                node = node.nextElementSibling;
+            }
+        },
+
+        _shouldShowPaginationSettings: function() {
+            return false;
+        }
+    });
+
+    return register('ha-table-virtual', HATableVirtual);
+});
+
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define('hui-react/table/PromiseManagerSingle',["exports", "dojo/Deferred"], factory);
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("dojo/Deferred"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.Deferred);
+        global.PromiseManagerSingle = mod.exports;
+    }
+})(this, function (exports, _Deferred) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _Deferred2 = _interopRequireDefault(_Deferred);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    var PromiseManagerSingle = function () {
+
+        // Constructor
+
+        function PromiseManagerSingle() {
+            _classCallCheck(this, PromiseManagerSingle);
+
+            this.promise = null;
+        }
+
+        // Get a promise for the request
+
+        _createClass(PromiseManagerSingle, [{
+            key: "getPromise",
+            value: function getPromise() {
+                this.promise = this.promise || new _Deferred2.default();
+
+                return this.promise;
+            }
+        }, {
+            key: "getNewPromise",
+            value: function getNewPromise() {
+                // For single request mode (pagination) if there is another request in flight,
+                // cancel it and use this one. No sense in fetching the old one if we've moved on
+                // to another page or changed the sort order.
+                if (this.promise) {
+                    this.promise.cancel();
+                }
+
+                this.promise = new _Deferred2.default();
+
+                return this.promise;
+            }
+        }, {
+            key: "resolvePromise",
+            value: function resolvePromise(results) {
+                // Don't resolve it if we don't have a promise. Note, if we call this without a promise that's
+                // likely a bug that needs to be investigated
+                if (this.promise) {
+                    this.promise.resolve(results);
+                    this.promise = null;
+                }
+            }
+        }, {
+            key: "sort",
+            value: function sort() {}
+            // Do nothing since we clear the promise on every request to this instance
+
+            // Clean up this instance
+
+        }, {
+            key: "destroy",
+            value: function destroy() {
+                if (this.promise) {
+                    this.promise.cancel();
+                    this.promise = null;
+                }
+            }
+        }]);
+
+        return PromiseManagerSingle;
+    }();
+
+    exports.default = PromiseManagerSingle;
+});
+//# sourceMappingURL=PromiseManagerSingle.js.map
+;
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define('hui-react/table/CallbackCollection',["exports", "dstore/Store", "dstore/QueryResults", "./PromiseManagerSingle"], factory);
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("dstore/Store"), require("dstore/QueryResults"), require("./PromiseManagerSingle"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.Store, global.QueryResults, global.PromiseManagerSingle);
+        global.CallbackCollection = mod.exports;
+    }
+})(this, function (exports, _Store2, _QueryResults, _PromiseManagerSingle) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _Store3 = _interopRequireDefault(_Store2);
+
+    var _QueryResults2 = _interopRequireDefault(_QueryResults);
+
+    var _PromiseManagerSingle2 = _interopRequireDefault(_PromiseManagerSingle);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+    }
+
+    var _get = function get(object, property, receiver) {
+        if (object === null) object = Function.prototype;
+        var desc = Object.getOwnPropertyDescriptor(object, property);
+
+        if (desc === undefined) {
+            var parent = Object.getPrototypeOf(object);
+
+            if (parent === null) {
+                return undefined;
+            } else {
+                return get(parent, property, receiver);
+            }
+        } else if ("value" in desc) {
+            return desc.value;
+        } else {
+            var getter = desc.get;
+
+            if (getter === undefined) {
+                return undefined;
+            }
+
+            return getter.call(receiver);
+        }
+    };
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+
+    var CallbackCollection = function (_Store) {
+        _inherits(CallbackCollection, _Store);
+
+        // Constructor
+
+        function CallbackCollection(args) {
+            _classCallCheck(this, CallbackCollection);
+
+            var _this = _possibleConstructorReturn(this, (CallbackCollection.__proto__ || Object.getPrototypeOf(CallbackCollection)).call(this, args));
+
+            // Set a name as an instance property so we can inspect the properties in cloned instances
+            _this.name = "CallbackCollection";
+
+            // The external callback to use to ask for data
+            _this.onDataChanged = args.onDataChanged;
+
+            // This is the state we are tracking in this instance across Table data fetches
+            // It needs to be preserved when the store is cloned
+            _this.state = {
+                sortColumn: null,
+                sortDescending: null,
+                data: null,
+
+                // Virtual scrolling requires managing multiple concurrent requests. Pagination only needs one at a time.
+                // We only support pagination for now.
+                promiseManager: new _PromiseManagerSingle2.default()
+            };
+            return _this;
+        }
+
+        // Override
+        //   @see https://github.com/SitePen/dstore/blob/master/src/Store.js
+
+        _createClass(CallbackCollection, [{
+            key: "sort",
+            value: function sort(args) {
+                var currentSort = args[0];
+
+                this.state.sortColumn = currentSort.property;
+                this.state.sortDescending = currentSort.descending;
+
+                // Let the promise manager know we are sorting
+                this.state.promiseManager.sort(this.state.sortColumn, this.state.sortDescending);
+
+                return _get(CallbackCollection.prototype.__proto__ || Object.getPrototypeOf(CallbackCollection.prototype), "sort", this).call(this, args);
+            }
+        }, {
+            key: "fetchRange",
+            value: function fetchRange(args) {
+                var results = undefined,
+                    promise = undefined;
+                var criteria = {
+                    start: args.start,
+                    end: args.end,
+                    sortColumn: this.state.sortColumn,
+                    sortDescending: this.state.sortDescending
+                };
+
+                // Handle the case where data is an empty object on the initial table load
+                if (this.state.data && this.state.data.results) {
+                    // We have the data so load it in the table
+                    promise = this.state.promiseManager.getPromise(criteria);
+                    results = this.createResults(promise);
+
+                    this.state.promiseManager.resolvePromise(this.state.data, criteria);
+                    this.state.data = null;
+                } else {
+                    // We don't have the data. Ask the consumer of the table for it.
+                    promise = this.state.promiseManager.getNewPromise(criteria);
+                    results = this.createResults(promise);
+
+                    this.onDataChanged(criteria);
+                }
+
+                return results;
+            }
+        }, {
+            key: "createResults",
+            value: function createResults(promise) {
+                return new _QueryResults2.default(promise.then(function (result) {
+                    var data = result.results;
+
+                    // Include the starting index for pagination. See the gotoPage() method in hui-table
+                    // It's not good that we are modifying an array type but that's what dgrid expects :(
+                    data.start = result.start + 1;
+
+                    return data;
+                }), {
+                    totalLength: promise.then(function (result) {
+                        return result.total;
+                    })
+                });
+            }
+        }, {
+            key: "setData",
+            value: function setData(data) {
+                this.state.data = data;
+            }
+        }, {
+            key: "destroy",
+            value: function destroy() {
+                this.state.promiseManager.destroy();
+                this.onDataChanged = null;
+                this.state = null;
+            }
+        }]);
+
+        return CallbackCollection;
+    }(_Store3.default);
+
+    exports.default = CallbackCollection;
+});
+//# sourceMappingURL=CallbackCollection.js.map
+;
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define('hui-react/table/EventFilters',["exports"], factory);
+    } else if (typeof exports !== "undefined") {
+        factory(exports);
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports);
+        global.EventFilters = mod.exports;
+    }
+})(this, function (exports) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    var EventFilters = function () {
+        function EventFilters() {
+            _classCallCheck(this, EventFilters);
+        }
+
+        _createClass(EventFilters, null, [{
+            key: "noFilter",
+            value: function noFilter(event) {
+                return event;
+            }
+        }, {
+            key: "filterSelection",
+            value: function filterSelection(event) {
+                var rows = event.rows.map(function (row) {
+                    return row.data;
+                });
+
+                // Return cleaned up results
+                return {
+                    // This is the row data for all rows that were selected/deselected by the
+                    // event that triggered this
+                    eventSelection: rows,
+
+                    // This is the current selection for the overall table and NOT from the
+                    // event that triggered this
+                    // It will return an object with with row IDs as keys and true/false if they are
+                    // selected or not
+                    //
+                    // {
+                    //   1: true,
+                    //   2: false
+                    // }
+                    tableSelectionById: event.grid.selection
+                };
+            }
+        }]);
+
+        return EventFilters;
+    }();
+
+    exports.default = EventFilters;
+});
+//# sourceMappingURL=EventFilters.js.map
+;
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define('hui-react/table/config',["exports", "./EventFilters"], factory);
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("./EventFilters"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.EventFilters);
+        global.config = mod.exports;
+    }
+})(this, function (exports, _EventFilters) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _EventFilters2 = _interopRequireDefault(_EventFilters);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    exports.default = {
+
+        // Custom options or options that require special handling. These options are specific to this React wrapper and we need to adapt them before we apply them to
+        // HATable instance.
+        customOptions: {
+            onOtherSettingsRender: true,
+            renderModes: true,
+            onTableBarCustomRender: true,
+            onTableBarCustomActionRender: true,
+            virtual: true,
+            totals: true
+        },
+
+        // Expose some methods on this React wrapper to call the corresponding API methods on
+        // the underlying table instance.
+        //   @see https://facebook.github.io/react/tips/expose-component-functions.html
+        apiToExpose: {
+            clearErrors: true,
+            onClickEdit: true,
+            refresh: true,
+            resize: true,
+            resizeColumnWidth: true,
+            revert: true,
+            save: true
+        },
+
+        // A list of callback functions and events they correspond to on the underlying
+        // HATable instance. We'll listen for these events and call the corresponding
+        // callbacks to make this component more React friendly.
+        eventsToCallbacks: {
+            onCancel: {
+                name: "edit-cancel",
+                filter: _EventFilters2.default.noFilter
+            },
+            onColumnHiddenChange: {
+                name: "column-hidden-change",
+                filter: _EventFilters2.default.noFilter
+            },
+            onColumnResize: {
+                name: "column-resize",
+                filter: _EventFilters2.default.noFilter
+            },
+            onDatachange: {
+                name: "datachange",
+                filter: _EventFilters2.default.noFilter
+            },
+            onDeselect: {
+                name: "batch-deselect",
+                filter: _EventFilters2.default.filterSelection
+            },
+            onError: {
+                name: "error",
+                filter: _EventFilters2.default.noFilter
+            },
+            onExport: {
+                name: "export",
+                filter: _EventFilters2.default.noFilter
+            },
+            onRefresh: {
+                name: "refresh",
+                filter: _EventFilters2.default.noFilter
+            },
+            onSelect: {
+                name: "batch-select",
+                filter: _EventFilters2.default.filterSelection
+            },
+            onSave: {
+                name: "edit-save",
+                filter: _EventFilters2.default.noFilter
+            },
+            onSort: {
+                name: "sort",
+                filter: _EventFilters2.default.noFilter
+            }
+        }
+
+    };
+});
+//# sourceMappingURL=config.js.map
+;
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define('hui-react/table/PropUtils',["exports"], factory);
+    } else if (typeof exports !== "undefined") {
+        factory(exports);
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports);
+        global.PropUtils = mod.exports;
+    }
+})(this, function (exports) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+        return typeof obj;
+    } : function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+    };
+
+    // Check and see if the param is an object and not null, an array, or a function
+    var isObject = function isObject(obj) {
+        return !!obj && (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" && !Array.isArray(obj);
+    },
+
+    // Get the common error prefix string
+    getPrefix = function getPrefix(propName, componentName) {
+        return "for prop '" + propName + "' in '" + componentName + ".'";
+    };
+
+    // A static class with utilities for working with Table props
+    exports.default = {
+
+        // Generate a key based on the criteria passed in
+
+        getKey: function getKey(criteria) {
+            return criteria.start + "-" + criteria.end + "-" + criteria.sortColumn + "-" + criteria.sortDescending;
+        },
+
+        // Validate the table's data prop
+        validateData: function validateData(props, propName, componentName) {
+            var error = undefined;
+            var prefix = getPrefix(propName, componentName);
+
+            if (props.collection && !props.data && !props.onDataChanged) {
+                error = null;
+            } else if (!props.collection && props.onDataChanged && isObject(props.data)) {
+                error = null;
+            } else if (props.collection && (props.data || props.onDataChanged)) {
+                error = new Error("(101) " + prefix + " Prop 'collection' was specified but is not allowed when using props 'data' or 'onDataChanged'.");
+            } else if (props.onDataChanged && !isObject(props.data)) {
+                error = new Error("(102) " + prefix + " Prop 'onDataChanged' was specified but was not accompanied by prop 'data' of type object.");
+            } else if (!Array.isArray(props.data)) {
+                error = new Error("(103) " + prefix + " Prop 'data' must be an array. Type '" + _typeof(props.data) + "' was found.");
+            } else {
+                error = null;
+            }
+
+            return error;
+        },
+
+        // Validate the table's options prop
+        validateOptions: function validateOptions(props, propName, componentName) {
+            var error = undefined;
+            var prefix = getPrefix(propName, componentName);
+
+            if (!props.options) {
+                error = null;
+            } else if (!isObject(props.options)) {
+                error = new Error("(201) " + prefix + " Prop 'options' must be an object. Type '" + _typeof(props.options) + "' was found.");
+            } else if (props.options.virtual && props.onDataChanged) {
+                error = new Error("(202) " + prefix + " Prop 'onDataChanged' was specified but it does not work with the 'virtual' true option.");
+            } else {
+                error = null;
+            }
+
+            return error;
+        }
+    };
+});
+//# sourceMappingURL=PropUtils.js.map
+;
 define('hui/table/LazyRowExpansionRenderer',[
     'hui/table/DefaultRenderer',
     'object-utils/classes',
@@ -10007,11 +10053,7 @@ define('hui/table/LazyRowExpansionRenderer',[
                     }
                 }
 
-                if (this.autoResizeTable) {
-                    setTimeout(function() {
-                        this.table._calculateInitialHeight({type: 'row-expander-resize'});
-                    }.bind(this), 0);
-                }
+                this._autoResize();
             } else {
                 delete this._expandedRows[tableRow.id];
 
@@ -10051,11 +10093,17 @@ define('hui/table/LazyRowExpansionRenderer',[
                 forceToggleRowExpansion = function(event, hide) {
                     this._toggleRowExpansion(row, hide, activatorElement);
                 }.bind(this),
+                rowExpansionKeyDownEventListener = function(event) {
+                    if (event.keyCode === keys.ESCAPE) {
+                        toggleRowExpansion();
+                    }
+                    a11y.keepFocusInsideListener(event, rowExpansion);
+                }.bind(this),
                 object = activatorElement._expansionData,
                 rowExpansionContent = this.renderRowExpansionContent(object, forceToggleRowExpansion),
                 closeButton = table.ownerDocument.createElement('button'),
                 batchCell = row.querySelector('.' + this.batchClass),
-                cleanupListeners;
+                cleanupRowExpansion;
 
             rowExpansion.id = activatorElement._expansionId;
 
@@ -10072,28 +10120,19 @@ define('hui/table/LazyRowExpansionRenderer',[
                 rowExpansionContent.appendChild(closeButton);
 
                 rowExpansion.setAttribute('tabindex', '-1');
-                rowExpansion.addEventListener('keydown', function(event) {
-                    if (event.keyCode === keys.ESCAPE) {
-                        toggleRowExpansion();
-                    }
 
-                    a11y.keepFocusInsideListener(event, rowExpansion);
-                });
+                rowExpansion.addEventListener('keydown', rowExpansionKeyDownEventListener);
                 // Prevent mouse/touch events from bubbling
                 rowExpansion.addEventListener('click', this._expansionMouseHandler);
                 rowExpansion.addEventListener('mousedown', this._expansionMouseHandler);
                 rowExpansion.addEventListener('touchstart', this._expansionMouseHandler);
-
-                cleanupListeners = function() {
-                    activatorElement.removeEventListener('click', toggleRowExpansion);
-                    activatorElement.removeEventListener('keydown', activatorElement._keyboardEventHandler);
-                };
             }
 
             rowExpansion.className = 'ha-table-row-expansion';
 
             if (!(object.id in this._expandedRows)) {
-                rowExpansion.classList.add('hide-expansion', 'hidden');
+                rowExpansion.classList.add('hide-expansion');
+                rowExpansion.classList.add('hidden');
             }
 
             if (this.expansionClassName) {
@@ -10107,28 +10146,54 @@ define('hui/table/LazyRowExpansionRenderer',[
             }
 
             if (this.useFocusIndicator) {
-                var focusIndicator = document.createElement('button');
+                var focusIndicator = document.createElement('button'),
+                    focusIndicatorClickEventListener = function() {
+                        this._toggleRowExpansion(row, true, activatorElement);
+                    }.bind(this);
+
                 focusIndicator.className = 'focus-indicator hi hi-chevron-down';
                 if (this.focusIndicatorLabel) {
                     focusIndicator.setAttribute('aria-label', this.focusIndicatorLabel);
                 }
-                focusIndicator.addEventListener('click', function() {
-                    this._toggleRowExpansion(row, true, activatorElement);
-                }.bind(this));
+                focusIndicator.addEventListener('click', focusIndicatorClickEventListener);
+
                 row.appendChild(focusIndicator);
             }
 
-            row.appendChild(rowExpansion);
-            //Provide cleanup for anything created in the row formatter.
-            row.destroy = function() {
-                if (cleanupListeners) {
-                    cleanupListeners();
+            cleanupRowExpansion = function() {
+
+                if (closeButton && closeButton.removeEventListener) {
+                    closeButton.removeEventListener('click', forceToggleRowExpansion);
+                    //remove the close button created previously
+                    if (rowExpansionContent && rowExpansionContent.removeChild) {
+                        rowExpansionContent.removeChild(closeButton);
+                    }
                 }
 
-                if (rowExpansionContent.destroy) {
+                if (focusIndicator && focusIndicator.removeEventListener) {
+                    focusIndicator.removeEventListener('click', focusIndicatorClickEventListener);
+                }
+
+                if (rowExpansion && rowExpansion.removeEventListener) {
+                    rowExpansion.removeEventListener('keydown', rowExpansionKeyDownEventListener);
+                    rowExpansion.removeEventListener('click', this._expansionMouseHandler);
+                    rowExpansion.removeEventListener('mousedown', this._expansionMouseHandler);
+                    rowExpansion.removeEventListener('touchstart', this._expansionMouseHandler);
+                }
+            };
+
+            rowExpansion.cleanUpListeners  = function() {
+
+                if (cleanupRowExpansion) {
+                    cleanupRowExpansion();
+                }
+
+                if (rowExpansionContent && rowExpansionContent.destroy) {
                     rowExpansionContent.destroy();
                 }
             };
+
+            row.appendChild(rowExpansion);
         },
 
         /**
@@ -10143,6 +10208,7 @@ define('hui/table/LazyRowExpansionRenderer',[
             if (rowExpansion.classList.contains('hide-expansion')) {
                 if (!activatorElement.hasAttribute('tabindex')) {
                     activatorElement.setAttribute('tabindex', '-1');
+                    //one time invoking listener
                     activatorElement.addEventListener('blur', function removeTabIndex() {
                         activatorElement.removeAttribute('tabindex');
                         activatorElement.removeEventListener('blur', removeTabIndex);
@@ -10168,6 +10234,17 @@ define('hui/table/LazyRowExpansionRenderer',[
         },
 
         /**
+         * Adjust the height of the table to accomodate any new content.
+         */
+        _autoResize: function() {
+            if (this.autoResizeTable) {
+                setTimeout(function() {
+                    this.table._calculateInitialHeight({type: 'row-expander-resize'});
+                }.bind(this), 250);
+            }
+        },
+
+        /**
          * Adds event listeners to handle showing/hiding it
          * @param {HTMLElement} row The grid row element
          * @param {Object} object The object being rendered for this cell.
@@ -10185,8 +10262,18 @@ define('hui/table/LazyRowExpansionRenderer',[
                         toggleRowExpansion(event);
                     }
                 },
-                expansionId;
+                expansionId,
+                cleanupRowListeners;
 
+            //function to cleanup any event listeners prior to binding or row destruction
+            cleanupRowListeners = function() {
+                if (activatorElement && activatorElement.removeEventListener) {
+                    activatorElement.removeEventListener('click', toggleRowExpansion);
+                    if (activatorElement.tagName !== 'BUTTON') {
+                        activatorElement.removeEventListener('keydown', keyboardEventHandler);
+                    }
+                }
+            };
             if (!this.manualActivation) {
 
                 if (this.activatorSelector) {
@@ -10201,6 +10288,11 @@ define('hui/table/LazyRowExpansionRenderer',[
                 activatorElement.setAttribute('aria-controls', expansionId);
                 activatorElement.setAttribute('aria-expanded', false);
 
+                //clean up listeners prior to adding them
+                if (cleanupRowListeners) {
+                    cleanupRowListeners();
+                }
+
                 if (activatorElement && activatorElement.addEventListener) {
                     activatorElement.addEventListener('click', toggleRowExpansion);
                     if (activatorElement.tagName !== 'BUTTON') {
@@ -10208,6 +10300,27 @@ define('hui/table/LazyRowExpansionRenderer',[
                     }
                 }
             }
+            //re-render the expansion if it was previously expanded
+            if (this._expandedRows && (true === this._expandedRows[object.id])) {
+                //kick off rendering of expansion content
+                this.lazyRenderRowExpansion(row, false, activatorElement);
+
+                // Adjust the table height
+                this._autoResize();
+            }
+            //Provide cleanup for anything created in the row formatter.
+            row.destroy = function() {
+                var rowExpansion = row.querySelector('.ha-table-row-expansion');
+
+                if (rowExpansion && rowExpansion.cleanUpListeners) {
+                    rowExpansion.cleanUpListeners();
+                }
+
+                if (cleanupRowListeners) {
+                    cleanupRowListeners();
+                }
+            };
+
             return row;
         },
 
@@ -10223,307 +10336,22 @@ define('hui/table/LazyRowExpansionRenderer',[
     });
 });
 
-define('hui/table/RendererFactoryRegistry',[
-    '../core/utils',
-    'object-utils/classes',
-    './rendererFactoryFactory'
-], function(utils, classes, rendererFactoryFactory) {
-    /**
-     * @deprecated since 0.13.0 Use HA-TABLE#addRenderMode instead for adding render modes
-     */
-    var RendererFactoryRegistry = classes.extend(Object, {
-        constructor: function(rendererClassesMap) {
-            this.rendererClassesMap = rendererClassesMap || {};
-            console.warn('DEPRECATION WARNING: The RendererFactoryRegistry is deprecated and should should not be used ' +
-                'anymore. Use the Table#addRenderMode method instead to directly add a render mode to a table');
-        },
-
-        getRendererFactory: function() {
-            var renderers = {},
-                key;
-
-            for (key in this.rendererClassesMap) {
-                if (this.rendererClassesMap.hasOwnProperty(key)) {
-                    renderers[key] = new this.rendererClassesMap[key]();
-                }
-            }
-
-            return rendererFactoryFactory(renderers);
-        },
-
-        registerRenderer: function(name, RendererClass) {
-            this.rendererClassesMap[name] = RendererClass;
-        }
-    });
-
-    return RendererFactoryRegistry;
-});
-
-define('hui/table-virtual',[
-    'register-component/v2/register',
-    'object-utils/classes',
-    './table',
-    './table/TableBase',
-    './core/keys'
-], function(register, classes, HATable, TableBase, keys) {
-    /**
-     * @class HATableVirtual
-     * @extends HATable
-     */
-    var HATableVirtual = classes.createObject(HATable.prototype, /** @lends HATableVirtual# */ {
-        _createGrid: function() {
-            var grid = TableBase.factory({
-                table: this,
-                virtual: true,
-                columns: this._getColumns()
-            }, this._gridNode);
-
-            grid.addKeyHandler(keys.ESCAPE, this._escapeHandler.bind(this));
-
-            return grid;
-        },
-
-        _escapeHandler: function() {
-            var node = this._getNextFocusableSibling() || this.querySelector('.table-escape-node');
-            node.focus();
-        },
-
-        _getNextFocusableSibling: function() {
-            var node = this.nextElementSibling;
-
-            while (node) {
-                if (node.focus) {
-                    node.focus();
-
-                    if (this.ownerDocument.activeElement === node) {
-                        return node;
-                    }
-                }
-
-                node = node.nextElementSibling;
-            }
-        },
-
-        _shouldShowPaginationSettings: function() {
-            return false;
-        }
-    });
-
-    return register('ha-table-virtual', HATableVirtual);
-});
-
-(function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define('hui-react/table/EventFilters',["exports"], factory);
-    } else if (typeof exports !== "undefined") {
-        factory(exports);
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory(mod.exports);
-        global.EventFilters = mod.exports;
-    }
-})(this, function (exports) {
-    "use strict";
-
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
-
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
-    }
-
-    var _createClass = function () {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || false;
-                descriptor.configurable = true;
-                if ("value" in descriptor) descriptor.writable = true;
-                Object.defineProperty(target, descriptor.key, descriptor);
-            }
-        }
-
-        return function (Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
-        };
-    }();
-
-    var EventFilters = function () {
-        function EventFilters() {
-            _classCallCheck(this, EventFilters);
-        }
-
-        _createClass(EventFilters, null, [{
-            key: "noFilter",
-            value: function noFilter(event) {
-                return event;
-            }
-        }, {
-            key: "filterSelection",
-            value: function filterSelection(event) {
-                var rows = event.rows.map(function (row) {
-                    return row.data;
-                });
-
-                // Return cleaned up results
-                return {
-                    // This is the row data for all rows that were selected/deselected by the
-                    // event that triggered this
-                    eventSelection: rows,
-
-                    // This is the current selection for the overall table and NOT from the
-                    // event that triggered this
-                    // It will return an object with with row IDs as keys and true/false if they are
-                    // selected or not
-                    //
-                    // {
-                    //   1: true,
-                    //   2: false
-                    // }
-                    tableSelectionById: event.grid.selection
-                };
-            }
-        }]);
-
-        return EventFilters;
-    }();
-
-    exports.default = EventFilters;
-});
-//# sourceMappingURL=EventFilters.js.map
-;
-(function (global, factory) {
-    if (typeof define === "function" && define.amd) {
-        define('hui-react/table/config',["exports", "./EventFilters"], factory);
-    } else if (typeof exports !== "undefined") {
-        factory(exports, require("./EventFilters"));
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory(mod.exports, global.EventFilters);
-        global.config = mod.exports;
-    }
-})(this, function (exports, _EventFilters) {
-    "use strict";
-
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
-
-    var _EventFilters2 = _interopRequireDefault(_EventFilters);
-
-    function _interopRequireDefault(obj) {
-        return obj && obj.__esModule ? obj : {
-            default: obj
-        };
-    }
-
-    exports.default = {
-
-        // Custom options or options that require special handling. These options are specific to this React wrapper and we need to adapt them before we apply them to
-        // HATable instance.
-        customOptions: {
-            settingsRenderer: true,
-            onOtherSettingsRender: true,
-            renderModes: true,
-            onTableBarCustomRender: true,
-            onTableBarCustomActionRender: true,
-            virtual: true,
-            totals: true
-        },
-
-        // Expose some methods on this React wrapper to call the corresponding API methods on
-        // the underlying table instance.
-        //   @see https://facebook.github.io/react/tips/expose-component-functions.html
-        apiToExpose: {
-            clearErrors: true,
-            onClickEdit: true,
-            refresh: true,
-            resize: true,
-            resizeColumnWidth: true,
-            revert: true,
-            save: true
-        },
-
-        // A list of callback functions and events they correspond to on the underlying
-        // HATable instance. We'll listen for these events and call the corresponding
-        // callbacks to make this component more React friendly.
-        // FIXME How does the user clear one of these?
-        eventsToCallbacks: {
-            onCancel: {
-                name: "edit-cancel",
-                filter: _EventFilters2.default.noFilter
-            },
-            onColumnHiddenChange: {
-                name: "column-hidden-change",
-                filter: _EventFilters2.default.noFilter
-            },
-            onColumnResize: {
-                name: "column-resize",
-                filter: _EventFilters2.default.noFilter
-            },
-            onDatachange: {
-                name: "datachange",
-                filter: _EventFilters2.default.noFilter
-            },
-            onDeselect: {
-                name: "batch-deselect",
-                filter: _EventFilters2.default.filterSelection
-            },
-            onError: {
-                name: "error",
-                filter: _EventFilters2.default.noFilter
-            },
-            onExport: {
-                name: "export",
-                filter: _EventFilters2.default.noFilter
-            },
-            onRefresh: {
-                name: "refresh",
-                filter: _EventFilters2.default.noFilter
-            },
-            onSelect: {
-                name: "batch-select",
-                filter: _EventFilters2.default.filterSelection
-            },
-            onSave: {
-                name: "edit-save",
-                filter: _EventFilters2.default.noFilter
-            },
-            onSort: {
-                name: "sort",
-                filter: _EventFilters2.default.noFilter
-            }
-        }
-
-    };
-});
-//# sourceMappingURL=config.js.map
-;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define('hui-react/table/Table',["exports", "react", "react-dom", "dstore/Memory", "./config", "hui/table/LazyRowExpansionRenderer", "hui/table", "hui/table-virtual", "xstyle/css!hui-css/hui-table.min.css"], factory);
+        define('hui-react/table/Table',["exports", "react", "react-dom", "dstore/Memory", "./CallbackCollection", "./config", "./PropUtils", "hui/table/LazyRowExpansionRenderer", "hui/table", "hui/table-virtual", "xstyle/css!hui-css/hui-table.min.css"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("react-dom"), require("dstore/Memory"), require("./config"), require("hui/table/LazyRowExpansionRenderer"), require("hui/table"), require("hui/table-virtual"), require("xstyle/css!hui-css/hui-table.min.css"));
+        factory(exports, require("react"), require("react-dom"), require("dstore/Memory"), require("./CallbackCollection"), require("./config"), require("./PropUtils"), require("hui/table/LazyRowExpansionRenderer"), require("hui/table"), require("hui/table-virtual"), require("xstyle/css!hui-css/hui-table.min.css"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.reactDom, global.Memory, global.config, global.LazyRowExpansionRenderer, global.table, global.tableVirtual, global.huiTableMin);
+        factory(mod.exports, global.react, global.reactDom, global.Memory, global.CallbackCollection, global.config, global.PropUtils, global.LazyRowExpansionRenderer, global.table, global.tableVirtual, global.huiTableMin);
         global.Table = mod.exports;
     }
-})(this, function (exports, _react, _reactDom, _Memory, _config, _LazyRowExpansionRenderer) {
+})(this, function (exports, _react, _reactDom, _Memory, _CallbackCollection, _config, _PropUtils, _LazyRowExpansionRenderer) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -10536,7 +10364,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     var _Memory2 = _interopRequireDefault(_Memory);
 
+    var _CallbackCollection2 = _interopRequireDefault(_CallbackCollection);
+
     var _config2 = _interopRequireDefault(_config);
+
+    var _PropUtils2 = _interopRequireDefault(_PropUtils);
 
     var _LazyRowExpansionRenderer2 = _interopRequireDefault(_LazyRowExpansionRenderer);
 
@@ -10607,9 +10439,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             get: function get() {
                 return {
                     columns: _react2.default.PropTypes.object.isRequired,
-                    data: _react2.default.PropTypes.array,
+                    data: _PropUtils2.default.validateData,
+                    onDataChanged: _react2.default.PropTypes.func,
                     collection: _react2.default.PropTypes.object,
-                    options: _react2.default.PropTypes.object
+                    options: _PropUtils2.default.validateOptions
                 };
             }
         }]);
@@ -10627,7 +10460,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             _this.store = null;
             _this.totals = null;
             _this.table = null;
-            _this.rowExpansionNodeCache = {};
             _this.cache = {};
             _this.otherSettingsNode = null;
             _this.tableBarCustomNode = null;
@@ -10652,16 +10484,31 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "shouldComponentUpdate",
             value: function shouldComponentUpdate(nextProps) {
-                // Only allow option updates to the underlying table. No store or column changes.
+                // Note: It's harder than you might think to find a good way to intelligently
+                // and efficiently refresh only the props that changed. So we refresh all of them
+                // each time. It's not an impossible problem to solve but will require some thinking to
+                // overcome some of the challenges below.
+                //
+                // Some of the challenges for a smart refresh include:
+                //   * It's expensive to do a diff to see if the row data set has changed
+                //   * Some of the table properties require you to call table.refresh()
+                //     for the changes to show up. Others like changing rowsPerPage or columns will trigger
+                //     a refresh automatically. That's why we have the column setter last so it does a refresh.
+                //   * If the user is using data callbacks to control the data for pagination or virtual scrolling,
+                //     calling table.refresh will also trigger a call from us to request the data from the server again.
+                //     So we have to be careful about when we trigger that outbound request for data. We don't, for example,
+                //     want to trigger it for simple option changes. To make that work we set the data and refresh it each
+                //     time. If you use diffs to isolate data only state changes in an attempt to bypass the full table
+                //     refresh and simply resolve the data promise, the table will load very efficiently but data will
+                //     not be available the next time you do a simple prop change. When that happens it will issue
+                //     an outboud request.
+
+                // Only allow specific updates to the underlying table.
                 this.mixinOptions(this.table, nextProps.options);
                 this.connectCallbacks(this.table, nextProps.options);
 
                 // Update the store data (if needed)
                 this.setStoreData(nextProps.data);
-
-                //remove the render modes from the current props a.k.a this.props.options
-                //new render modes from nextProps.options will be processed as part of postTableRender
-                this.preTableRender(this.table, this.props.options);
 
                 // Apply any post render changes
                 this.postTableRender(this.table, nextProps.options, nextProps.data);
@@ -10687,10 +10534,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     _reactDom2.default.unmountComponentAtNode(this.tableBarCustomActionNode);
                 }
 
-                //clear out row expansion nodes
-                this.clearRowExpansionNodeCache();
                 // Clear the cache
                 this.clearCache();
+
+                // Clean up the store
+                if (this.store.destroy) {
+                    this.store.destroy();
+                }
 
                 // Clean up all our table references
                 this.table = null;
@@ -10701,7 +10551,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 this.otherSettingsNode = null;
                 this.tableBarCustomNode = null;
                 this.tableBarCustomActionNode = null;
-                this.rowExpansionNodeCache = null;
                 this.cache = null;
             }
         }, {
@@ -10716,24 +10565,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 this.cache = {};
             }
         }, {
-            key: "clearRowExpansionNodeCache",
-            value: function clearRowExpansionNodeCache() {
-                var _this3 = this;
-
-                Object.keys(this.rowExpansionNodeCache).forEach(function (key) {
-                    _reactDom2.default.unmountComponentAtNode(_this3.rowExpansionNodeCache[key]);
-                });
-
-                this.rowExpansionNodeCache = {};
-            }
-        }, {
             key: "handleWrapperRef",
             value: function handleWrapperRef(wrapper) {
                 this.wrapper = wrapper;
             }
         }, {
-            key: "shouldUpdateTablePropery",
-            value: function shouldUpdateTablePropery(table, key, value) {
+            key: "shouldUpdateTableProperty",
+            value: function shouldUpdateTableProperty(table, key, value) {
                 // Don't update the key if it's already set or if it's a key that requires special handling
                 return !_config2.default.customOptions[key] && !_config2.default.eventsToCallbacks[key] && table[key] !== value;
             }
@@ -10768,56 +10606,36 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "mixinOptions",
             value: function mixinOptions(table, options) {
-                var _this4 = this;
+                var _this3 = this;
 
                 if (table && options) {
                     Object.keys(options).forEach(function (key) {
                         var value = options[key];
 
                         // Only update the key if we need to
-                        // FIXME What do we do if the value is a complex object or array?
-                        if (_this4.shouldUpdateTablePropery(table, key, value)) {
+                        if (_this3.shouldUpdateTableProperty(table, key, value)) {
                             table[key] = value;
                         }
                     });
                 }
             }
         }, {
-            key: "isReactComponent",
-            value: function isReactComponent(obj) {
-                // Using instanceof does not work for some reason
-                return _react2.default.Component.isPrototypeOf(obj);
-            }
-        }, {
             key: "adaptColumns",
             value: function adaptColumns(cols) {
-                var _this5 = this;
+                var _this4 = this;
 
                 var columns = {};
 
                 // Loop through all of the columns
                 Object.keys(cols).forEach(function (key) {
-                    var Renderer = undefined,
-                        renderCell = undefined,
-                        onRenderCell = undefined;
-                    var that = _this5;
+                    var onRenderCell = undefined;
+                    var that = _this4;
 
                     columns[key] = cols[key];
-                    renderCell = columns[key].renderCell; // eslint-disable-line prefer-const
                     onRenderCell = columns[key].onRenderCell; // eslint-disable-line prefer-const
 
                     // If the column has a custom renderer, adapt it so it is compatible with HATable.
-                    if (_this5.isReactComponent(renderCell)) {
-                        // If it's a react component...
-                        // FIXME Remove support for this...
-                        console.warn("DEPRECATION WARNING: Passing React components to renderCell is deprecated. Use the onRender callback instead.");
-
-                        Renderer = renderCell;
-                        columns[key].renderCell = function (rowData, value, node, options) {
-                            return that.renderReactCell(Renderer, this.field, rowData, value, node, options);
-                        };
-                    } else if (onRenderCell) {
-                        // If it's a custom callback function...
+                    if (onRenderCell) {
                         columns[key].renderCell = function (rowData, value, node, options) {
                             var Element = onRenderCell({
                                 // Don't pass the node to the consumer. It doesn't make sense in a React world.
@@ -10826,7 +10644,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                 options: options,
                                 column: this.field
                             });
-                            return that.renderReactCell(Element, this.field, rowData, value, node, options);
+                            return that.renderReactCell(Element, this.field, rowData, value, node);
                         };
                     } else {
                         // No overrides. Do nothing...
@@ -10837,7 +10655,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
         }, {
             key: "renderReactCell",
-            value: function renderReactCell(ComponentOrElement, columnId, rowData, value, node, options) {
+            value: function renderReactCell(Element, columnId, rowData, value, node) {
                 var id = this.store.getIdentity(rowData),
                     key = this.getCellKey(id, columnId),
                     cachedNode = this.cache[key],
@@ -10846,14 +10664,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 // Otherwise create an empty node to put it in.
                 n = cachedNode || document.createElement("div");
 
-                // Render the component or element to the node for the row
-                if (_react2.default.isValidElement(ComponentOrElement)) {
-                    // It's an element so we don't need to write JSX to pass in the props
-                    _reactDom2.default.render(ComponentOrElement, n);
-                } else {
-                    // It's a component that needs to be rendered to JSX
-                    _reactDom2.default.render(_react2.default.createElement(ComponentOrElement, { rowData: rowData, value: value, node: node, options: options, columnId: columnId }), n);
-                }
+                // Render the element to the node for the row
+                _reactDom2.default.render(Element, n);
 
                 // Add the React node to the cache so we can use it later (if needed)
                 this.cache[key] = n;
@@ -10875,6 +10687,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     store = this.store;
                 } else if (this.props.collection) {
                     store = this.props.collection;
+                } else if (this.props.onDataChanged) {
+                    store = new _CallbackCollection2.default({
+                        onDataChanged: this.props.onDataChanged,
+                        allowMultipleConcurrentRequests: this.props.options.virtual
+                    });
                 } else {
                     store = new _Memory2.default();
                 }
@@ -10882,19 +10699,37 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 return store;
             }
         }, {
+            key: "shouldSyncCallbackCollection",
+            value: function shouldSyncCallbackCollection() {
+                return this.table && this.table.table && this.table.table._renderedCollection && this.table.table._renderedCollection.name === "CallbackCollection";
+            }
+        }, {
             key: "setStoreData",
             value: function setStoreData(data) {
                 if (data) {
                     this.store.setData(data);
+
+                    // For sorting operations HA Table maintains a copy of the store data. It is cloned via
+                    // https://github.com/SitePen/dstore/blob/master/src/QueryMethod.ts#L56
+                    // In these cases our store's fetchRange method may be called with the copy of the store
+                    // (_renderedCollection). It looks like there is some type of race condition where the
+                    // CallbackCollection store is setting state on the main store after the collection has
+                    // been cloned. In that case the copy of the store needs to have the updated state set on it
+                    // so it is available to the store during fetchRange.
+                    //
+                    // This if statement transfers the state to the copy
+                    if (this.shouldSyncCallbackCollection()) {
+                        this.table.table._renderedCollection.state = this.store.state;
+                    }
                 }
             }
         }, {
             key: "exposeApi",
             value: function exposeApi(table) {
-                var _this6 = this;
+                var _this5 = this;
 
                 Object.keys(_config2.default.apiToExpose).forEach(function (key) {
-                    _this6.api[key] = function () {
+                    _this5.api[key] = function () {
                         // Proxy the call on this component to the API method on the underlying
                         // HATable instance
                         return table[key].apply(table, arguments); //eslint-disable-line prefer-spread
@@ -10903,13 +10738,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
         }, {
             key: "addRenderModes",
-            value: function addRenderModes(table, nextOptions) {
+            value: function addRenderModes(table, options) {
                 var that = this;
                 //add render modes now
-                if (nextOptions && nextOptions.renderModes) {
-                    nextOptions.renderModes.forEach(function (renderModeItem) {
+                if (options && options.renderModes) {
+                    options.renderModes.forEach(function (renderModeItem) {
                         var expansionHeight = renderModeItem.renderer.expansionHeight,
-                            activatorSelector = renderModeItem.renderer.activatorSelector;
+                            activatorSelector = renderModeItem.renderer.activatorSelector,
+                            autoResizeTable = renderModeItem.renderer.autoResizeTable,
+                            scrollingThreshold = renderModeItem.renderer.scrollingThreshold,
+                            expansionClassName = renderModeItem.renderer.expansionClassName,
+                            useFocusIndicator = renderModeItem.renderer.useFocusIndicator,
+                            focusIndicatorLabel = renderModeItem.renderer.focusIndicatorLabel;
+
                         var renderRowExpansionContent = null,
                             CustomRowExpansionRenderer = null;
 
@@ -10921,14 +10762,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                     object: object,
                                     hideExpansion: hideExpansion
                                 });
-                                return that.renderReactRowExpansionContent(ExpansionContent, object.id, renderModeItem.renderMode);
+                                return that.renderReactRowExpansionContent(ExpansionContent);
                             };
                         }
                         //use the internal LazyRowExpansionRenderer
                         CustomRowExpansionRenderer = _LazyRowExpansionRenderer2.default.bind(null, {
                             activatorSelector: activatorSelector,
                             expansionHeight: expansionHeight,
-                            renderRowExpansionContent: renderRowExpansionContent
+                            renderRowExpansionContent: renderRowExpansionContent,
+                            autoResizeTable: autoResizeTable,
+                            scrollingThreshold: scrollingThreshold,
+                            expansionClassName: expansionClassName,
+                            useFocusIndicator: useFocusIndicator,
+                            focusIndicatorLabel: focusIndicatorLabel
                         });
                         //Add render mode to the main table
                         table.addRenderMode(renderModeItem.renderMode, new CustomRowExpansionRenderer());
@@ -10936,71 +10782,45 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
             }
         }, {
-            key: "removeRenderModes",
-            value: function removeRenderModes(table, prevOptions) {
-                //remove render nodes
-                if (prevOptions && prevOptions.renderModes) {
-                    prevOptions.renderModes.forEach(function (renderModeItem) {
-                        table.removeRenderMode(renderModeItem.renderMode);
-                    });
-                }
-            }
-        }, {
-            key: "preTableRender",
-            value: function preTableRender(table, prevOptions) {
-                //process row rendering
-                if (prevOptions && prevOptions.renderModes) {
-                    //renderModes may have been removed or updated by the user in options settings
-                    //we need to clean up and add again as part of postTableRender
-                    this.removeRenderModes(table, prevOptions);
-                }
-            }
-        }, {
             key: "renderReactRowExpansionContent",
-            value: function renderReactRowExpansionContent(ExpansionContent, objectId, renderMode) {
-                //generate a unique key for a React element per row based on the render mode
-                var key = objectId + "-" + renderMode,
-                    cachedNode = this.rowExpansionNodeCache[key],
+            value: function renderReactRowExpansionContent(ExpansionContent) {
 
-                //reuse React node from the cache or create a new one
-                n = cachedNode || document.createElement("div");
-                //render the expansion content
+                var n = document.createElement("div");
+                // Render the expansion content
                 _reactDom2.default.render(ExpansionContent, n);
-
-                // Add the React node to the cache so we can use and clean it up later (if needed)
-                this.rowExpansionNodeCache[key] = n;
 
                 return n;
             }
         }, {
-            key: "selectRows",
-            value: function selectRows(table, data) {
-                var _this7 = this;
+            key: "updateRowSelection",
+            value: function updateRowSelection(table, data) {
+                var _this6 = this;
 
-                data.forEach(function (dataRow) {
-                    if (dataRow._selected) {
-                        var id = _this7.store.getIdentity(dataRow),
+                var d = data.results || data;
+
+                // Only select rows if there are rows to select.
+                // d could be null if the user is using data callbacks and it's the first one
+                // where data hasn't been loaded into the table.
+                if (d && d.length > 0) {
+                    d.forEach(function (dataRow) {
+                        var id = _this6.store.getIdentity(dataRow),
                             row = table.row(id);
 
-                        table.select(row);
-                    }
-                });
+                        // Table consumers must explicitly define if rows are selected
+                        if (dataRow._selected === true) {
+                            table.select(row);
+                        } else if (dataRow._selected === false) {
+                            table.deselect(row);
+                        } else {
+                            // Leave the section alone
+                        }
+                    });
+                }
             }
         }, {
             key: "applyOtherSettings",
             value: function applyOtherSettings(table, options) {
-                var SettingsRenderer = options.settingsRenderer;
-
-                // See if the options have a custom settings Renderer component
-                if (SettingsRenderer) {
-                    // Render the component to the node for Other Settings
-                    // FIXME Remove support for this
-                    console.warn("DEPRECATION WARNING: Passing React components to settingsRenderer is deprecated. Use the onOtherSettingsRender callback instead.");
-                    _reactDom2.default.render(_react2.default.createElement(SettingsRenderer, null), table.otherSettingsNode);
-
-                    // Keep a reference so we can unmount it later
-                    this.otherSettingsNode = table.otherSettingsNode;
-                } else if (options.onOtherSettingsRender) {
+                if (options.onOtherSettingsRender) {
                     var Element = options.onOtherSettingsRender();
 
                     // Render the React Element
@@ -11037,13 +10857,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "applyTotals",
             value: function applyTotals(table, options) {
-                var _this8 = this;
+                var _this7 = this;
 
                 // Handle totals with a resize event.
                 // Only attach the listener once
                 if (options.totals && !this.totals) {
                     table.on("table-resize", function () {
-                        table.totals = _this8.totals;
+                        table.totals = _this7.totals;
                     });
                 }
 
@@ -11057,16 +10877,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     this.applyOtherSettings(table, options);
                     this.applyTableBarCustomContent(table, options);
                     this.applyTotals(table, options);
-
-                    //process row rendering, if any
-                    if (options.renderModes) {
-                        this.addRenderModes(table, options);
-                    }
                 }
 
                 if (data) {
-                    // Select any rows during loading
-                    this.selectRows(table, data);
+                    // Select or deselect any rows during loading
+                    this.updateRowSelection(table, data);
                 }
             }
         }, {
@@ -11094,6 +10909,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                 // Apply any post render changes
                 this.postTableRender(table, options, this.props.data);
+
+                //process row rendering, if any
+                if (options && options.renderModes) {
+                    this.addRenderModes(table, options);
+                }
 
                 return table;
             }

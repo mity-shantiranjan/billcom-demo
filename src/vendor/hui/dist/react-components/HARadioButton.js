@@ -41,6 +41,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         return target;
     };
 
+    function _objectWithoutProperties(obj, keys) {
+        var target = {};
+
+        for (var i in obj) {
+            if (keys.indexOf(i) >= 0) continue;
+            if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+            target[i] = obj[i];
+        }
+
+        return target;
+    }
+
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
@@ -142,11 +154,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "render",
             value: function render() {
+                var _props = this.props,
+
                 /* jshint ignore:start */
-                return _react2.default.createElement("ha-radio-button", _extends({
-                    ref: this.handleRef,
-                    "class": this.props.className
-                }, this.props));
+                disabled = _props.disabled,
+                    props = _objectWithoutProperties(_props, ["disabled"]);
+
+                // polyfill for IE 11, ref: https://github.com/facebook/react/issues/961
+                return disabled === true || disabled === "true" ? _react2.default.createElement("ha-radio-button", _extends({ ref: this.handleRef, "class": this.props.className, disabled: true }, props)) : _react2.default.createElement("ha-radio-button", _extends({ ref: this.handleRef, "class": this.props.className }, props));
                 /* jshint ignore:end */
             }
         }]);

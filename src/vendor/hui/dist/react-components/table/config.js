@@ -30,7 +30,6 @@
         // Custom options or options that require special handling. These options are specific to this React wrapper and we need to adapt them before we apply them to
         // HATable instance.
         customOptions: {
-            settingsRenderer: true,
             onOtherSettingsRender: true,
             renderModes: true,
             onTableBarCustomRender: true,
@@ -55,7 +54,6 @@
         // A list of callback functions and events they correspond to on the underlying
         // HATable instance. We'll listen for these events and call the corresponding
         // callbacks to make this component more React friendly.
-        // FIXME How does the user clear one of these?
         eventsToCallbacks: {
             onCancel: {
                 name: "edit-cancel",

@@ -121,6 +121,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
             }
         }, {
+            key: "updateAddNewPop",
+            value: function updateAddNewPop() {
+                var addNewPopForm = this._huiComponent.querySelector('ha-popover > ha-popover-form'),
+                    addNewPop = undefined;
+
+                if (addNewPopForm) {
+                    addNewPop = addNewPopForm.parentElement;
+                }
+
+                if (addNewPop) {
+                    this._huiComponent.addNewPopover = addNewPop;
+                }
+            }
+        }, {
             key: "componentDidMount",
             value: function componentDidMount() {
                 var _this2 = this;
@@ -136,6 +150,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 };
                 this._listeners.onAddNew = onAddNew.bind(this);
                 this._huiComponent.addEventListener("add-new", this._listeners.onAddNew);
+
+                // update web popover-form to react-compnent
+                if (this.props.addNew) {
+                    this.updateAddNewPop();
+                }
 
                 // Event handler for change
                 var onChange = function onChange(event) {
@@ -242,7 +261,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         size: _react2.default.PropTypes.number,
         selectedIndex: _react2.default.PropTypes.number,
         selectedItem: _react2.default.PropTypes.object,
-        addNew: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.string]),
+        addNew: _react2.default.PropTypes.bool,
         addNewPopover: _react2.default.PropTypes.object,
         addNewText: _react2.default.PropTypes.string,
         disabled: _react2.default.PropTypes.bool,

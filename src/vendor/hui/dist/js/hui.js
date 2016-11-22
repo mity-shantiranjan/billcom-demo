@@ -227,6 +227,278 @@ define('hui/core/position',[], function() {
     };
 });
 
+/**
+* This class exists for the sole purpose of being able to test the below methods.
+* These methods need to be refactored and removed at a future date because the
+* original author didn't structure them in a way that is healthy for long term support.
+* Until that day comes, this class will exist. When the refactoring happens, I suggest
+* the new logic get moved to position.js
+*/
+define('hui/core/popupPositionUtils',[
+    './position'
+], function(position) {
+    /**
+     * Determines if there is space between the popup and the parent on the top side. If there is space, or
+     * the amount needed is equal to the amount available, the position is set to the avialable - needed. In the
+     * case where they are equal, the currentPosition.y will be equal to the amount available.
+     *
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryTopPosition(popup, currentPosition, currentPositionType) {
+        var finalMargin = popup.margin + popup.boxShadow.bottom,
+            available = popup.spaceToNextObject.top,
+            needed = popup.dimensions.height + finalMargin;
+
+        if (needed <= available) {
+            currentPositionType.position = 'top';
+            currentPosition.y = available - needed;
+        }
+    }
+
+    /**
+     * Determines if there is space between the popup and the parent on the bottom side
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryBottomPosition(popup, currentPosition, currentPositionType, force) {
+        var finalMargin = popup.margin + popup.boxShadow.top,
+            available = position.getPageSize(this.ownerDocument).height - popup.spaceToNextObject.bottom,
+            needed = popup.dimensions.height + finalMargin;
+
+        if ((needed < available) || force) {
+            currentPositionType.position = 'bottom';
+            currentPosition.y = popup.parentPosition.bottom + finalMargin;
+        }
+    }
+
+    /**
+     * Determines if there is space between the popup and the parent on the right side
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryRightPosition(popup, currentPosition, currentPositionType) {
+        var finalMargin = popup.margin + popup.boxShadow.left,
+            available = position.getPageSize(this.ownerDocument).width - popup.spaceToNextObject.right,
+            needed = popup.dimensions.width + finalMargin;
+
+        if (needed < available) {
+            currentPositionType.position = 'right';
+            currentPosition.x = popup.parentPosition.right + finalMargin;
+        }
+    }
+
+    /**
+     * Determines if there is space between the popup and the parent on the left side. If the space needed is greater than available,
+     * this method does nothing. If less than or equal to, position is set to left, and position in the x direction is set to available - needed
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}   currentPosition     Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryLeftPosition(popup, currentPosition, currentPositionType) {
+        var finalMargin = popup.margin + popup.boxShadow.right,
+            available = popup.parentPosition.left,
+            needed = popup.dimensions.width + finalMargin;
+
+        if (needed <= available) {
+            currentPositionType.position = 'left';
+            currentPosition.x = available - needed;
+        }
+    }
+
+    return {
+        tryLeftPosition: _tryLeftPosition,
+        tryRightPosition: _tryRightPosition,
+        tryTopPosition: _tryTopPosition,
+        tryBottomPosition: _tryBottomPosition
+    };
+});
+
+/**
+* This class exists for the sole purpose of being able to test the below methods.
+* These methods need to be refactored and removed at a future date because the
+* original author didn't structure them in a way that is healthy for long term support.
+* Until that day comes, this class will exist. When the refactoring happens, I suggest
+* the new logic get moved to position.js
+*/
+
+define('hui/core/popupAlignmentUtils',[
+    './position'
+], function(position) {
+    /* -------- Alignment --------*/
+    /**
+     * Determines where the popup should align itself within relation to the parent on the left side.
+     * currentPositionType.alignment is always set to left. currentPosition.x is set to parentPosition left if
+     * needed < available. Otherwise, it is set to parentPosition.left - (needed - available)
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryLeftAlignment(popup, currentPosition, currentPositionType) {
+        var available = position.getPageSize(this.ownerDocument).width - popup.parentPosition.left,
+            needed = popup.dimensions.width;
+
+        currentPositionType.alignment = 'left';
+        if (needed <= available) {
+            currentPosition.x = popup.parentPosition.left;
+        } else {
+            currentPosition.x = popup.parentPosition.left - (needed - available);
+        }
+    }
+
+    /**
+     * Determines where the popup should align itself within relation to the parent in the center. Based on
+     * how the popup aligns, we determine where to stick it. If it doesn't fit on a side, we set the x position
+     * equal to 0
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryCenterAlignment(popup, currentPosition, currentPositionType) {
+        var available = position.getPageSize(this.ownerDocument).width,
+            needed = popup.dimensions.width,
+            halfChild,
+            targetCenterPos;
+
+        /* istanbul ignore else */
+        if (needed < available) {
+            currentPositionType.alignment = 'center';
+
+            halfChild = popup.dimensions.width / 2;
+            targetCenterPos = popup.parentPosition.left + (popup.parentPosition.width / 2);
+
+            if (targetCenterPos > halfChild) {
+                // Popup left half fits
+                if (targetCenterPos + halfChild < available) {
+                    // Popup fits centered
+                    currentPosition.x = targetCenterPos - halfChild;
+                } else {
+                    // Popup doesn't fit on the right, so will be sticky to that side
+                    currentPosition.x = available - popup.dimensions.width;
+                }
+            } else {
+                // Popup doesn't fit on the left, so will be sticky to that side
+                currentPosition.x = 0;
+            }
+        }
+    }
+
+    /**
+     * Determines where the popup should align itself within relation to the parent on the right side. This method
+     * will only set the alignment and position if the needed space is less than the available.
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryRightAlignment(popup, currentPosition, currentPositionType) {
+        var available = popup.parentPosition.right,
+            needed = popup.dimensions.width;
+
+        if (needed < available) {
+            currentPositionType.alignment = 'right';
+            currentPosition.x = popup.parentPosition.left - popup.dimensions.width + popup.parentPosition.width;
+        }
+    }
+
+    /**
+     * Determines where the popup should align itself within relation to the parent on the top. This will only set the
+     * alignment if needed < available or force is used.
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     * @param {boolean}   force              Denotes if the top alignment should be set regardless of needed space vs available
+     */
+    function _tryTopAlignment(popup, currentPosition, currentPositionType, force) {
+        var available = position.getPageSize(this.ownerDocument).height - popup.parentPosition.top,
+            needed = popup.dimensions.height;
+
+        if ((needed < available) || force) {
+            currentPositionType.alignment = 'top';
+            currentPosition.y = popup.parentPosition.top;
+        }
+    }
+
+    /**
+     * Determines where the popup should align itself within relation to the parent in the middle (not to be confused with center,
+     * which relates to the vertical alignment). If the needed space is greater than the amount available, the positoin
+     * is estimated by rounding the y direction to the available - the height of the parent. Otherwise, it is set to the top position
+     * of the parent.
+     * equal to 0
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryMiddleAlignment(popup, currentPosition, currentPositionType) {
+        var available = position.getPageSize(this.ownerDocument).height,
+            child,
+            targetPos;
+
+        currentPositionType.alignment = 'middle';
+
+        child = popup.dimensions.height;
+        targetPos = popup.parentPosition.top;
+
+        // Popup top half fits
+        if (targetPos + child < available) {
+            // Popup fits centered
+            currentPosition.y = targetPos;
+        } else {
+            // Popup doesn't fit on the bottom, so will be sticky to that side
+            currentPosition.y = Math.max(0, available - popup.dimensions.height);
+        }
+    }
+
+    /**
+     * Determines where the popup should align itself within relation to the parent on the bottom.
+     * Alignment and position in the y direction will be set when needed < available. Otherwise nothing changes.
+     * @param {object}    popup              Object containing information regarding size of the
+     *                                       popup to be rendered.
+     * @param {object}    currentPosition    Position for the popup when it is rendered. Contains both x and y
+     *                                       directions.
+     * @param {string}    currentPositionType Contains the string denoting which side we are calculating
+     */
+    function _tryBottomAlignment(popup, currentPosition, currentPositionType) {
+        var available = popup.parentPosition.bottom,
+            needed = popup.dimensions.height;
+
+        /* istanbul ignore else */
+        if (needed < available) {
+            currentPositionType.alignment = 'bottom';
+            currentPosition.y = popup.parentPosition.bottom - needed;
+        }
+    }
+
+    return {
+        tryLeftAlignment: _tryLeftAlignment,
+        tryRightAlignment: _tryRightAlignment,
+        tryTopAlignment: _tryTopAlignment,
+        tryBottomAlignment: _tryBottomAlignment,
+        tryMiddleAlignment: _tryMiddleAlignment,
+        tryCenterAlignment: _tryCenterAlignment
+    };
+});
+
 define('hui/core/utils',[],function() {
     'use strict';
 
@@ -433,6 +705,40 @@ define('hui/core/utils',[],function() {
             finalLink = (chain || []).reduce(toFinalLink, root);
 
         return (callback && finalLink) ? callback(finalLink) : undefined;
+    }
+
+    /**
+     * Get the name of a fucntion safely, polyfill function for IE11.
+     * @param {Function}    func  is the function.
+     * @returns {String}    The name of the function, return anonymous func if function with no name,
+     *                          return nothing if not a function type.
+     */
+    function getFunctionName(func) {
+        if (typeof func === 'function') {
+            if (func.name) {
+                return func.name;
+            } else {
+                var funcName = func.toString().match(/^function\s*([^\s(]+)/);
+                return funcName ? funcName[1] : 'anonymous func';
+            }
+        }
+        return;
+    }
+
+    /**
+     * Get the type name of a react component safe, polyfill for IE11.
+     * @param {Object}      component  is a react component.
+     * @returns {String}    The type name of the component, return nothing if component does not have type.
+     */
+    function getReactTypeName(component) {
+        if (!component.type) {
+            return;
+        }
+        if (component.type.name) {
+            return component.type.name;
+        } else {
+            return getFunctionName(component.type);
+        }
     }
 
     var Utils = {
@@ -777,6 +1083,57 @@ define('hui/core/utils',[],function() {
             }
         },
 
+        /**
+         * Append new class props from a React component to pre-applied classes
+         * from the rendered custom element. classProps should be truthy
+         * upon invocation. If the element doesn't have any applied classes,
+         * then just return the class props. Needs to handle the following cases:
+
+         * Case 1: new className should clear previous consumer-defined className props on the component
+         * Case 2: new className should NOT overwrite the HUI class attribute if it's on the component (eg. mobile-text-field)
+         *
+         * @param {HTMLElement} component The rendered custom element reference
+         * @param {String} classProps Props from the React component
+         * @return {String} A string of the classes to be updated
+         */
+        updateClassWithProps: function(component, classProps) {
+            if (component.classList.length > 0) {
+                var props, mergedClasses, preservedClasses = [];
+
+                // for every supported class on this component, preserve the class
+                // in a new array to be merged with the new props
+                if (component.supportedClasses) {
+                    preservedClasses = component.supportedClasses.filter(function(supportedClass) {
+                        return (component.classList.contains(supportedClass) &&
+                            preservedClasses.indexOf(supportedClass) === -1);
+                    });
+
+                    // merge preseved (existing) HUI classes with new props
+                    if (classProps) {
+                        mergedClasses = preservedClasses.concat(classProps.split(' '));
+                    } else {
+                        mergedClasses = preservedClasses;
+                    }
+                    return mergedClasses.join(' ').trim();
+
+                } else {
+                    // TOOD: old - keeping for now for testing on multiple components
+                    if (classProps) {
+                        props = classProps.split(' ');
+                        props.forEach(function(prop) {
+                            if (!component.classList.contains(prop)) {
+                                component.classList.add(prop);
+                            }
+                        });
+                    }
+
+                    return component.classList.toString();
+                }
+            } else {
+                return classProps ? classProps : '';
+            }
+        },
+
         YesNoType: {
 
             /**
@@ -922,6 +1279,10 @@ define('hui/core/utils',[],function() {
         queryChildrenOf: queryChildrenOf,
 
         isNode: isNode,
+
+        getFunctionName: getFunctionName,
+
+        getReactTypeName: getReactTypeName,
 
         /**
          * Checks whether the popover or modal is open
@@ -1323,11 +1684,13 @@ define('hui/core/event',[
 
 define('hui/core/popup',[
     './position',
+    './popupPositionUtils',
+    './popupAlignmentUtils',
     './utils',
     './Viewport',
     './event'
 ],
-function(position, utils, Viewport, eventUtil) {
+function(position, popupPositionUtils, popupAlignmentUtils, utils, Viewport, eventUtil) {
 
     var BASE_MARGIN = 5,
         CONNECTOR_MARGIN = 4,
@@ -1335,251 +1698,6 @@ function(position, utils, Viewport, eventUtil) {
         HORIZONTAL_POSITIONS = ['left', 'right'],
         VERTICAL_ALIGNMENTS = ['top', 'middle', 'bottom'],
         HORIZONTAL_ALIGNMENTS = ['left', 'center', 'right'];
-
-    /**
-     * Math to determine if the top position is available.
-     * @param {object} targetRect            position and dimensions of the parent object.
-     * @param {object} absoluteRect          The position with respect to the next stacking context
-     * @param {object} popupDimensions       dimensions of the popup element
-     * @param {Number} margin                margin between the popup and the target
-     * @param {Object} boxShadow             calculated size of box-shadow property of child
-     * @param {object} currentPosition       current calculations for positioning the popup
-     * @param {object} currentPositionType   current type of position or alignment
-     *
-     * @return {object} result
-     */
-    function _tryTopPosition(targetRect, absoluteRect, popupDimensions, margin, boxShadow, currentPosition, currentPositionType) {
-        var available = absoluteRect.top,
-            finalMargin = margin + boxShadow.bottom,
-            needed = popupDimensions.height + finalMargin;
-
-        if (needed < available) {
-            currentPositionType.position = 'top';
-            currentPosition.y = targetRect.top - needed;
-        }
-    }
-
-    /**
-     * Math to determine if the bottom position is available.
-     *
-     * @param {object}   targetRect          position and dimensions of the parent object.
-     * @param {object}   absoluteRect        The position with respect to the next stacking context
-     * @param {object}   popupDimensions     dimensions of the popup element
-     * @param {Number}   margin              margin between the popup and the target
-     * @param {Object}   boxShadow           calculated size of box-shadow property of child
-     * @param {object}   currentPosition     current calculations for positioning the popup
-     * @param {object}   currentPositionType current type of position or alignment
-     * @param {Boolean}  force               when set on true, forces the positioning (used as fallback)
-     *
-     * @return {object} result
-     */
-    function _tryBottomPosition(targetRect, absoluteRect, popupDimensions, margin, boxShadow, currentPosition, currentPositionType, force) {
-        var finalMargin = margin + boxShadow.top,
-            available = position.getPageSize(this.ownerDocument).height - absoluteRect.bottom,
-            needed = popupDimensions.height + finalMargin;
-
-        if ((needed < available) || force) {
-            currentPositionType.position = 'bottom';
-            currentPosition.y = targetRect.bottom + finalMargin;
-        }
-    }
-
-    /**
-     * Math to determine if the right position is available.
-     *
-     * @param {object} targetRect            position and dimensions of the parent object.
-     * @param {object} absoluteRect          The position with respect to the next stacking context
-     * @param {object} popupDimensions       dimensions of the popup element
-     * @param {Number} margin                margin between the popup and the target
-     * @param {Object} boxShadow             calculated size of box-shadow property of child
-     * @param {object} currentPosition       current calculations for positioning the popup
-     * @param {object} currentPositionType   current type of position or alignment
-     *
-     * @return {object} result
-     */
-    function _tryRightPosition(targetRect, absoluteRect, popupDimensions, margin, boxShadow, currentPosition, currentPositionType) {
-        var finalMargin = margin + boxShadow.left,
-            available = position.getPageSize(this.ownerDocument).width - absoluteRect.right,
-            needed = popupDimensions.width + finalMargin;
-
-        if (needed < available) {
-            currentPositionType.position = 'right';
-            currentPosition.x = targetRect.right + finalMargin;
-        }
-    }
-
-    /**
-     * Math to determine if the left position is available.
-     *
-     * @param {object} targetRect            position and dimensions of the parent object.
-     * @param {object} absoluteRect          The position with respect to the next stacking context
-     * @param {object} popupDimensions       dimensions of the popup element
-     * @param {Number} margin                margin between the popup and the target
-     * @param {Object} boxShadow             calculated size of box-shadow property of child
-     * @param {object} currentPosition       current calculations for positioning the popup
-     * @param {object} currentPositionType   current type of position or alignment
-     *
-     * @return {object} result
-     */
-    function _tryLeftPosition(targetRect, absoluteRect, popupDimensions, margin, boxShadow, currentPosition, currentPositionType) {
-        var finalMargin = margin + boxShadow.right,
-            available = targetRect.left,
-            needed = popupDimensions.width + finalMargin;
-
-        if (needed < available) {
-            currentPositionType.position = 'left';
-            currentPosition.x = targetRect.left - needed;
-        }
-    }
-
-    /**
-     * Math to determine if the left alignment is available.
-     *
-     * @param {object} targetRect            position and dimensions of the parent object.
-     * @param {object} popupDimensions       dimensions of the popup element
-     * @param {object} currentPosition       current calculations for positioning the popup
-     * @param {object} currentPositionType   current type of position or alignment
-     *
-     * @return {object} result
-     */
-    function _tryLeftAlignment(targetRect, popupDimensions, currentPosition, currentPositionType) {
-        var available = position.getPageSize(this.ownerDocument).width - targetRect.left,
-            needed = popupDimensions.width;
-
-        if (needed < available) {
-            currentPositionType.alignment = 'left';
-            currentPosition.x = targetRect.left;
-        }
-    }
-
-    /**
-     * Math to determine if the center alignment is available.
-     *
-     * @param {object} targetRect            position and dimensions of the parent object.
-     * @param {object} popupDimensions       dimensions of the popup element
-     * @param {object} currentPosition       current calculations for positioning the popup
-     * @param {object} currentPositionType   current type of position or alignment
-     *
-     * @return {object} result
-     */
-    function _tryCenterAlignment(targetRect, popupDimensions, currentPosition, currentPositionType) {
-        var available = position.getPageSize(this.ownerDocument).width,
-            needed = popupDimensions.width,
-            halfChild,
-            targetCenterPos;
-
-        /* istanbul ignore else */
-        if (needed < available) {
-            currentPositionType.alignment = 'center';
-
-            halfChild = popupDimensions.width / 2;
-            targetCenterPos = targetRect.left + (targetRect.width / 2);
-
-            if (targetCenterPos > halfChild) {
-                // Popup left half fits
-                if (targetCenterPos + halfChild < available) {
-                    // Popup fits centered
-                    currentPosition.x = targetCenterPos - halfChild;
-                } else {
-                    // Popup doesn't fit on the right, so will be sticky to that side
-                    currentPosition.x = available - popupDimensions.width;
-                }
-            } else {
-                // Popup doesn't fit on the left, so will be sticky to that side
-                currentPosition.x = 0;
-            }
-        }
-    }
-
-    /**
-     * Math to determine if the right alignment is available.
-     *
-     * @param {object} targetRect            position and dimensions of the parent object.
-     * @param {object} popupDimensions       dimensions of the popup element
-     * @param {object} currentPosition       current calculations for positioning the popup
-     * @param {object} currentPositionType   current type of position or alignment
-     *
-     * @return {object} result
-     */
-    function _tryRightAlignment(targetRect, popupDimensions, currentPosition, currentPositionType) {
-        var available = targetRect.right,
-            needed = popupDimensions.width;
-
-        if (needed < available) {
-            currentPositionType.alignment = 'right';
-            currentPosition.x = targetRect.left - popupDimensions.width + targetRect.width;
-        }
-    }
-
-    /**
-     * Math to determine if the top alignment is available.
-     *
-     * @param {object}   targetRect          position and dimensions of the parent object.
-     * @param {object}   popupDimensions     dimensions of the popup element
-     * @param {object}   currentPosition     current calculations for positioning the popup
-     * @param {object}   currentPositionType current type of position or alignment
-     * @param {Boolean}  force               when set on true, forces the positioning (used as fallback)
-     *
-     * @return {object} result
-     */
-    function _tryTopAlignment(targetRect, popupDimensions, currentPosition, currentPositionType, force) {
-        var available = position.getPageSize(this.ownerDocument).height - targetRect.top,
-            needed = popupDimensions.height;
-
-        if ((needed < available) || force) {
-            currentPositionType.alignment = 'top';
-            currentPosition.y = targetRect.top;
-        }
-    }
-
-    /**
-     * Math to determine if the middle alignment is available.
-     *
-     * @param {object} targetRect            position and dimensions of the parent object.
-     * @param {object} popupDimensions       dimensions of the popup element
-     * @param {object} currentPosition       current calculations for positioning the popup
-     * @param {object} currentPositionType   current type of position or alignment
-     *
-     * @return {object} result
-     */
-    function _tryMiddleAlignment(targetRect, popupDimensions, currentPosition, currentPositionType) {
-        var available = position.getPageSize(this.ownerDocument).height,
-            child,
-            targetPos;
-
-        currentPositionType.alignment = 'middle';
-
-        child = popupDimensions.height;
-        targetPos = targetRect.top;
-
-        // Popup top half fits
-        if (targetPos + child < available) {
-            // Popup fits centered
-            currentPosition.y = targetPos;
-        } else {
-            // Popup doesn't fit on the bottom, so will be sticky to that side
-            currentPosition.y = Math.max(0, available - popupDimensions.height);
-        }
-    }
-
-    /**
-     * Math to determine if the bottom alignment is available.
-     *
-     * @param {Object} targetRect            position and dimensions of the parent object.
-     * @param {Object} popupDimensions       dimensions of the popup element
-     * @param {Object} currentPosition       current calculation for positioning the popup
-     * @param {Object} currentPositionType
-     */
-    function _tryBottomAlignment(targetRect, popupDimensions, currentPosition, currentPositionType) {
-        var available = targetRect.bottom,
-            needed = popupDimensions.height;
-
-        /* istanbul ignore else */
-        if (needed < available) {
-            currentPositionType.alignment = 'bottom';
-            currentPosition.y = targetRect.bottom - needed;
-        }
-    }
 
     /**
      * Calculates position for the popup
@@ -1600,57 +1718,63 @@ function(position, utils, Viewport, eventUtil) {
                 y: -1
             },
             positionMap = {
-                'top': _tryTopPosition,
-                'left': _tryLeftPosition,
-                'right': _tryRightPosition,
-                'bottom': _tryBottomPosition
+                'top': popupPositionUtils.tryTopPosition,
+                'left': popupPositionUtils.tryLeftPosition,
+                'right': popupPositionUtils.tryRightPosition,
+                'bottom': popupPositionUtils.tryBottomPosition
             },
             alignmentMap = {
-                'top': _tryTopAlignment,
-                'left': _tryLeftAlignment,
-                'right': _tryRightAlignment,
-                'bottom': _tryBottomAlignment,
-                'middle': _tryMiddleAlignment,
-                'center': _tryCenterAlignment
-            },
-            boxShadow = {
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0
+                'top': popupAlignmentUtils.tryTopAlignment,
+                'left': popupAlignmentUtils.tryLeftAlignment,
+                'right': popupAlignmentUtils.tryRightAlignment,
+                'bottom': popupAlignmentUtils.tryBottomAlignment,
+                'middle': popupAlignmentUtils.tryMiddleAlignment,
+                'center': popupAlignmentUtils.tryCenterAlignment
             },
             currentPositionType = {},
-            popupDimensions,
             connector = component.querySelector('.connector'),
-            targetRect,
-            absoluteRect,
             positionFound,
             alignmentFound,
             verticalPosition,
             method,
-            possibleAlignments;
+            possibleAlignments,
+            popup = {
+                boxShadow: {
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0
+                },
+                margin: 0,
+                parentPosition: {},
+                spaceToNextObject: {},
+                dimensions: {}
+            };
 
         customPositioningMethods = customPositioningMethods || {};
-        targetRect = position.getPositionInDocument(target);
-        absoluteRect = targetRect;
+
+        /* ----------- Position -------------- */
+        popup.parentPosition = position.getPositionInDocument(target);  // formally targetRect
+        popup.spaceToNextObject = popup.parentPosition;                 // formally absoluteRect
+
         if (!component.style.minWidth) {
-            component.style.minWidth = targetRect.width + 'px';
+            component.style.minWidth = popup.parentPosition.width + 'px';
         }
-        popupDimensions = position.getDimension(component);
+        popup.dimensions = position.getDimension(component);            // formally popupDimensions
 
         // If the component has a connector, we need to add extra margin
         if (connector) {
-            margin = BASE_MARGIN + (margin || CONNECTOR_MARGIN);
+            popup.margin = BASE_MARGIN + (margin || CONNECTOR_MARGIN);        // formally margin
         } else {
-            margin = BASE_MARGIN + (margin || 0);
-            boxShadow = position.getBoxShadowSize(component);
+            popup.margin = BASE_MARGIN + (margin || 0);
+            popup.boxShadow = position.getBoxShadowSize(component);                 // formally boxShadow
         }
 
         // Checks every position on the array until one fits on the page
         positionFound = positionOrder.some(function(pos) {
             var method = customPositioningMethods[pos] || positionMap[pos];
             if (method) {
-                method.call(target, targetRect, absoluteRect, popupDimensions, margin, boxShadow, currentPosition, currentPositionType);
+                method.call(target, popup, currentPosition, currentPositionType);
                 return currentPositionType.position;
             }
         });
@@ -1658,8 +1782,10 @@ function(position, utils, Viewport, eventUtil) {
         if (!positionFound) {
             method = customPositioningMethods.bottom || positionMap.bottom;
             // If there's no space anywhere, popup is forced to be added at the bottom
-            method.call(target, targetRect, popupDimensions, margin, boxShadow, currentPosition, currentPositionType, true);
+            method.call(target, popup, currentPosition, currentPositionType, true);
         }
+
+        /* -------- Alignment -------- */
 
         verticalPosition = VERTICAL_POSITIONS.indexOf(currentPositionType.position) > -1;
         if (verticalPosition) {
@@ -1673,7 +1799,7 @@ function(position, utils, Viewport, eventUtil) {
             var method;
             if (possibleAlignments.indexOf(align) > -1) {
                 method = customPositioningMethods[align] || alignmentMap[align];
-                method.call(target, targetRect, popupDimensions, currentPosition, currentPositionType);
+                method.call(target, popup, currentPosition, currentPositionType);       // This method is also called in validtable.js.
                 return currentPositionType.alignment;
             }
         });
@@ -1681,11 +1807,11 @@ function(position, utils, Viewport, eventUtil) {
         // If there's no space anywhere, popup is forced to be aligned to the top
         if (!alignmentFound && !verticalPosition) {
             method = customPositioningMethods.top || alignmentMap.top;
-            alignmentMap.top.call(target, targetRect, popupDimensions, currentPosition, currentPositionType, true);
+            alignmentMap.top.call(target, popup, currentPosition, currentPositionType, true);
         }
 
         if (connector && currentPositionType.alignment === 'middle') {
-            connector.style.top = ((Math.min(popupDimensions.height, targetRect.height) - 14) / 2) + 'px';
+            connector.style.top = ((Math.min(popup.dimensions.height, popup.parentPosition.height) - 14) / 2) + 'px';
         }
 
         return {
@@ -1957,12 +2083,9 @@ function(position, utils, Viewport, eventUtil) {
      * @return {Boolean}                                    true if a position for the popup could be found
      */
     function _setPosition(component, referenceElement, positions, alignment, margin, customPositioningMethods) {
-        var finalAlignment,
-            positionTarget,
-            orderPosition;
-
-        orderPosition = positions || ['bottom', 'top'];
-        finalAlignment = alignment || ['left', 'right'];
+        var finalAlignment  = alignment || ['left', 'right'],
+            orderPosition = positions || ['bottom', 'top'],
+            positionTarget;
 
         addScrollHandler(component, referenceElement, positions, alignment, margin, customPositioningMethods);
 
@@ -5116,7 +5239,7 @@ define('hui/validatable/validatable',[
             if (tooltip.classList.contains('visible') && tooltip.classList.contains('leave')) {
                 tooltip.classList.remove('leave');
             } else {
-                customPositioningMethods.left = function _tryLeftAlignment(targetRect, childRect, currentPosition, currentPositionType) {
+                customPositioningMethods.left = function _tryLeftAlignment(popup, currentPosition, currentPositionType) {
                     function _getPageSize(elementOwnerDocument) {
                         var documentEl = elementOwnerDocument.documentElement,
                             bodyEl = elementOwnerDocument.body;
@@ -5135,21 +5258,21 @@ define('hui/validatable/validatable',[
                         };
                     }
 
-                    var available = _getPageSize(this.ownerDocument).width - targetRect.left,
+                    var available = _getPageSize(this.ownerDocument).width - popup.parentPosition.left,
                         finalOffset,
                         needed;
 
                     if (currentPositionType.position === 'top') {
-                        needed = childRect.width + offset;
+                        needed = popup.dimensions.width + offset;
                         finalOffset = offset;
                     } else {
-                        needed = childRect.width;
+                        needed = popup.dimensions.width;
                         finalOffset = 0;
                     }
 
                     if (needed < available) {
                         currentPositionType.alignment = 'left';
-                        currentPosition.x = targetRect.left + finalOffset;
+                        currentPosition.x = popup.parentPosition.left + finalOffset;
                     }
                 };
 
@@ -5829,7 +5952,7 @@ define('hui/radio-button-group',[
                 }
 
                 var fieldset = this.querySelector('fieldset'),
-                    updateRadios = function() {
+                    updateRadios = function(newValue) {
                         this._radios = [];
                         newValue = [].slice.call(newValue);
 
@@ -5845,7 +5968,7 @@ define('hui/radio-button-group',[
                             btn.setAttribute('name', this.name);
                             fieldset.appendChild(btn);
                             this._radios.push(btn);
-                            if (btn.hasAttribute('checked') || btn.checked) {
+                            if (btn.hasAttribute('checked') && btn.checked) {
                                 this.value = btn.getAttribute('value');
                             }
                         }, this);
@@ -6873,9 +6996,17 @@ define('hui/checkbox-group',[
             }
         },
 
-        attachedCallback: function _() {
-            this._checkboxHandle = domObserver.bindChildrenChanges(this.querySelector('fieldset'), 'ha-checkbox', this, 'checkboxes');
+        /**
+         * This function is to set checkboxHandle for mutation observer
+         */
+        _setCheckboxHandle: function() {
+            if (this._checkboxes && !this._checkboxHandle) {
+                this._checkboxHandle = domObserver.bindChildrenChanges(this.querySelector('fieldset'), 'ha-checkbox', this, 'checkboxes');
+            }
+        },
 
+        attachedCallback: function _() {
+            this._setCheckboxHandle();
             _.super(this);
         },
 
@@ -7103,7 +7234,16 @@ define('hui/drawer/DrawerBase',[
                 if (keys.ESCAPE === evt.keyCode) {
                     utils.stopEvent(evt);
                     this.emit('dismiss');
-                    this.close();
+
+                    // Check of the component is Large Drawer or Small Drawer.
+                    // We need the change before close only for Large Drawer.
+                    if (this.localName === 'ha-drawer-large') {
+                        if (!this.noCloseOnDismiss) {
+                            this.close();
+                        }
+                    } else if (this.localName === 'ha-drawer-small') {
+                        this.close();
+                    }
                 } else {
                     a11y.keepFocusInsideListener(evt, this);
                 }
@@ -7381,6 +7521,16 @@ define('hui/drawer-large',[
                             console.warn('DEPRECATION WARNING: The "overlay" property is going to be deprecated. From now on, please use the "backdrop" property instead.');
                         }
                     }
+                },
+
+                /**
+                 * Indicates whether the component closes by default when X is clicked
+                 * or ESC key is pressed
+                 * @type {Boolean}
+                 */
+                noCloseOnDismiss: {
+                    type: Boolean,
+                    default: false
                 }
             });
 
@@ -7389,7 +7539,9 @@ define('hui/drawer-large',[
              */
             this.on('button.drawer-close:click', function() {
                 this.emit('dismiss');
-                this.close();
+                if (!this.noCloseOnDismiss) {
+                    this.close();
+                }
             }.bind(this));
 
             //Listener for removing show class after ha-drawer-slide-out is completed
@@ -7426,18 +7578,6 @@ define('hui/drawer-large',[
             utils.replaceChildrenOf(
                 this.querySelector('aside > section > div.inner-content'),
                 utils.wrapIfNotWrapped('section', newSection));
-        },
-
-        // When drawer show called, the detachedCallback might be called depends on the drawer's previous parent node whether body or not.
-        // Therefore, if the Underlay of drawer or itself behavior flicker and disappear, then need look at and modify this part.
-        detachedCallback: function _() {
-            if (this.backdrop && this.parentElement && this.parentElement !== this.ownerDocument.body) {
-                Underlay.hide();
-                setTimeout(function() {
-                    this.ownerDocument.documentElement.style.overflow = 'auto';
-                    this.ownerDocument.body.classList.remove('overflow-hidden');
-                }.bind(this), 350);
-            }
         },
 
         /**
@@ -7489,8 +7629,7 @@ define('hui/drawer-large',[
                         Underlay.hide();
                     }
                     setTimeout(function() {
-                        this.ownerDocument.documentElement.style.overflow = 'auto';
-                        this.ownerDocument.body.classList.remove('overflow-hidden');
+                        this.ownerDocument.documentElement.style.overflow = '';
                     }.bind(this), 350);
                 }
 
@@ -7788,6 +7927,87 @@ define('hui/drawer-small',[
     return register('ha-drawer-small', HADrawerSmall);
 });
 
+define('hui/core/dojoUtils',[], function() {
+    return {
+        /**
+         * Determines if the element is a Dojo widget (dijit) popup.
+         * Climbs to parent element searching for the dijitPopup class.
+         * @param {HTMLElement}  element       is the potential Dojo widget.
+         * @returns {Boolean} If the element is a Dojo widget popup.
+         */
+        isDojoWidgetPopup: function(element) {
+            while (element && element.tagName !== 'BODY') {
+                if (element.classList.contains('dijitPopup')) {
+                    return true;
+                } else {
+                    element = element.parentNode;
+                }
+            }
+            return false;
+        },
+
+        /**
+         * Search a specific element and return it from the Dojo component.
+         * @param {HTMLElement}  element       is the component which could have searched target.
+         * @param {String}       targetTagName   is the component name to be searched.
+         * @returns {HTMLElement} The component searched.
+         */
+        getDojoWidgetPopup: function(element, targetTagName) {
+            while (element && element.tagName !== 'BODY') {
+                if (element.classList.contains('dijitPopup')) {
+                    // If sibling is HA-POPOVER, return this element
+                    // Once we've reached the dijitPopup root - examine sibling
+                    // for HA-POPOVER or targetTagName
+                    if (element.parentNode && element.parentNode.childNodes) {
+                        for (var i = 0; i < element.parentNode.childNodes.length; ++i) {
+                            if (element.parentNode.childNodes[i].tagName === targetTagName) {
+                                return element;
+                            }
+                        }
+                    }
+                } else {
+                    element = element.parentNode;
+                }
+            }
+            return element;
+        },
+
+        /**
+         * Returns the owner element of the dijitPopup.
+         * @param {HTMLElement}  popover       is the sibling 'container' popover.
+         * @param {HTMLElement}  dojoWidget    is the sibling element of the popover.
+         * @returns {HTMLElement} The target selector.
+         */
+        getTargetSelector: function(popover, dojoWidget) {
+            var selectorTargetID = dojoWidget.getAttribute('dijitpopupparent');
+            return popover.querySelector('#' + selectorTargetID);
+        },
+
+        /**
+         * If the element that received the click / blur event isn't a child
+         * of either popover type, then we should dismiss the popover.
+         *
+         * Notable example: if a DateTextBox is open under an HA-POPOVER, and the
+         * user clicks on a separate tab, then we should dismiss both the
+         * DateTextBox and HA-POPOVER. Both popovers are siblings and neither are
+         * children of the tab content.
+         * @param {HTMLElement}  element       the evt.relatedTarget element
+         * @param {String}  targetTagName      the component name to be searched.
+         * @returns {Boolean} If the popover should be dismissed.
+         */
+        shouldDismissPopover: function(element, targetTagName) {
+            while (element && element.tagName !== 'BODY') {
+                if (element.tagName === targetTagName || element.classList.contains('dijitPopup')) {
+                    return false;
+                } else {
+                    element = element.parentNode;
+                }
+            }
+            return true;
+        }
+    };
+});
+
 define('hui/popover',[
     'register-component/v2/register',
     'object-utils/classes',
@@ -7795,9 +8015,10 @@ define('hui/popover',[
     './core/a11y',
     './core/keys',
     './core/utils',
-    './core/popup'
+    './core/popup',
+    './core/dojoUtils'
 ],
-function(register, classes, UIComponent, a11y, keys, utils, popup) {
+function(register, classes, UIComponent, a11y, keys, utils, popup, dojoUtils) {
     var HAPopover;
 
     /** Handler onanimationend.
@@ -7851,25 +8072,62 @@ function(register, classes, UIComponent, a11y, keys, utils, popup) {
     }
 
     /**
+     * Finds the container element of the click event. In the case of a Dojo
+     * popover, we allow both a Dojo and regular popover to dismiss upon
+     * blur events. This is to support Dojo popovers being siblings of HA-POPOVERS.
+     * @param {HTMLElement} popover  The popover used for searching
+     * @param {HTMLElement} element  The popover component
+     * @return {HTMLElement}         The component that owns the popover
+     */
+    function _handleOwnerPopover(popover, element) {
+        var ownerElement, popoverElement;
+
+        if (dojoUtils.isDojoWidgetPopup(element)) {
+
+            // find the dijit popover and query the origin of the selection
+            popoverElement = dojoUtils.getDojoWidgetPopup(element, 'HA-POPOVER');
+            if (popoverElement) {
+                ownerElement = dojoUtils.getTargetSelector(popover, popoverElement);
+            }
+
+            var closePopover = function(evt) {
+                if (evt.relatedTarget) {
+                    // close the root popover if the click was outside the root popover scope
+                    if (dojoUtils.shouldDismissPopover(evt.relatedTarget, 'HA-POPOVER')) {
+                        popover.close();
+                    }
+                    document.activeElement.removeEventListener('blur', closePopover);
+                }
+            };
+
+            // add a one-time blur listener to elements within the dijit
+            document.activeElement.addEventListener('blur', closePopover);
+        } else {
+            // find popover that contains the element, then query the actual owner
+            popoverElement = utils.getComponentFromElement(element, 'HA-POPOVER');
+            if (popoverElement) {
+                ownerElement = popover.querySelector(popoverElement.targetSelector);
+            }
+        }
+
+        return ownerElement;
+    }
+
+    /**
      * Tries to find the component that owns the popover
      * @param  {HTMLElement} popover The popover used for searching
      * @param  {HTMLElement} element The contaning element
      * @return {HTMLElement}         The component that owns the popover
      */
     function ownerComponentFromPopover(popover, element) {
-        var ownerElement, popoverElement;
+        var ownerElement;
 
         if (element.tagName === 'HA-POPOVER') {
             // if the element is a popover it means the popover has a containing component that opens another popover
             // use the targetSelector to query the actual owner
             ownerElement = popover.querySelector(element.targetSelector);
         } else {
-            // find the popover that is the container of the element
-            popoverElement = utils.getComponentFromElement(element, 'HA-POPOVER');
-            if (popoverElement) {
-                // use the popoverElement to query the actual owner
-                ownerElement = popover.querySelector(popoverElement.targetSelector);
-            }
+            ownerElement = _handleOwnerPopover(popover, element);
         }
 
         return ownerElement;
@@ -9053,6 +9311,25 @@ define('hui/text-field',[
 
             this._customValidatorFunction = null;
 
+            /**
+             * An array of the component's supported classes - these
+             * should not be overwritten during any props change to the
+             * React component. They were determined by grepping classList.add()
+             * and classList.remove() for this component.
+             *
+             * Please see updateClassWithProps() of utils.js for more information.
+             * @type{Array}
+             */
+            this.supportedClasses = [
+                'mobile-text-field',
+                'mobile-text-field-focused',
+                'mobile-text-field-attachment-focused',
+                'mobile-text-field-show-placeholder',
+                'mobile-text-field-content',
+                'disabled', // TODO: potentially abstract these to be common classes
+                'ha-validatable'
+            ];
+
             this.setupProperties({
                 optional: {
                     default: false,
@@ -9340,6 +9617,18 @@ define('hui/text-field',[
                             this._removeAttachmentField();
                         }
                     }
+                },
+
+                type: {
+                    type: String,
+                    default: 'text',
+                    change: function(newValue) {
+                        var input = this.querySelector('input');
+
+                        if (!this.attachment) {
+                            input.setAttribute('type', newValue ? newValue : 'text');
+                        }
+                    }
                 }
             });
 
@@ -9364,7 +9653,6 @@ define('hui/text-field',[
                 input = this.ownerDocument.createElement('input');
                 input.className = 'ha-input';
                 this.appendChild(input);
-                input.type = 'text';
             }
 
             if (deviceUtils.isHandheld()) {
@@ -9436,10 +9724,6 @@ define('hui/text-field',[
                 // stop default messages
                 evt.preventDefault();
             });
-
-            this.listenTo(input, 'focus', function() {
-                this.emit('focus');
-            }.bind(this));
 
             this.listenTo(input, 'click', function(evt) {
                 var fileInput = this.querySelector('input[type="file"]');
@@ -10470,6 +10754,21 @@ function(classes, UIComponent, contentNode, a11y, eventUtil, utils, deviceUtils)
                                 });
                             }
                         }
+                    },
+
+                    /**
+                     * Indicates whether the component closes by default when X is clicked
+                     * or ESC key is pressed. This is actually passed to ha-page-modal which handles the logic.
+                     * @type {Boolean}
+                     */
+                    noCloseOnDismiss: {
+                        type: Boolean,
+                        default: false,
+                        change: function(newValue) {
+                            if (this._pageModal) {
+                                this._pageModal.noCloseOnDismiss = newValue;
+                            }
+                        }
                     }
                 });
             },
@@ -11169,6 +11468,7 @@ define('hui/modal',[
                     self.stopListening(modal, _animationend, onClose);
 
                     self.classList.remove('show');
+                    self.classList.remove('visible');  // polyfill for some Android phones
                     self.ownerDocument.body.classList.remove('modal-open');
                     self.emit('close');
                     self.emit('hide');
@@ -11780,6 +12080,16 @@ define('hui/trowser/page-modal',[
                     visible: {
                         type: Boolean,
                         default: false
+                    },
+
+                    /**
+                     * Indicates whether the component closes by default when X is clicked
+                     * or ESC key is pressed
+                     * @type {Boolean}
+                     */
+                    noCloseOnDismiss: {
+                        type: Boolean,
+                        default: false
                     }
                 });
             },
@@ -11862,7 +12172,9 @@ define('hui/trowser/page-modal',[
                         evt.stopPropagation();
                         evt.preventDefault();
                         self.emit('dismiss');
-                        self.close();
+                        if (!this.noCloseOnDismiss) {
+                            self.close();
+                        }
                     }
                     if (keys.TAB === evt.keyCode) {
                         a11y.keepFocusInsideListener(evt, self);
@@ -11874,7 +12186,9 @@ define('hui/trowser/page-modal',[
                     if (evt.target.tagName === 'HA-PAGE-MODAL-HEADER') {
                         evt.stopImmediatePropagation();
                         self.emit('dismiss');
-                        self.close();
+                        if (!this.noCloseOnDismiss) {
+                            self.close();
+                        }
                     }
                 });
 
@@ -13014,7 +13328,7 @@ define('hui/item',[
 
         attachedCallback: function() {
             this._labelBinding = domObserver.bindContentChanges(this, this, 'label', function() {
-                return this.innerHTML;
+                return this.textContent;
             }.bind(this));
         },
 
@@ -13028,6 +13342,7 @@ define('hui/item',[
 
     return register('ha-item', HASItem);
 });
+
 define('hui/menu/menu-based-buttons',[
     'object-utils/classes',
     '../core/ResponsiveBase',
@@ -13481,7 +13796,7 @@ define('hui/menu/menu-based-buttons',[
         set popover(newPopover) {
             console.warn('DEPRECATION WARNING: "popover" property is going to be deprecated, please from now on don\'t use it.');
 
-            var triggerElement, targetSelectorId;
+            var targetSelectorId;
 
             /* istanbul ignore if */
             if (this.popover && this.popover !== newPopover) {
@@ -13496,11 +13811,6 @@ define('hui/menu/menu-based-buttons',[
                 newPopover.targetSelector = '#' + targetSelectorId;
                 // when have a popover open and we click outside it should not focus back to the component
                 newPopover._noAutoFocusLastActiveElementOnClose = true;
-
-                triggerElement = this._getTriggerElement();
-                if (triggerElement) {
-                    triggerElement.id = targetSelectorId;
-                }
 
                 if (newPopover.parentNode !== this) {
                     this.appendChild(newPopover);
@@ -13542,15 +13852,19 @@ define('hui/menu/menu-based-buttons',[
                     }, this);
                 }
 
-                if (menu.render) {
-                    // deprecate this.renderItem
-                    menu.items = menuItemUtils.createMenuItems(newItems, {role: 'menuitem'}, this.itemRenderer || this.renderItem, this.ownerDocument);
-                } else {
-                    menu.innerHTML = '';
-                    newItems.forEach(function(item) {
-                        menu.appendChild(item);
-                    });
+                // guarding against falsy menu (IE 11 fix)
+                if (menu) {
+                    if (menu.render) {
+                        // deprecate this.renderItem
+                        menu.items = menuItemUtils.createMenuItems(newItems, {role: 'menuitem'}, this.itemRenderer || this.renderItem, this.ownerDocument);
+                    } else {
+                        menu.innerHTML = '';
+                        newItems.forEach(function(item) {
+                            menu.appendChild(item);
+                        });
+                    }
                 }
+
                 this._items = newValue;
 
                 if (this._itemHandle) {
@@ -15018,7 +15332,7 @@ define('hui/page-message',[
             if (typeof newValue === 'string') {
                 content.innerHTML = newValue;
                 this._message = newValue;
-            } else if (newValue.nodeType) {
+            } else if (newValue && newValue.nodeType) {
                 content.innerHTML = '';
                 content.appendChild(newValue);
                 this._message = newValue;
@@ -16193,18 +16507,23 @@ define('hui/typeahead-base',[
          * @param  {HTMLElement}            select  Where to insert the new menu item
          * @param  {String|HTMLElement}     label   Text for the item
          * @param  {String}                 value   Value for the item
+         * @param  {Object}                 data    The item data that is associated with the selectedItem
          * @param  {String}                 textLabel   The text of the label attribute without HTML elements
          * @return {HTMLElement}            Created ha-menu-item
          */
-        function _createMenuItem(select, label, value, textLabel) {
+        function _createMenuItem(select, label, value, data, textLabel) {
             var menuItem = select.ownerDocument.createElement('ha-menu-item');
             menuItem.label = label;
             menuItem.value = value || label;
+            menuItem.data = data;
+
+            // a11y
             menuItem.setAttribute('role', 'option');
             if (textLabel) {
                 // override aria-label attribute value in order to be sure that we set only text label.
                 menuItem.setAttribute('aria-label', textLabel);
             }
+
             return menuItem;
         }
 
@@ -16253,7 +16572,9 @@ define('hui/typeahead-base',[
 
             if (items.length === 0) {
                 menu.items = [];
-                return;
+                if (deviceUtils.isDesktop()) {
+                    return;
+                }
             }
 
             searchValue = (noSearch) ? '' : _getTextField(select).value.toString();
@@ -16268,7 +16589,7 @@ define('hui/typeahead-base',[
             if (searchValue === '') {
                 if (select.tagName === 'HA-SELECT-TYPE-AHEAD' || deviceUtils.isDesktop()) {
                     items.forEach(function(item) {
-                        matchingItems.push(_createMenuItem(select, item[localLabel], item[localValue]));
+                        matchingItems.push(_createMenuItem(select, item[localLabel], item[localValue], item));
                     });
                 }
             } else {
@@ -16289,7 +16610,7 @@ define('hui/typeahead-base',[
                                 innerHTML: modifiedCurrentItemLabel
                             });
                             labelWrapper = menuItemUtils.createMenuItemLabelWrapper(select.ownerDocument, [modifiedCurrentItemLabel]);
-                            matchingItems.push(_createMenuItem(select, labelWrapper, currentItem[localValue], currentItemLabel));
+                            matchingItems.push(_createMenuItem(select, labelWrapper, currentItem[localValue], currentItem, currentItemLabel));
                         }
                     }
                 }
@@ -16300,7 +16621,7 @@ define('hui/typeahead-base',[
             }
 
             if (matchingItems.length > STORE_MAX_RESULT && searchValue && select.tagName === 'HA-TEXTFIELD-TYPE-AHEAD') {
-                matchingItems = [].slice.call(matchingItems, 0, STORE_MAX_RESULT);
+                matchingItems = Array.prototype.slice.call(matchingItems, 0, STORE_MAX_RESULT);
             }
 
             menu.items = matchingItems;
@@ -16385,6 +16706,22 @@ define('hui/typeahead-base',[
             component.classList.remove('element-selected');
         }
 
+        /**
+         * Post Keydown Handler.
+         * This function is extended from popover component to handle keydown event.
+         * @param {HTMLElement} component   The component will be a popover.
+         */
+        function _postHandleKeydown(component) {
+            var targetSelect;
+
+            if (component && component.target) {
+                targetSelect = component.target.parentElement;
+            }
+            if (targetSelect && (targetSelect.tagName === 'HA-SELECT-TYPE-AHEAD' || targetSelect.tagName === 'HA-TEXTFIELD-TYPE-AHEAD')) {
+                targetSelect._textField.focus();
+            }
+        }
+
         HATypeAheadBase = classes.createObject(validatable, {
 
             init: function _() {
@@ -16412,7 +16749,7 @@ define('hui/typeahead-base',[
 
                 /**
                  * Selected item.
-                 * @type {HTMLElement}
+                 * @type {Object}
                  */
                 this._selectedItem = null;
 
@@ -16430,8 +16767,8 @@ define('hui/typeahead-base',[
                  * @private
                  */
                 this._fetchItems = function(match, callback) {
-                    var queryStore = {'contains': match};
                     match = match || '';
+                    var queryStore = {'contains': match};
                     this._alreadySortedItems = false;
 
                     if (this.store && this.store.query) {
@@ -16519,7 +16856,7 @@ define('hui/typeahead-base',[
                     if (this.store) {
                         if (showAll) {
                             if (!this.staticItems || !this._cachedItems) {
-                                this._fetchItems(_getTextField(this).value);
+                                this._fetchItems();
                             }
                             _filterAndShowPopover(this, this._cachedItems, true);
                         } else if (this.staticItems && this._cachedItems) {
@@ -16852,12 +17189,6 @@ define('hui/typeahead-base',[
                         case keys.TAB:
                             // If TAB is pressed on the input
                             if (target.tagName === 'INPUT' && target.parentElement.classList.contains('search')) {
-                                // If shift-tab, we are leaving the component
-                                if (evt.shiftKey) {
-                                    this.value = this.typedText;
-                                    break;
-                                }
-
                                 if (utils.isOpen(menuPopover)) {
                                     _hidePopoverMenu(this);
                                 }
@@ -16991,6 +17322,7 @@ define('hui/typeahead-base',[
 
                 if (popoverForm) {
                     this.addNewPopover = popoverForm.parentNode;
+                    this.addNewPopover.postHandleKeydown = _postHandleKeydown;
                 }
                 div.id = containerId;
                 menuPopover.targetSelector = '#' + containerId;
@@ -17013,18 +17345,10 @@ define('hui/typeahead-base',[
                     }
                 };
 
-                menuPopover.postHandleKeydown = function(component) {
-                    var targetSelect;
+                menuPopover.postHandleKeydown = _postHandleKeydown;
 
-                    if (component && component.target) {
-                        targetSelect = component.target.parentElement;
-                    }
-                    if (targetSelect && (targetSelect.tagName === 'HA-SELECT-TYPE-AHEAD' || targetSelect.tagName === 'HA-TEXTFIELD-TYPE-AHEAD')) {
-                        targetSelect._textField.focus();
-                    }
-                };
-
-                this.listenTo(textField, 'focus', function() {
+                this.listenTo(textField, 'focus', function(evt) {
+                    evt.stopPropagation();
                     // Required to be able to style the component when children get focus or hover
                     this.querySelector('.search-container').classList.add('focused');
 
@@ -17034,6 +17358,7 @@ define('hui/typeahead-base',[
                     if (this.openItemsOnFocus && deviceUtils.isDesktop()) {
                         this._matchAndShowResults();
                     }
+                    this.emit('focus');
                 }.bind(this), true);
 
                 this.listenTo(textField, 'click', function(evt) {
@@ -17125,7 +17450,10 @@ define('hui/typeahead-base',[
                         }
                         if (this.value !== selectedElem.value) {
                             this._isValueSetByProgram = false;
+                            // this allows the change event to have the right evt.target.value and evt.target.selectedItem
                             this.value = selectedElem.value;
+                            // we get the <ha-menu-item>.data that was assigned when we were creating the data
+                            this._selectedItem = selectedElem.data;
                         }
                         this.classList.add('element-selected');
                         this.dropdownElement.classList.add('element-was-selected');
@@ -17371,7 +17699,7 @@ define('hui/typeahead-base',[
              * @return {HTMLElement} The ha-text-field.
              */
             get _textField() {
-                return this.querySelector('.search-container ha-text-field.search');
+                return _getTextField(this);
             },
 
             /**
@@ -17421,7 +17749,7 @@ define('hui/typeahead-base',[
             },
 
             get _inputElement() {
-                return this.querySelector('.search-container ha-text-field.search')._inputElement;
+                return _getTextField(this)._inputElement;
             },
 
             get dropdownElement() {
@@ -17915,7 +18243,6 @@ function(validatable, register, icon, popup, eventUtil, keys, utils, deviceUtils
         if (typeof renderer === 'function') {
             utils.replaceChildrenOf(label, renderer(item));
         } else {
-            // we use textContent just in case the item is not upgraded yet
             label.textContent = item.label || item.textContent;
         }
     }
@@ -18059,7 +18386,11 @@ function(validatable, register, icon, popup, eventUtil, keys, utils, deviceUtils
                             selectedItem, selectedIndex;
 
                         if (!newValue) {
-                            label.textContent = this.placeholder;
+                            if (deviceUtils.isDesktop()) {
+                                label.textContent = this.placeholder;
+                            } else {
+                                label.textContent = '';
+                            }
                             this.value = '';
                             this.classList.remove('element-selected');
                             return;
@@ -18499,7 +18830,7 @@ function(validatable, register, icon, popup, eventUtil, keys, utils, deviceUtils
 
                 /* If the first item 'addNew' and the add new property is true and
                  the addNewPopover is set the, show the last */
-                if (this.addNew && menu.selectedItem.classList.contains('add-new-menu-item')) {
+                if (this.addNew && this.addNewPopover && menu.selectedItem.classList.contains('add-new-menu-item')) {
                     this.addNewPopover._closeOnBlur = true;
                     menu.selectedIndex = -1;
                     AddNewHelper.showPopoverForm(this, this.addNewPopover);
@@ -19442,7 +19773,8 @@ define('hui/combo-link',[
             // create action button
             actionButton = this.ownerDocument.createElement('button');
             actionButton.type = 'button';
-            actionButton.className = 'btn btn-link';
+            actionButton.className = 'btn btn-link no-connector';
+            actionButton.id = this._getTargetSelectorId();
 
             label = this.ownerDocument.createElement('span');
             label.className = 'label';
@@ -19452,7 +19784,6 @@ define('hui/combo-link',[
             triggerElement = this.ownerDocument.createElement('button');
             triggerElement.type = 'button';
             triggerElement.className = 'btn hi-icon-button btn-link no-connector';
-            triggerElement.id = this._getTargetSelectorId();
             triggerElement.setAttribute('aria-expanded', 'false');
             triggerElement.setAttribute('aria-haspopup', 'true');
             triggerElement.setAttribute('aria-label', this.label + ' menu');
@@ -19487,22 +19818,25 @@ define('hui/combo-link',[
 
             button = this.querySelector('.btn-group > button');
 
-            // needed because when spacebar is pressed it goes to this code path
-            this.listenTo(button, 'click', function(evt) {
-                utils.stopEvent(evt);
-                this.emit('click');
-            }.bind(this));
+            // guarding against falsy button (IE 11 fix)
+            if (button) {
+                // needed because when spacebar is pressed it goes to this code path
+                this.listenTo(button, 'click', function(evt) {
+                    utils.stopEvent(evt);
+                    this.emit('click');
+                }.bind(this));
 
-            label = button.querySelector('span.label');
-            this.listenTo(label, 'click', function(evt) {
-                utils.stopEvent(evt);
+                label = button.querySelector('span.label');
+                this.listenTo(label, 'click', function(evt) {
+                    utils.stopEvent(evt);
 
-                var popover = this.dropdownElement;
-                if (popover.open) {
-                    popover.close();
-                }
-                this.emit('click');
-            }.bind(this));
+                    var popover = this.dropdownElement;
+                    if (popover.open) {
+                        popover.close();
+                    }
+                    this.emit('click');
+                }.bind(this));
+            }
         }
     });
 
@@ -19538,13 +19872,6 @@ function(classes, register, MenuButton, utils) {
                         actionButton.classList.add(currentClass);
                     }
                 }, this);
-
-                // needed because when spacebar is pressed it goes to this code path
-                this.listenTo(actionButton, 'click', function(evt) {
-                    utils.stopEvent(evt);
-                    this.dropdownElement.close();
-                    this.emit('click');
-                }.bind(this));
             }
         },
 
@@ -19560,7 +19887,8 @@ function(classes, register, MenuButton, utils) {
             // create action button
             actionButton = this.ownerDocument.createElement('button');
             actionButton.type = 'button';
-            actionButton.className = 'ha-button combo-button-action';
+            actionButton.className = 'ha-button combo-button-action no-connector';
+            actionButton.id = this._getTargetSelectorId();
 
             label = this.ownerDocument.createElement('span');
             label.className = 'label';
@@ -19572,7 +19900,6 @@ function(classes, register, MenuButton, utils) {
             triggerElement = this.ownerDocument.createElement('button');
             triggerElement.type = 'button';
             triggerElement.className = 'ha-button combo-button-dropdown no-connector';
-            triggerElement.id = this._getTargetSelectorId();
             triggerElement.setAttribute('aria-expanded', 'false');
             triggerElement.setAttribute('aria-haspopup', 'true');
             triggerElement.setAttribute('aria-label', this.label + ' menu');
@@ -19623,10 +19950,20 @@ function(classes, register, MenuButton, utils) {
                     }, this);
                     button.parentNode.removeChild(button);
                 }, this);
-                this.postRender();
                 this._transferButtonClasses();
                 this._initBoundProperties();
             }
+        },
+
+        postRender: function _() {
+            _.super(this);
+            // needed because when spacebar is pressed it goes to this code path
+            var actionButton = this.querySelector('.combo-button-action');
+            this.listenTo(actionButton, 'click', function(evt) {
+                utils.stopEvent(evt);
+                this.dropdownElement.close();
+                this.emit('click');
+            }.bind(this));
         }
     });
 
@@ -21767,7 +22104,11 @@ define('hui/step-flow/flow-step',[
                             if (!subtitle) {
                                 subtitle = this.ownerDocument.createElement('h3');
                                 subtitle.classList.add('step-subtitle');
-                                section.insertBefore(subtitle, title && title.nextSibling || section.firstChild);
+                                if (title) {
+                                    section.insertBefore(subtitle, title.nextSibling);
+                                } else {
+                                    section.insertBefore(subtitle, section.firstChild);
+                                }
                             }
                             subtitle.innerHTML = newValue;
                             this._subtitleNode = subtitle;
@@ -21900,7 +22241,8 @@ define('hui/step-flow/flow-step',[
                 this._stepType = newValue;
             } else {
                 this._stepType = 'default';
-                this.classList.remove('landing', 'confirmation');
+                this.classList.remove('landing');
+                this.classList.remove('confirmation');
                 this.classList.add('default');
             }
         },
@@ -22166,6 +22508,16 @@ define('hui/step-flow/step-flow-progress-indicator',[
     ProgressIndicator = classes.createObject(Component, {
         init: function _() {
             _.super(this);
+
+            this.setupProperties({
+                /**
+                 * Flag indicating whether progress indicator steps should trigger navigation on click.
+                 * @type {Boolean}
+                 */
+                disableNavigation: {
+                    type: Boolean
+                }
+            });
         },
 
         initialize: function(parent) {
@@ -22253,7 +22605,8 @@ define('hui/step-flow/step-flow-progress-indicator',[
                 i,
                 steps;
 
-            if (!this.classList.contains('hide-progress-indicator') &&
+            if (!this.disableNavigation &&
+                !this.classList.contains('hide-progress-indicator') &&
                 !progressItem.classList.contains('selected') && progressId && progressId !== '') {
                 steps = getParent(this).getStepsArray();
                 for (i = 0; i < steps.length; i++) {
@@ -22489,6 +22842,7 @@ define('hui/step-flow',[
                         if (value) {
                             if (!this._progressIndicator) {
                                 this._progressIndicator = this.ownerDocument.createElement('ha-step-flow-progress-indicator');
+                                this._progressIndicator.disableNavigation = this.disableProgressIndicatorNavigation;
                                 this.insertBefore(this._progressIndicator, this.firstChild);
                                 if (this._visible) {
                                     this._initializeProgressIndicator();
@@ -22501,6 +22855,19 @@ define('hui/step-flow',[
                             this._progressIndicator = null;
                             this._progressIndicatorInitialized = false;
                             this.classList.remove('with-progress');
+                        }
+                    }
+                },
+
+                /**
+                 * Flag indicating whether progress indicator steps should trigger navigation on click.
+                 * @type {Boolean}
+                 */
+                disableProgressIndicatorNavigation: {
+                    type: Boolean,
+                    change: function(value) {
+                        if (this._progressIndicator) {
+                            this._progressIndicator.disableNavigation = value;
                         }
                     }
                 },
@@ -24389,7 +24756,7 @@ define('hui/date-picker/double-calendar',[
          * @type {Number}
          */
         get maxMonth() {
-            return this._maxMonth;
+            return (this._maxMonth + 12) % 12;  //round by 12 to prevent overflow
         },
 
         /**
@@ -24398,7 +24765,7 @@ define('hui/date-picker/double-calendar',[
          * @type {Number}
          */
         get minMonth() {
-            return this._minMonth;
+            return (this._minMonth + 12) % 12; //round by 12 to prevent overflow
         },
 
         /**
@@ -25207,7 +25574,7 @@ define('hui/date-picker',[
                 handheld = deviceUtils.isHandheld();
 
             if (handheld) {
-                input.setAttribute('type', 'date');
+                this.type = 'date';
             } else {
                 if (calendar) {
                     calendar.parentNode.removeChild(calendar);
@@ -25485,16 +25852,6 @@ define('hui/date-picker',[
                     this.emit('change', {
                         date: date
                     });
-                }.bind(this));
-
-                this.listenTo(input, 'blur', function(event) {
-                    setTimeout(function() {
-                        var activeElement = _getSafeTargetFromEvent(event);
-
-                        if (!activeElement || activeElement === this.ownerDocument.body) {
-                            this.focus();
-                        }
-                    }.bind(this), 50);
                 }.bind(this));
 
                 this._setUpMobileListeners();
@@ -27266,6 +27623,17 @@ function(register, classes, template, HAPopover, contentNode, keys, position, a1
         },
 
         /**
+         * Hides the video player and saves location
+         */
+        close: function() {
+            this._saveState();
+            this.toggleHistoryView(false);
+            this.classList.remove('enter');
+            this.classList.remove('visible');
+            this.classList.add('leave');
+        },
+
+        /**
          * Toggles the visibility of the history view. If close
          * is passed and true, the element will be hidden completely.
          * The other hidden class is still toggled so that the current setting
@@ -28299,7 +28667,7 @@ define('hui/info-link',[
 
         initializeLinkText: function() {
             var clonedLinkText = this.querySelector('.link-text'),
-                linkText = this.getAttribute('linkText'),
+                linkText = this.getAttribute('linktext'),
                 haText = getFirstRemovedNode(this, 'ha-text'),
                 newLinkText = linkText || haText || '';
 
@@ -28324,26 +28692,24 @@ define('hui/info-link',[
          * @param {String|HTMLElement|[HTMLElement]} newValue
          */
         set linkText(newValue) {
-            if (typeof newValue === 'string') {
-                this.setAttribute('linktext', newValue);
-            } else {
-                this.removeAttribute('linktext');
-            }
-
             var linkTextNode = this.querySelector('.link-text');
 
             if (!linkTextNode) {
                 linkTextNode = createLinkTextNode();
                 this.insertBefore(linkTextNode, this.firstChild);
             }
-
-            while (linkTextNode.firstChild) {
-                linkTextNode.removeChild(linkTextNode.firstChild);
+            if (newValue) {
+                if (typeof newValue === 'string') {
+                    this.setAttribute('linktext', newValue);
+                } else {
+                    this.removeAttribute('linktext');
+                }
+                while (linkTextNode.firstChild) {
+                    linkTextNode.removeChild(linkTextNode.firstChild);
+                }
+                utils.attachContentToNode(newValue, linkTextNode);
+                this._linkText = newValue;
             }
-
-            utils.attachContentToNode(newValue, linkTextNode);
-
-            this._linkText = newValue;
         },
 
         /**
@@ -28359,25 +28725,26 @@ define('hui/info-link',[
          * @param {String|HTMLElement|[HTMLElement]} newValue
          */
         set message(newValue) {
-            if (typeof newValue === 'string') {
-                this.setAttribute('message', newValue);
-            } else {
-                this.removeAttribute('message');
-            }
-
             var htmlWrapper = this.ownerDocument.createElement('span'),
                 tooltip = this.querySelector('ha-tooltip');
+            newValue = (typeof newValue === 'string') ? newValue.trim() : newValue;
 
             if (!tooltip) {
                 tooltip = createTooltipNode();
                 this.appendChild(tooltip);
             }
+            if (newValue) {
+                if (typeof newValue === 'string') {
+                    this.setAttribute('message', newValue);
+                } else {
+                    this.removeAttribute('message');
+                }
+                utils.attachContentToNode(newValue, htmlWrapper);
 
-            utils.attachContentToNode(newValue, htmlWrapper);
+                this._message = newValue;
 
-            this._message = newValue;
-
-            tooltip.message = htmlWrapper;
+                tooltip.message = htmlWrapper;
+            }
         },
 
         /**

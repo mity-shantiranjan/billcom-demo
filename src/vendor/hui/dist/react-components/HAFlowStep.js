@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/step-flow/flow-step"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/step-flow/flow-step"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/step-flow/flow-step"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/step-flow/flow-step"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.flowStep);
+        factory(mod.exports, global.react, global.utils, global.flowStep);
         global.HAFlowStep = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -102,6 +102,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             };
 
             _this._huiComponent = null;
+            _this.state = {
+                classAttributes: null
+            };
             return _this;
         }
 
@@ -110,11 +113,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             value: function componentDidMount() {
                 this.setHuiProperties();
                 this.updateSection();
+
+                // merge pre-existing custom element classes with props
+                if (this.props.className) {
+                    this.updateElementClasses();
+                }
             }
         }, {
             key: "componentDidUpdate",
-            value: function componentDidUpdate() {
-                this.setHuiProperties();
+            value: function componentDidUpdate(prevProps) {
+                this.setHuiProperties(prevProps);
             }
         }, {
             key: "updateSection",
@@ -134,11 +142,32 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "setHuiProperties",
             value: function setHuiProperties() {
+                var prevProps = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
                 if (this.props.validator) {
                     this._huiComponent.validator = this.props.validator;
                 }
                 if (this.props.beforeShowPromise) {
                     this._huiComponent.beforeShowPromise = this.props.beforeShowPromise;
+                }
+            }
+        }, {
+            key: "updateElementClasses",
+            value: function updateElementClasses() {
+                var mergedClassString = (0, _utils.updateClassWithProps)(this._huiComponent, this.props.className);
+                if (mergedClassString) {
+                    this.setState({
+                        classAttributes: mergedClassString
+                    });
+                }
+            }
+        }, {
+            key: "componentWillReceiveProps",
+            value: function componentWillReceiveProps(nextProps) {
+                // confirm that H-UI supported classes aren't erased on a props change
+                var existingClasses = this.state.classAttributes;
+                if (existingClasses !== nextProps.className) {
+                    this.updateElementClasses();
                 }
             }
         }, {
@@ -149,7 +178,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     "ha-flow-step",
                     _extends({
                         ref: this.handleRef,
-                        "class": this.props.className
+                        "class": this.state.classAttributes
                     }, this.props),
                     this.props.children
                 );

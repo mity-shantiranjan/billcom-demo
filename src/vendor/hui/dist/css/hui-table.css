@@ -1,23 +1,13 @@
-/**
- * Fix for vw, vh, vmin, vmax on iOS 7.
- * http://caniuse.com/#feat=viewport-units
- *
- * This fix works by replacing viewport units with px values on known screen sizes.
- *
- * iPhone 6 and 6 Plus cannot run iOS 7, so are not targeted by this fix.
- * Target devices running iOS 8+ will incidentally execute the media query,
- * but this will still produce the expected result; so this is not a problem.
- *
- * As an example, replace:
- *
- *   height: 50vh;
- *   font-size: 5vmin;
- *
- * with:
- *
- *   @include viewport-unit(height, 50vh);
- *   @include viewport-unit(font-size, 5vmin);
+/* Padding should be equal but in opposite side given if the switch is on or off
+ * [Important] JS variable needs to be updated if this variable is changed.
+ * The JS variable PADDING is equal to ($switch-unified-padding-1 + $switch-unified-padding-2)
  */
+/*
+$checked-background-color: $bg-color-2;
+$checkbox-border-color: $border-color;
+$checkbox-hover-color: $white;
+$checkbox-checked-background-color: $qb-green;
+*/
 @-webkit-keyframes ha-fade-in {
   from {
     opacity: 0; }
@@ -43,6 +33,196 @@
     opacity: 0; } }
 
 /* Focus Outline for Prefix */
+strong, b {
+  font-weight: 600; }
+
+em {
+  font-style: italic; }
+
+@font-face {
+  font-family: "Avenir Next forINTUIT";
+  src: url("../fonts/avenir-400.woff2") format("woff2"), url("../fonts/avenir-400.woff") format("woff");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Avenir Next forINTUIT";
+  src: url("../fonts/avenir-400-it.woff2") format("woff2"), url("../fonts/avenir-400-it.woff") format("woff");
+  font-weight: 400;
+  font-style: italic; }
+
+@font-face {
+  font-family: "Avenir Next forINTUIT";
+  src: url("../fonts/avenir-500.woff2") format("woff2"), url("../fonts/avenir-500.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Avenir Next forINTUIT";
+  src: url("../fonts/avenir-500-it.woff2") format("woff2"), url("../fonts/avenir-500-it.woff") format("woff");
+  font-weight: 500;
+  font-style: italic; }
+
+@font-face {
+  font-family: "Avenir Next forINTUIT";
+  src: url("../fonts/avenir-600.woff2") format("woff2"), url("../fonts/avenir-600.woff") format("woff");
+  font-weight: 600;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Avenir Next forINTUIT";
+  src: url("../fonts/avenir-600-it.woff2") format("woff2"), url("../fonts/avenir-600-it.woff") format("woff");
+  font-weight: 600;
+  font-style: italic; }
+
+@font-face {
+  font-family: "Geogrotesque";
+  src: url("../fonts/geogrotesque-500.woff2") format("woff2"), url("../fonts/geogrotesque-500.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Geogrotesque";
+  src: url("../fonts/geogrotesque-600.woff2") format("woff2"), url("../fonts/geogrotesque-600.woff") format("woff");
+  font-weight: 600;
+  font-style: normal; }
+
+body {
+  font-family: "Avenir Next forINTUIT", "Arial", -apple-system, "Helvetica Neue", sans-serif; }
+
+h4 {
+  font-weight: 600; }
+
+a {
+  color: #0077c5; }
+  a:hover, a:focus {
+    color: #0097e6;
+    outline: none; }
+
+*,
+*:before,
+*:after {
+  font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased; }
+
+input:invalid, input:required {
+  box-shadow: none; }
+
+/**
+ * Elements with Helvetica Neue IT By default
+ */
+button {
+  font-size: 14px; }
+
+label {
+  font-size: 14px;
+  font-weight: 600; }
+
+th {
+  text-transform: uppercase;
+  font-size: 13px;
+  color: #393a3d; }
+
+td {
+  font-size: 13px; }
+
+small {
+  font-size: 12px; }
+
+/**
+ * Custom Typography Classes
+ */
+.ha-numeral {
+  font-family: "Geogrotesque", "Arial", -apple-system, "Helvetica Neue Bold", sans-serif;
+  font-weight: 500;
+  font-size: 22px; }
+  .ha-numeral.xtra-large {
+    font-family: "Geogrotesque", "Arial", -apple-system, "Helvetica Neue Bold", sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1.21; }
+  .ha-numeral.large {
+    font-size: 34px; }
+  .ha-numeral.medium {
+    font-size: 28px; }
+  .ha-numeral.description {
+    font-family: "Geogrotesque", "Arial", -apple-system, "Helvetica Neue Bold", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #055393; }
+
+.ha-alert-icon {
+  text-transform: uppercase;
+  font-size: 12px; }
+
+.ghost-text {
+  color: #babec5; }
+
+.small-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #055393; }
+
+.hidden-focus-style {
+  outline: 0;
+  box-shadow: none; }
+
+p {
+  font-size: 1.4rem;
+  line-height: 2rem; }
+
+h1 {
+  font-size: 4rem; }
+
+h2 {
+  font-size: 2.8rem; }
+
+h3 {
+  font-size: 2rem; }
+
+h4 {
+  font-size: 1.4rem; }
+
+h5 {
+  font-size: 1.2rem; }
+
+h6 {
+  font-size: 1rem; }
+
+/**
+ * Fix for vw, vh, vmin, vmax on iOS 7.
+ * http://caniuse.com/#feat=viewport-units
+ *
+ * This fix works by replacing viewport units with px values on known screen sizes.
+ *
+ * iPhone 6 and 6 Plus cannot run iOS 7, so are not targeted by this fix.
+ * Target devices running iOS 8+ will incidentally execute the media query,
+ * but this will still produce the expected result; so this is not a problem.
+ *
+ * As an example, replace:
+ *
+ *   height: 50vh;
+ *   font-size: 5vmin;
+ *
+ * with:
+ *
+ *   @include viewport-unit(height, 50vh);
+ *   @include viewport-unit(font-size, 5vmin);
+ */
+/*================= Checkbox group =================*/
+/* ================= Combo Link ================= */
+/*========== calendar ==============*/
+/*========== double calendar ==============*/
+/*======================== Desktop ===========================*/
+/* ================== radio group ================ */
+/*================= Checkbox group =================*/
+/*
+@mixin checkbox-group-label-legend {
+    @include HarmonyBold(14px);
+}
+*/
 body.handheld ha-table, body.handheld ha-table-virtual {
   max-height: 66vh;
   /**
@@ -94,14 +274,17 @@ body.handheld ha-table, body.handheld ha-table-virtual {
     text-overflow: ellipsis;
     overflow: hidden;
     color: #969696;
-    font-family: "HelveticaNeueRoman", Helvetica, Arial, sans-serif;
+    font-family: "Geogrotesque", "Arial", -apple-system, "Helvetica Neue Bold", sans-serif;
+    font-weight: 500;
     font-size: 12px; }
     body.handheld ha-table.ha-stacked-table .ha-stacked-left-column > div:first-child, body.handheld ha-table.ha-stacked-table .ha-stacked-right-column > div:first-child, body.handheld ha-table-virtual.ha-stacked-table .ha-stacked-left-column > div:first-child, body.handheld ha-table-virtual.ha-stacked-table .ha-stacked-right-column > div:first-child {
       color: #404040;
-      font-family: "HelveticaNeueRoman", Helvetica, Arial, sans-serif;
+      font-family: "Geogrotesque", "Arial", -apple-system, "Helvetica Neue Bold", sans-serif;
+      font-weight: 500;
       font-size: 16px; }
     body.handheld ha-table.ha-stacked-table .ha-stacked-left-column > div:nth-child(2), body.handheld ha-table.ha-stacked-table .ha-stacked-right-column > div:nth-child(2), body.handheld ha-table-virtual.ha-stacked-table .ha-stacked-left-column > div:nth-child(2), body.handheld ha-table-virtual.ha-stacked-table .ha-stacked-right-column > div:nth-child(2) {
-      font-family: "HelveticaNeueRoman", Helvetica, Arial, sans-serif;
+      font-family: "Geogrotesque", "Arial", -apple-system, "Helvetica Neue Bold", sans-serif;
+      font-weight: 500;
       font-size: 14px; }
   body.handheld ha-table.ha-stacked-table .ha-stacked-left-column, body.handheld ha-table-virtual.ha-stacked-table .ha-stacked-left-column {
     float: left;
@@ -116,14 +299,14 @@ body.handheld ha-table, body.handheld ha-table-virtual {
   pointer-events: none; }
 
 .drag-and-drop-target-icon {
-  color: #0098CD;
-  font-size: 16px;
-  line-height: 0;
   cursor: pointer;
   padding: 5px;
+  color: #8d9096;
+  font-size: 16px;
+  line-height: 0;
   position: absolute; }
   .drag-and-drop-target-icon:before {
-    color: #0098CD; }
+    color: #8d9096; }
 
 .ha-table-drag-and-drop.dojoDndAvatarItem {
   /* This stylesheet provides the structural CSS for the dgrid */
@@ -316,14 +499,14 @@ body.handheld ha-table, body.handheld ha-table-virtual {
     padding-bottom: 11px;
     line-height: 14px;
     white-space: nowrap;
-    border-bottom: 1px solid #DCDCDC;
-    border-left-style: none;
-    border-right: 1px dotted #969696;
-    border-top: 1px solid #DCDCDC;
     height: 44px;
     padding-left: 8px;
     padding-right: 8px;
-    vertical-align: middle; }
+    vertical-align: middle;
+    border-bottom: 1px solid #DCDCDC;
+    border-left-style: none;
+    border-right: 1px dotted #969696;
+    border-top: 1px solid #DCDCDC; }
     .ha-table-drag-and-drop.dojoDndAvatarItem .dgrid-cell:first-child, .ha-table-drag-and-drop.dojoDndAvatarItem ha-table .dgrid-header .batch-header-cell:first-child, ha-table .dgrid-header .ha-table-drag-and-drop.dojoDndAvatarItem .batch-header-cell:first-child, .ha-table-drag-and-drop.dojoDndAvatarItem
     ha-table-virtual .dgrid-header .batch-header-cell:first-child,
     ha-table-virtual .dgrid-header .ha-table-drag-and-drop.dojoDndAvatarItem .batch-header-cell:first-child {
@@ -808,9 +991,22 @@ ha-table-virtual {
   ha-table #dgrid-css-extensions-Pagination-loaded,
   ha-table-virtual #dgrid-css-extensions-Pagination-loaded {
     display: none; }
+  ha-table .dgrid-content .dgrid-cell ha-checkbox, ha-table .dgrid-content .dgrid-header .batch-header-cell ha-checkbox, ha-table .dgrid-header .dgrid-content .batch-header-cell ha-checkbox,
+  ha-table-virtual .dgrid-header ha-table .dgrid-content .batch-header-cell ha-checkbox,
+  ha-table-virtual .dgrid-content .dgrid-cell ha-checkbox, ha-table .dgrid-header
+  ha-table-virtual .dgrid-content .batch-header-cell ha-checkbox, ha-table-virtual .dgrid-content .dgrid-header .batch-header-cell ha-checkbox, ha-table-virtual .dgrid-header .dgrid-content .batch-header-cell ha-checkbox {
+    margin-top: 8px; }
+  ha-table .hi:hover,
+  ha-table-virtual .hi:hover {
+    color: #6b6c72; }
+  ha-table .dgrid-row:first-child .dgrid-cell, ha-table .dgrid-row:first-child .dgrid-header .batch-header-cell, ha-table .dgrid-header .dgrid-row:first-child .batch-header-cell,
+  ha-table-virtual .dgrid-header ha-table .dgrid-row:first-child .batch-header-cell,
+  ha-table-virtual .dgrid-row:first-child .dgrid-cell, ha-table .dgrid-header
+  ha-table-virtual .dgrid-row:first-child .batch-header-cell, ha-table-virtual .dgrid-row:first-child .dgrid-header .batch-header-cell, ha-table-virtual .dgrid-header .dgrid-row:first-child .batch-header-cell {
+    border-top: 0; }
   ha-table .drag-and-drop-target-icon,
   ha-table-virtual .drag-and-drop-target-icon {
-    color: #0098CD;
+    color: #8d9096;
     font-size: 16px;
     line-height: 0;
     cursor: pointer;
@@ -818,22 +1014,31 @@ ha-table-virtual {
     position: absolute; }
     ha-table .drag-and-drop-target-icon:before,
     ha-table-virtual .drag-and-drop-target-icon:before {
-      color: #0098CD; }
+      color: #8d9096; }
   ha-table .dgrid-autoheight .dgrid-scroller,
   ha-table-virtual .dgrid-autoheight .dgrid-scroller {
     position: absolute;
-    overflow-y: auto; }
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; }
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      ha-table .dgrid-autoheight .dgrid-scroller,
+      ha-table-virtual .dgrid-autoheight .dgrid-scroller {
+        overflow-y: auto; } }
+    @supports (-ms-ime-align: auto) {
+      ha-table .dgrid-autoheight .dgrid-scroller,
+      ha-table-virtual .dgrid-autoheight .dgrid-scroller {
+        overflow-y: auto; } }
   ha-table .animate-height,
   ha-table-virtual .animate-height {
     -webkit-transition: height 0.25s;
     transition: height 0.25s; }
   ha-table .tablebar,
   ha-table-virtual .tablebar {
-    background-color: #F6F8FB;
-    border: 1px solid #E3EAF3;
-    border-radius: 2px 2px 0 0;
     height: 45px;
     box-sizing: content-box;
+    background-color: #ffffff;
+    border: 1px solid #d4d7dc;
+    border-radius: 2px 2px 0 0;
     position: relative;
     overflow: hidden; }
     ha-table .tablebar button .hi,
@@ -841,17 +1046,17 @@ ha-table-virtual {
       pointer-events: none; }
     ha-table .tablebar button:hover .hi,
     ha-table-virtual .tablebar button:hover .hi {
-      color: #0098CD; }
+      color: #6b6c72; }
     ha-table .tablebar ha-select,
     ha-table-virtual .tablebar ha-select {
       margin-top: -6px; }
     ha-table .tablebar .hi,
     ha-table-virtual .tablebar .hi {
-      font-size: 20px;
       line-height: 0;
       cursor: pointer;
       padding: 5px;
-      color: #7090AB; }
+      font-size: 20px;
+      color: #8d9096; }
     ha-table .tablebar .tablebar-batch,
     ha-table-virtual .tablebar .tablebar-batch {
       text-align: left;
@@ -934,10 +1139,10 @@ ha-table-virtual {
       ha-table .tablebar .filter-node .hi-filter::after,
       ha-table-virtual .tablebar .filter-node .hi-filter::after {
         content: ' ';
+        display: inline-block;
         border-color: #C0D0E4 transparent transparent transparent;
         border-width: 7px 5px 0 5px;
-        border-style: solid;
-        display: inline-block; }
+        border-style: solid; }
       ha-table .tablebar .filter-node button[name="filter"]:hover .hi-filter::after,
       ha-table-virtual .tablebar .filter-node button[name="filter"]:hover .hi-filter::after {
         border-color: #0098CD transparent transparent transparent; }
@@ -977,17 +1182,17 @@ ha-table-virtual {
       ha-table .tablebar .default-actions .hi-filter::after,
       ha-table-virtual .tablebar .default-actions .hi-filter::after {
         content: ' ';
+        display: inline-block;
         border-color: #C0D0E4 transparent transparent transparent;
         border-width: 7px 5px 0 5px;
-        border-style: solid;
-        display: inline-block; }
+        border-style: solid; }
       ha-table .tablebar .default-actions button,
       ha-table-virtual .tablebar .default-actions button {
         background: none;
         border: medium none; }
         ha-table .tablebar .default-actions button:hover span,
         ha-table-virtual .tablebar .default-actions button:hover span {
-          color: #0098CD; }
+          color: #6b6c72; }
           ha-table .tablebar .default-actions button:hover span::after,
           ha-table-virtual .tablebar .default-actions button:hover span::after {
             border-color: #0098CD transparent transparent transparent; }
@@ -1012,10 +1217,16 @@ ha-table-virtual {
       padding: 15px 5px 10px 0; }
   ha-table .dgrid-content .dgrid-row.editable-row,
   ha-table-virtual .dgrid-content .dgrid-row.editable-row {
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5); }
+    background-color: #f6f7f9; }
+    ha-table .dgrid-content .dgrid-row.editable-row .dgrid-cell, ha-table .dgrid-content .dgrid-row.editable-row .dgrid-header .batch-header-cell, ha-table .dgrid-header .dgrid-content .dgrid-row.editable-row .batch-header-cell,
+    ha-table-virtual .dgrid-header ha-table .dgrid-content .dgrid-row.editable-row .batch-header-cell,
+    ha-table-virtual .dgrid-content .dgrid-row.editable-row .dgrid-cell, ha-table .dgrid-header
+    ha-table-virtual .dgrid-content .dgrid-row.editable-row .batch-header-cell, ha-table-virtual .dgrid-content .dgrid-row.editable-row .dgrid-header .batch-header-cell, ha-table-virtual .dgrid-header .dgrid-content .dgrid-row.editable-row .batch-header-cell {
+      border-bottom: 0; }
     ha-table .dgrid-content .dgrid-row.editable-row:hover,
     ha-table-virtual .dgrid-content .dgrid-row.editable-row:hover {
-      background: inherit; }
+      background: inherit;
+      background-color: #f6f7f9; }
     ha-table .dgrid-content .dgrid-row.editable-row .dgrid-cell, ha-table .dgrid-content .dgrid-row.editable-row .dgrid-header .batch-header-cell, ha-table .dgrid-header .dgrid-content .dgrid-row.editable-row .batch-header-cell,
     ha-table-virtual .dgrid-header ha-table .dgrid-content .dgrid-row.editable-row .batch-header-cell,
     ha-table-virtual .dgrid-content .dgrid-row.editable-row .dgrid-cell, ha-table .dgrid-header
@@ -1041,7 +1252,7 @@ ha-table-virtual {
   ha-table-virtual .dgrid-header ha-table .dgrid-row:hover .batch-header-cell a,
   ha-table-virtual .dgrid-row:hover .dgrid-cell a, ha-table .dgrid-header
   ha-table-virtual .dgrid-row:hover .batch-header-cell a, ha-table-virtual .dgrid-row:hover .dgrid-header .batch-header-cell a, ha-table-virtual .dgrid-header .dgrid-row:hover .batch-header-cell a {
-    color: #365EBF; }
+    color: #0077c5; }
   ha-table .dgrid-expando-icon,
   ha-table-virtual .dgrid-expando-icon {
     border-style: solid;
@@ -1062,10 +1273,12 @@ ha-table-virtual {
     border-width: 5px 0 5px 5px; }
   ha-table .dgrid,
   ha-table-virtual .dgrid {
-    border: none; }
+    border: none;
+    border-left: 1px solid #d4d7dc;
+    border-right: 1px solid #d4d7dc; }
   ha-table .dgrid-column-set-0,
   ha-table-virtual .dgrid-column-set-0 {
-    border-right: 3px solid #DCDCDC; }
+    border-right: 0px solid transparent; }
   ha-table .dgrid-sort-arrow,
   ha-table-virtual .dgrid-sort-arrow {
     background: none;
@@ -1076,23 +1289,24 @@ ha-table-virtual {
     margin: 0 0 0 6px;
     position: absolute;
     top: 14px;
-    width: 0; }
+    width: 0;
+    top: 9px; }
   ha-table .triangle-down,
   ha-table-virtual .triangle-down {
+    display: inline-block;
     border-color: #C0D0E4 transparent transparent transparent;
     border-width: 7px 5px 0 5px;
-    border-style: solid;
-    display: inline-block; }
+    border-style: solid; }
     ha-table .triangle-down:hover,
     ha-table-virtual .triangle-down:hover {
       border-color: #0098CD transparent transparent transparent; }
   ha-table .dgrid-sort-down .dgrid-sort-arrow,
   ha-table-virtual .dgrid-sort-down .dgrid-sort-arrow {
-    border-color: #486C8F transparent transparent transparent;
+    border-color: #393a3d transparent transparent transparent;
     border-width: 7px 5px 0 5px; }
   ha-table .dgrid-sort-up .dgrid-sort-arrow,
   ha-table-virtual .dgrid-sort-up .dgrid-sort-arrow {
-    border-color: transparent transparent #486C8F transparent;
+    border-color: transparent transparent #393a3d transparent;
     border-width: 0 5px 7px 5px; }
   ha-table .dgrid-header,
   ha-table .dgrid-header-row,
@@ -1100,9 +1314,11 @@ ha-table-virtual {
   ha-table-virtual .dgrid-header-row {
     box-sizing: content-box;
     height: 33px;
-    background-color: #E3EAF3;
-    border-bottom: 2px solid #C0D0E4;
-    border-radius: 2px 2px 0 0; }
+    background-color: #ffffff;
+    border-radius: 2px 2px 0 0;
+    padding: 0 0px;
+    border-bottom: 2px solid #d4d7dc;
+    margin: 0 20px; }
   ha-table .dgrid-cell, ha-table .dgrid-header .batch-header-cell,
   ha-table-virtual .dgrid-header ha-table .batch-header-cell,
   ha-table-virtual .dgrid-cell, ha-table .dgrid-header
@@ -1116,9 +1332,9 @@ ha-table-virtual {
     outline: none; }
   ha-table .dgrid-header .dgrid-cell, ha-table .dgrid-header .batch-header-cell,
   ha-table-virtual .dgrid-header .dgrid-cell, ha-table-virtual .dgrid-header .batch-header-cell {
-    border-color: #C0D0E4;
+    border-width: 0 1px 0 0;
     border-style: solid;
-    border-width: 0 1px 0 0; }
+    border-color: #C0D0E4; }
     ha-table .dgrid-header .dgrid-cell:focus, ha-table .dgrid-header .batch-header-cell:focus,
     ha-table-virtual .dgrid-header .dgrid-cell:focus, ha-table-virtual .dgrid-header .batch-header-cell:focus {
       outline: none; }
@@ -1127,7 +1343,7 @@ ha-table-virtual {
       border-left: 1px solid transparent; }
     ha-table .dgrid-header .dgrid-cell.sorted, ha-table .dgrid-header .sorted.batch-header-cell,
     ha-table-virtual .dgrid-header .dgrid-cell.sorted, ha-table-virtual .dgrid-header .sorted.batch-header-cell {
-      background-color: #C0D0E4; }
+      background-color: #f6f7f9; }
     ha-table .dgrid-header .dgrid-cell.numeric > div, ha-table .dgrid-header .numeric.batch-header-cell > div, ha-table .dgrid-header .dgrid-cell.right > div, ha-table .dgrid-header .ha-table-drag-and-drop.dojoDndAvatarItem .dgrid-cell.numeric > div, ha-table .dgrid-header .ha-table-drag-and-drop.dojoDndAvatarItem .numeric.batch-header-cell > div, ha-table .dgrid-header .right.batch-header-cell > div, ha-table .dgrid-header .batch-header-cell.numeric > div, ha-table .dgrid-header .dgrid-cell.numeric > div, ha-table
     ha-table-virtual .dgrid-header ha-table .numeric.batch-header-cell > div,
     ha-table-virtual ha-table .dgrid-header ha-table .numeric.batch-header-cell > div, ha-table .dgrid-header
@@ -1145,7 +1361,9 @@ ha-table-virtual {
   ha-table .dgrid-header .dgrid-cell > div, ha-table .dgrid-header .batch-header-cell > div,
   ha-table-virtual .dgrid-header .dgrid-cell > div, ha-table-virtual .dgrid-header .batch-header-cell > div {
     height: 33px;
-    padding: 10px 3px 3px 8px; }
+    padding: 10px 3px 3px 8px;
+    padding: 4px 3px 3px 8px;
+    height: auto; }
   ha-table .dgrid-header .batch-header-cell,
   ha-table-virtual .dgrid-header .batch-header-cell {
     padding-left: 8px;
@@ -1155,8 +1373,8 @@ ha-table-virtual {
       padding: 2px; }
   ha-table .dgrid-content a,
   ha-table-virtual .dgrid-content a {
-    color: #404040;
-    text-decoration: none; }
+    text-decoration: none;
+    color: #404040; }
     ha-table .dgrid-content a:hover,
     ha-table-virtual .dgrid-content a:hover {
       text-decoration: underline; }
@@ -1164,21 +1382,22 @@ ha-table-virtual {
   ha-table-virtual .dgrid-header ha-table .dgrid-content .batch-header-cell,
   ha-table-virtual .dgrid-content .dgrid-cell, ha-table .dgrid-header
   ha-table-virtual .dgrid-content .batch-header-cell, ha-table-virtual .dgrid-content .dgrid-header .batch-header-cell, ha-table-virtual .dgrid-header .dgrid-content .batch-header-cell {
-    border-bottom: 1px solid #DCDCDC;
-    border-left-style: none;
-    border-right: 1px dotted #969696;
-    border-top-style: none;
     height: 44px;
     padding-left: 8px;
     padding-right: 8px;
     vertical-align: middle;
     white-space: nowrap;
-    text-overflow: ellipsis; }
+    text-overflow: ellipsis;
+    border-top: none;
+    border-left-style: none;
+    border-right: none;
+    padding-left: 10px; }
     ha-table .dgrid-content .dgrid-cell:first-child, ha-table .dgrid-content .dgrid-header .batch-header-cell:first-child, ha-table .dgrid-header .dgrid-content .batch-header-cell:first-child,
     ha-table-virtual .dgrid-header ha-table .dgrid-content .batch-header-cell:first-child,
     ha-table-virtual .dgrid-content .dgrid-cell:first-child, ha-table .dgrid-header
     ha-table-virtual .dgrid-content .batch-header-cell:first-child, ha-table-virtual .dgrid-content .dgrid-header .batch-header-cell:first-child, ha-table-virtual .dgrid-header .dgrid-content .batch-header-cell:first-child {
-      border-left: 1px solid transparent; }
+      border-left: 1px solid transparent;
+      border-right: 1px solid transparent; }
   ha-table .dgrid-content .dgrid-row:last-child .dgrid-cell, ha-table .dgrid-content .dgrid-row:last-child .dgrid-header .batch-header-cell, ha-table .dgrid-header .dgrid-content .dgrid-row:last-child .batch-header-cell,
   ha-table-virtual .dgrid-header ha-table .dgrid-content .dgrid-row:last-child .batch-header-cell,
   ha-table-virtual .dgrid-content .dgrid-row:last-child .dgrid-cell, ha-table .dgrid-header
@@ -1192,13 +1411,13 @@ ha-table-virtual {
     border-right-style: solid; }
   ha-table .dgrid-row-alert > div:first-child,
   ha-table-virtual .dgrid-row-alert > div:first-child {
+    padding-top: 3px;
+    padding-bottom: 3px;
     border-color: #D93B42;
     border-style: solid;
     border-width: 1px 1px 0 1px;
     color: #D93B42;
-    background-color: #F8CED0;
-    padding-top: 3px;
-    padding-bottom: 3px; }
+    background-color: #F8CED0; }
     ha-table .dgrid-row-alert > div:first-child .hi-circle-alert,
     ha-table-virtual .dgrid-row-alert > div:first-child .hi-circle-alert {
       margin-left: 5px;
@@ -1221,14 +1440,15 @@ ha-table-virtual {
       border-right-color: #D93B42 !important; }
   ha-table .dgrid-selected,
   ha-table-virtual .dgrid-selected {
-    background-color: #F3F8FE; }
+    background-color: #eceef1; }
   ha-table .dgrid-row,
   ha-table-virtual .dgrid-row {
     position: relative; }
     ha-table .dgrid-row:hover, ha-table .dgrid-row.highlighted-dgrid-row,
     ha-table-virtual .dgrid-row:hover,
     ha-table-virtual .dgrid-row.highlighted-dgrid-row {
-      background-color: #F3F8FE; }
+      background-color: #f6f7f9;
+      color: #0077c5; }
     ha-table .dgrid-row.error::before, ha-table .dgrid-row.success::before, ha-table .dgrid-row.warning::before,
     ha-table-virtual .dgrid-row.error::before,
     ha-table-virtual .dgrid-row.success::before,
@@ -1241,22 +1461,29 @@ ha-table-virtual {
       width: 5px; }
     ha-table .dgrid-row.error::before,
     ha-table-virtual .dgrid-row.error::before {
-      background-color: #D93B42; }
+      background-color: #d52b1e; }
     ha-table .dgrid-row.warning:before,
     ha-table-virtual .dgrid-row.warning:before {
-      background-color: #F2B835; }
+      background-color: #ffad00; }
     ha-table .dgrid-row.success:before,
     ha-table-virtual .dgrid-row.success:before {
-      background-color: #56B349; }
+      background-color: #2ca01c; }
   ha-table .category-row,
   ha-table-virtual .category-row {
     cursor: pointer; }
     ha-table .category-row .category-column,
     ha-table-virtual .category-row .category-column {
-      background-color: #F3F5F8;
-      box-shadow: inset 0px 4px 0px 0px rgba(0, 0, 0, 0.03);
-      font-family: "HelveticaNeueBold", Helvetica, Arial, sans-serif;
-      font-size: 13; }
+      color: #6b6c72;
+      font-family: "Avenir Next forINTUIT", "Arial", -apple-system, "Helvetica Neue", sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      border-bottom: 2px solid #d4d7dc; }
+      ha-table .category-row .category-column:hover, ha-table .category-row .category-column:active, ha-table .category-row .category-column:focus,
+      ha-table-virtual .category-row .category-column:hover,
+      ha-table-virtual .category-row .category-column:active,
+      ha-table-virtual .category-row .category-column:focus {
+        color: #0077c5;
+        background-color: #eceef1; }
   ha-table .dgrid-cell.field-_batch, ha-table .dgrid-header .field-_batch.batch-header-cell,
   ha-table-virtual .dgrid-header ha-table .field-_batch.batch-header-cell,
   ha-table-virtual .dgrid-cell.field-_batch, ha-table .dgrid-header
@@ -1306,14 +1533,16 @@ ha-table-virtual {
         color: #C7C7C7; }
   ha-table .dgrid-footer,
   ha-table-virtual .dgrid-footer {
+    padding-top: 20px;
     background: none;
-    border-color: #DCDCDC;
     border-style: solid;
-    border-width: 2px 0 0 0;
-    padding-top: 20px; }
+    border-width: 2px 0;
+    padding: 20px 20px 10px 20px;
+    border-color: #d4d7dc; }
   ha-table .dgrid-pagination,
   ha-table-virtual .dgrid-pagination {
-    font-family: "HelveticaNeueRoman", "HelveticaNeue", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+    font-family: "Avenir Next forINTUIT", "Arial", -apple-system, "Helvetica Neue", sans-serif;
+    font-weight: 500; }
     ha-table .dgrid-pagination .dgrid-status,
     ha-table-virtual .dgrid-pagination .dgrid-status {
       float: none;
@@ -1364,12 +1593,12 @@ ha-table-virtual {
     color: #000000; }
   ha-table .dgrid-subrow,
   ha-table-virtual .dgrid-subrow {
-    border: 1px solid #DDDDDD;
-    padding-left: 8px; }
+    padding-left: 8px;
+    border: 1px solid #DDDDDD; }
   ha-table .form-row,
   ha-table-virtual .form-row {
-    background-color: #E3EAF3;
-    text-align: center; }
+    text-align: center;
+    background-color: #E3EAF3; }
   ha-table .icon-text,
   ha-table-virtual .icon-text {
     position: absolute !important;
@@ -1434,16 +1663,18 @@ ha-table-virtual {
   ha-table-virtual .dgrid-header ha-table.list.double .dgrid-content .batch-header-cell,
   ha-table-virtual.list.double .dgrid-content .dgrid-cell, ha-table .dgrid-header
   ha-table-virtual.list.double .dgrid-content .batch-header-cell, ha-table-virtual.list.double .dgrid-content .dgrid-header .batch-header-cell, ha-table-virtual.list.double .dgrid-header .dgrid-content .batch-header-cell {
-    font-family: "HelveticaNeueRoman", Helvetica, Arial, sans-serif;
-    font-size: 14;
     height: 50px;
     padding-left: 15px;
     padding-right: 15px;
     vertical-align: top;
-    white-space: normal; }
+    white-space: normal;
+    font-family: "Geogrotesque", "Arial", -apple-system, "Helvetica Neue Bold", sans-serif;
+    font-weight: 500;
+    font-size: 14; }
   ha-table.list.double .dgrid-content .subline,
   ha-table-virtual.list.double .dgrid-content .subline {
-    font-family: "HelveticaNeueBold", Helvetica, Arial, sans-serif;
+    font-family: "Avenir Next forINTUIT", "Arial", -apple-system, "Helvetica Neue", sans-serif;
+    font-weight: 600;
     font-size: 14; }
   ha-table.list .field-_batch,
   ha-table-virtual.list .field-_batch {
@@ -1451,24 +1682,26 @@ ha-table-virtual {
     padding-right: 8px; }
   ha-table .dojoDndItemBefore,
   ha-table-virtual .dojoDndItemBefore {
-    border-top: 1px solid #0098CD; }
+    border-top: 1px solid #8d9096; }
   ha-table .dojoDndItemAfter,
   ha-table-virtual .dojoDndItemAfter {
-    border-bottom: 1px solid #0098CD; }
+    border-bottom: 1px solid #8d9096; }
   ha-table .total-row,
   ha-table-virtual .total-row {
     position: relative; }
     ha-table .total-row .total-text,
     ha-table-virtual .total-row .total-text {
-      font-family: "HelveticaNeueBold", Helvetica, Arial, sans-serif;
-      font-size: 13;
       margin-right: 8px;
+      font-family: "Avenir Next forINTUIT", "Arial", -apple-system, "Helvetica Neue", sans-serif;
+      font-weight: 600;
+      font-size: 13;
       color: #404040; }
     ha-table .total-row .dgrid-cell, ha-table .total-row .dgrid-header .batch-header-cell, ha-table .dgrid-header .total-row .batch-header-cell,
     ha-table-virtual .dgrid-header ha-table .total-row .batch-header-cell,
     ha-table-virtual .total-row .dgrid-cell, ha-table .dgrid-header
     ha-table-virtual .total-row .batch-header-cell, ha-table-virtual .total-row .dgrid-header .batch-header-cell, ha-table-virtual .dgrid-header .total-row .batch-header-cell {
-      font-family: "HelveticaNeueBold", Helvetica, Arial, sans-serif;
+      font-family: "Avenir Next forINTUIT", "Arial", -apple-system, "Helvetica Neue", sans-serif;
+      font-weight: 600;
       font-size: 13;
       border-left: none;
       border-right: none; }
@@ -1478,7 +1711,8 @@ ha-table-virtual {
     text-align: center; }
   ha-table .dgrid-scroller > .dgrid-content.ui-widget-content,
   ha-table-virtual .dgrid-scroller > .dgrid-content.ui-widget-content {
-    height: inherit; }
+    height: inherit;
+    padding: 0 20px; }
   ha-table .dgrid-loading,
   ha-table-virtual .dgrid-loading {
     height: 80px; }
@@ -1487,7 +1721,7 @@ ha-table-virtual {
     width: 24px;
     height: 24px;
     background-size: 24px;
-    margin: 30px auto; }
+    margin: 10px auto; }
   ha-table .ha-table-no-data,
   ha-table-virtual .ha-table-no-data {
     text-align: center;
@@ -1529,19 +1763,19 @@ ha-table-virtual {
   ha-table-virtual .dgrid-header ha-table.ha-a11y-focused .field-_batch.batch-header-cell button:focus,
   ha-table-virtual.ha-a11y-focused .dgrid-cell.field-_batch button:focus, ha-table .dgrid-header
   ha-table-virtual.ha-a11y-focused .field-_batch.batch-header-cell button:focus, ha-table-virtual.ha-a11y-focused .dgrid-header .field-_batch.batch-header-cell button:focus {
-    background: #fff; }
+    background: #FFFFFF; }
   ha-table.ha-a11y-focused .dgrid-cell.field-_rowReorder button:focus, ha-table.ha-a11y-focused .dgrid-header .field-_rowReorder.batch-header-cell button:focus,
   ha-table-virtual .dgrid-header ha-table.ha-a11y-focused .field-_rowReorder.batch-header-cell button:focus,
   ha-table-virtual.ha-a11y-focused .dgrid-cell.field-_rowReorder button:focus, ha-table .dgrid-header
   ha-table-virtual.ha-a11y-focused .field-_rowReorder.batch-header-cell button:focus, ha-table-virtual.ha-a11y-focused .dgrid-header .field-_rowReorder.batch-header-cell button:focus {
-    background: #fff;
+    background: #FFFFFF;
     outline: 1px solid #4d90fe; }
   ha-table.ha-a11y-focused .ha-expando-button,
   ha-table-virtual.ha-a11y-focused .ha-expando-button {
-    background: none;
-    border: medium none;
     height: 50%;
-    overflow: hidden; }
+    overflow: hidden;
+    background: none;
+    border: medium none; }
     ha-table.ha-a11y-focused .ha-expando-button.ha-a11y-focused:focus,
     ha-table-virtual.ha-a11y-focused .ha-expando-button.ha-a11y-focused:focus {
       background: #fff; }
@@ -1553,12 +1787,12 @@ ha-table-virtual {
     animation-delay: 0;
     -webkit-transition: all 350ms cubic-bezier(0.32, 1.25, 0.32, 1);
     transition: all 350ms cubic-bezier(0.32, 1.25, 0.32, 1);
-    background-color: #E3EAF3;
     padding-top: 15px;
     padding-right: 15px;
     padding-bottom: 25px;
-    border-top: 4px solid #C0D0E4;
-    border-bottom: 2px solid #C0D0E4;
+    background-color: #f6f7f9;
+    border-top: 4px solid #eceef1;
+    border-bottom: 2px solid #eceef1;
     position: relative;
     outline: none; }
     ha-table .ha-table-row-expansion:before,
@@ -1576,14 +1810,14 @@ ha-table-virtual {
     ha-table .ha-table-row-expansion .hi-close.close-expansion-button,
     ha-table-virtual .ha-table-row-expansion .hi-close.close-expansion-button {
       position: absolute;
-      font-size: 12px;
       padding: 0;
-      background: none;
-      border: none;
       text-align: left;
       vertical-align: top;
       right: 15px;
-      top: 15px; }
+      top: 15px;
+      background: none;
+      font-size: 12px;
+      border: none; }
     ha-table .ha-table-row-expansion.hide-expansion,
     ha-table-virtual .ha-table-row-expansion.hide-expansion {
       height: 0 !important;
@@ -1695,7 +1929,8 @@ ha-popover.ha-table-settings-popover .edit-columns {
   ha-popover.ha-table-settings-popover .edit-columns ha-checkbox {
     margin-top: 16px;
     margin-bottom: 16px;
-    margin-left: 1px; }
+    margin-left: 1px;
+    padding-left: 4px; }
 
 ha-popover.ha-table-settings-popover .rows-per-page ha-radio-button {
   padding-top: 15px;

@@ -121,25 +121,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.container.style.zIndex = _position2.default.getTopZindex();
           }
         } else if (nextProps.show === false && this.container && this.container.style.zIndex) {
-          /* If show is false, and we have a container, and the container has a z-index.
-           * Then we need to move the underlay lower (or remove it), and remove the z-index from
-           * the container.  We remove the z-index so we can determine what it's new z-index is
-           * if we show it again before unmounting it.
-          */
+          // move underlay (or remove it)
+          this.removeUnderlay();
 
-          // if a drawer does not have a background, noUnderlay is true and we do not have to modify the underlay
-          if (!this.props.noUnderlay) {
-            var underlay = document.body.querySelector(".ha-underlay");
-
-            // if there are multiple layers, pop the top one and move the underlay down a layer
-            // else there are no more layers left so we need to remove the underlay from the dom
-            if (underlayZIndex.pop() && underlayZIndex.length) {
-              underlay.style.zIndex = underlayZIndex[underlayZIndex.length - 1];
-            } else if (underlay) {
-              document.body.removeChild(underlay);
-            }
-            this.container.style.zIndex = null;
-          }
+          // remove z-index so we can determine new z-index if we show it again before unmounting it
+          this.container.style.zIndex = null;
         }
       }
     }, {
@@ -150,12 +136,31 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }, {
       key: 'componentWillUnmount',
       value: function componentWillUnmount() {
+        // even if show prop hasn't been updated - still clean up underlay
+        this.removeUnderlay();
+
         if (this.potral) {
           _reactDom2.default.unmountComponentAtNode(this.potral);
           document.body.removeChild(this.potral);
         }
         this.potral = null;
         this.container = null;
+      }
+    }, {
+      key: 'removeUnderlay',
+      value: function removeUnderlay() {
+        // if a drawer doesn't have a background, noUnderlay is true and we don't have to modify the underlay
+        if (!this.props.noUnderlay) {
+          var underlay = document.body.querySelector(".ha-underlay");
+
+          // if there are multiple layers, pop the top one and move the underlay down a layer.
+          // else there aren't any more layers so just remove underlay from the DOM
+          if (underlayZIndex.pop() && underlayZIndex.length) {
+            underlay.style.zIndex = underlayZIndex[underlayZIndex.length - 1];
+          } else if (underlay) {
+            document.body.removeChild(underlay);
+          }
+        }
       }
     }, {
       key: 'moveUnderlay',

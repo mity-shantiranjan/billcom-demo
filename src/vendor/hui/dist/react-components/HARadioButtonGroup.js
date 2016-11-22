@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/radio-button-group"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/radio-button-group"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/radio-button-group"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/radio-button-group"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.radioButtonGroup);
+        factory(mod.exports, global.react, global.utils, global.radioButtonGroup);
         global.HARadioButtonGroup = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -97,9 +97,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             var _this = _possibleConstructorReturn(this, (HARadioButtonGroup.__proto__ || Object.getPrototypeOf(HARadioButtonGroup)).call(this, props));
 
-            _this.handleRef = function (c) {
-                _this._huiComponent = c;
-            };
+            _initialiseProps.call(_this);
 
             _this._huiComponent = null;
             _this._listeners = {};
@@ -136,7 +134,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     _this2.testValidity();
                 };
 
-                // update react components to the web component.
+                // Update react components to the web component
                 this.removeWebRenderComp();
                 this.updateRadios();
                 this._huiComponent._setRadiosHandle();
@@ -208,7 +206,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "removeWebRenderComp",
             value: function removeWebRenderComp() {
-                var fieldChild = this._huiComponent.querySelectorAll('fieldset');
+                var fieldChild = this._huiComponent.querySelectorAll("fieldset");
                 if (fieldChild && fieldChild.length > 1) {
                     this._huiComponent.removeChild(fieldChild[0]);
                 }
@@ -216,8 +214,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "updateRadios",
             value: function updateRadios() {
-                var radios = this._huiComponent.querySelectorAll('ha-radio-button');
-
+                var radios = this._huiComponent.querySelectorAll("ha-radio-button");
                 if (radios) {
                     this._huiComponent.radios = Array.prototype.slice.call(radios);
                 }
@@ -225,7 +222,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: "render",
             value: function render() {
+                var _this3 = this;
+
                 /* jshint ignore:start */
+                var children = undefined;
+                if (this.props.value) {
+                    // pass the default selected value to radio button children
+                    children = _react2.default.Children.map(this.props.children, function (child) {
+                        if ((0, _utils.getReactTypeName)(child) === "HARadioButton" && child.props.value === _this3.props.value) {
+                            return _react2.default.cloneElement(child, { checked: true });
+                        } else {
+                            return child;
+                        }
+                    });
+                }
+                children = children || this.props.children;
+
                 return _react2.default.createElement(
                     "ha-radio-button-group",
                     _extends({
@@ -244,7 +256,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                 this.props.label
                             )
                         ) : null,
-                        this.props.children
+                        children
                     )
                 );
                 /* jshint ignore:end */
@@ -255,6 +267,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }(_react2.default.Component);
 
     HARadioButtonGroup.propTypes = {
+        children: function children(props, propName, componentName) {
+            var prop = props[propName] || [],
+                type = "HARadioButton",
+                typeName;
+            // handle single child prop http://facebook.github.io/react/tips/children-props-type.html
+            prop = Array.isArray(prop) ? prop : [prop];
+
+            for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
+                // Only accept a single child, of the appropriate type
+                if (type !== typeName) {
+                    return new Error(componentName + "'s children can only have one instance of HARadioButton");
+                }
+            }
+        },
         expected: _react2.default.PropTypes.string,
         className: _react2.default.PropTypes.string,
         name: _react2.default.PropTypes.string,
@@ -274,6 +301,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         onChange: _react2.default.PropTypes.func,
         onClick: _react2.default.PropTypes.func
     };
+
+    var _initialiseProps = function _initialiseProps() {
+        var _this4 = this;
+
+        this.handleRef = function (c) {
+            _this4._huiComponent = c;
+        };
+    };
+
     exports.default = HARadioButtonGroup;
 });
 //# sourceMappingURL=HARadioButtonGroup.js.map

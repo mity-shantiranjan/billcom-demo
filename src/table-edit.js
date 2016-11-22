@@ -6,7 +6,7 @@ require.config({
         "register-component": "../vendor/register-component/src",
         "mustache": "https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.0.0/mustache.min",
         "text": "https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min",
-        'ua-parser': '../vendor/ua-parser/dist/ua-parser.min'
+        'ua-parser': '../vendor/ua-parser-js/dist/ua-parser.min'
     },
     packages: [
         { name: 'dojo', location: '../vendor/dojo' },

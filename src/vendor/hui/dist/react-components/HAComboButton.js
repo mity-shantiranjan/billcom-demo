@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/combo-button"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/combo-button"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/combo-button"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/combo-button"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.comboButton);
+        factory(mod.exports, global.react, global.utils, global.comboButton);
         global.HAComboButton = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -180,13 +180,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     HAComboButton.propTypes = {
         children: function anonymous(props, propName, componentName) {
+            var prop = props[propName] || [],
+                types = ["HAItem"],
+                typeName;
+            prop = Array.isArray(prop) ? prop : [prop];
 
-            var prop = props[propName];
-            var types = ['HAItem'];
             for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
                 // Only accept a single child, of the appropriate type
-                if (types.indexOf(prop[child].type.name) === -1) {
-                    return new Error(componentName + '\'s children can only be the following types: ' + types.join(', '));
+                if (types.indexOf(typeName) === -1) {
+                    return new Error(componentName + '\'s children can only be the following types: ' + types.join(", "));
                 }
             }
         },

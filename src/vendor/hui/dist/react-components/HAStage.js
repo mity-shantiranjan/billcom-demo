@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/stage"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/stage"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/stage"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/stage"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.stage);
+        factory(mod.exports, global.react, global.utils, global.stage);
         global.HAStage = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -101,6 +101,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             _this.childCount = 0;
             _this._huiComponent = null;
+            _this.state = {
+                classAttributes: null
+            };
             return _this;
         }
 
@@ -114,31 +117,46 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     if (this.childCount === 2) {
                         this._huiComponent.collapsible = this.props.collapsible;
                     } else {
-                        console.error('You can not set collapsible to be true if you do not have both a header and a section.');
+                        console.error("You can not set collapsible to be true if you do not have both a header and a section.");
                     }
                 }
 
                 if (this.props.open) {
                     this._huiComponent.open = this.props.open;
                 }
+
+                // merge pre-existing custom element classes with props
+                if (this.props.className) {
+                    this.updateElementClasses();
+                }
+            }
+        }, {
+            key: "updateElementClasses",
+            value: function updateElementClasses() {
+                var mergedClassString = (0, _utils.updateClassWithProps)(this._huiComponent, this.props.className);
+                if (mergedClassString) {
+                    this.setState({
+                        classAttributes: mergedClassString
+                    });
+                }
             }
         }, {
             key: "updateHeader",
             value: function updateHeader() {
-                var header = this._huiComponent.querySelector('header');
+                var header = this._huiComponent.querySelector("header");
 
                 if (header) {
-                    this._huiComponent.header = Array.from(header.childNodes);
+                    this._huiComponent.header = Array.prototype.slice.call(header.childNodes);
                     this.childCount++;
                 }
             }
         }, {
             key: "updateSection",
             value: function updateSection() {
-                var section = this._huiComponent.querySelector('section');
+                var section = this._huiComponent.querySelector("section");
 
                 if (section) {
-                    this._huiComponent.section = Array.from(section.childNodes);;
+                    this._huiComponent.section = Array.prototype.slice.call(section.childNodes);
                     this.childCount++;
                 }
             }
@@ -150,7 +168,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     "ha-stage",
                     _extends({
                         ref: this.handleRef,
-                        reactLayering: true
+                        reactLayering: true,
+                        "class": this.state.classAttributes
                     }, this.props),
                     this.props.children
                 );
@@ -163,16 +182,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     HAStage.propTypes = {
         children: function anonymous(props, propName, componentName) {
+            var prop = props[propName] || [],
+                types = ["HAHeader", "HASection"],
+                typeName;
+            prop = Array.isArray(prop) ? prop : [prop];
 
-            var prop = props[propName];
-            var types = ['HAHeader', 'HASection'];
             for (var child in prop) {
                 if (prop[child] != undefined && prop[child].type != undefined) {
+                    typeName = (0, _utils.getReactTypeName)(prop[child]);
                     // Only accept a single child, of the appropriate type
-                    if (types.indexOf(prop[child].type.name) === -1) {
-                        return new Error(componentName + '\'s children can only have one instance of the following types: ' + types.join(', '));
+                    if (types.indexOf(typeName) === -1) {
+                        return new Error(componentName + "\'s children can only have one instance of the following types: " + types.join(", "));
                     } else {
-                        types[types.indexOf(prop[child].type.name)] = '';
+                        types[types.indexOf(typeName)] = "";
                     }
                 }
             }

@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/textarea"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/textarea"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/textarea"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/textarea"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.textarea);
+        factory(mod.exports, global.react, global.utils, global.textarea);
         global.HATextarea = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -103,6 +103,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             _this._huiComponent = null;
             _this._listeners = {};
+            _this.state = {
+                classAttributes: null
+            };
             return _this;
         }
 
@@ -179,6 +182,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     }
                     _this2.testValidity(); // We need to do initial notification of validity state.
                 }, 0);
+
+                // merge pre-existing custom element classes with props
+                if (this.props.className) {
+                    this.updateElementClasses();
+                }
+            }
+        }, {
+            key: "updateElementClasses",
+            value: function updateElementClasses() {
+                var mergedClassString = (0, _utils.updateClassWithProps)(this._huiComponent, this.props.className);
+                if (mergedClassString) {
+                    this.setState({
+                        classAttributes: mergedClassString
+                    });
+                }
             }
         }, {
             key: "componentWillUnmount",
@@ -205,7 +223,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 /* jshint ignore:start */
                 return _react2.default.createElement(
                     "ha-textarea",
-                    _extends({ ref: this.handleRef, "class": this.props.className }, this.props),
+                    _extends({ ref: this.handleRef, "class": this.state.classAttributes }, this.props),
                     this.props.children
                 );
                 /* jshint ignore:end */

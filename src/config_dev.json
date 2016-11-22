@@ -1,26 +1,30 @@
 {
-    "id": "billcom-demo",
     "hasLayers": false,
     "manifestVersion": "2",
+    "hideAuthorizeDialog": true,
     "allowedOrigins": [
         "*"
     ],
-    "subscribedEvents": [
-        "onLoad",
-        "onBeforeSave"
-    ],
-    "sourcePath": "/table-demo.html",
+    "canonicalName": "billcom-plugin-v2",
     "accessPoints": [
         {
-            "overrideAppRoute": "billdotcomdemo"
+            "attachPoint": "checkPayBillButtonContainer"
         },
         {
-            "sourcePath": "/BillsPaySettings.html",
-            "attachPoint": "_apCompanySettingsTab",
-            "linkText": "Pay Bills (BDC))"
+            "attachPoint": "prepare1099PayBillButtonContainer"
         }
     ],
     "extensions": {
+        "settings/tabs": [
+            {
+                "id": "paybills",
+                "controller": "billcom-demo/js/controllers/PayBillsController",
+                "params": {
+                    "label": "Bill Pay",
+                    "position": 10
+                }
+            }
+        ],
         "general-extension/name-status-section": [
             {
                 "controller": "qbo-ui-libs-plugins/addon/iFrameViewController",
@@ -37,15 +41,24 @@
                 "id": "payBills",
                 "type": "menuItem",
                 "params": {
-                    "path": "billPaySettings",
-                    "label": "Pay Bills (BDC))",
+                    "path": "billpaysettings",
+                    "label": "Pay Bills (BDC)",
                     "priority": 100
                 }
             }
         ],
         "routes": [
             {
-                "path": "billPaySettings",
+                "path": "billdemo",
+                "controller": "qbo-ui-libs-plugins/addon/iFrameRouteController",
+                "xdmParameters": {
+                    "useTrowser": false,
+                    "sourcePath": "/table-demo.html",
+                    "width": "100%"
+                }
+            },
+            {
+                "path": "billpaysettings",
                 "controller": "qbo-ui-libs-plugins/addon/iFrameRouteController",
                 "xdmParameters": {
                     "useTrowser": true,
@@ -54,9 +67,10 @@
                 }
             },
             {
-                "path": "simpleBillPay",
+                "path": "paybillsonline",
                 "controller": "qbo-ui-libs-plugins/addon/iFrameRouteController",
                 "xdmParameters": {
+                    "useTrowser": true,
                     "sourcePath": "/BillsPaySettings.html",
                     "width": "100%"
                 }

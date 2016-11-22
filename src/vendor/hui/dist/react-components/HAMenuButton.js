@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/menu-button"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/menu-button"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/menu-button"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/menu-button"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.menuButton);
+        factory(mod.exports, global.react, global.utils, global.menuButton);
         global.HAMenuButton = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -169,13 +169,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     HAMenuButton.propTypes = {
         children: function anonymous(props, propName, componentName) {
+            var prop = props[propName] || [],
+                types = ["HAItem"],
+                typeName;
 
-            var prop = props[propName];
-            var types = ['HAItem'];
+            prop = Array.isArray(prop) ? prop : [prop];
+
             for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
                 // Only accept a single child, of the appropriate type
-                if (types.indexOf(prop[child].type.name) === -1) {
-                    return new Error(componentName + '\'s children can only be the following types: ' + types.join(', '));
+                if (types.indexOf(typeName) === -1) {
+                    return new Error(componentName + "\'s children can only be the following types: " + types.join(", "));
                 }
             }
         },

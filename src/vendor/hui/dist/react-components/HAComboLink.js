@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/combo-link"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/combo-link"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/combo-link"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/combo-link"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.comboLink);
+        factory(mod.exports, global.react, global.utils, global.comboLink);
         global.HAComboLink = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -150,6 +150,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 };
                 this._listeners.onSelect = onSelect.bind(this);
                 this._huiComponent.addEventListener("select", this._listeners.onSelect);
+
+                // will re-render HA-ITEMS as HA-MENU-ITEMS for IE 11 fix
+                this.updateWebComponent();
+            }
+        }, {
+            key: "updateWebComponent",
+            value: function updateWebComponent() {
+                var items = this._huiComponent.querySelectorAll("ha-item");
+                if (items) {
+                    this._huiComponent.items = Array.prototype.slice.call(items);
+                }
             }
         }, {
             key: "componentWillUnmount",
@@ -180,13 +191,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     HAComboLink.propTypes = {
         children: function anonymous(props, propName, componentName) {
+            var prop = props[propName],
+                types = ["HAItem"],
+                typeName;
 
-            var prop = props[propName];
-            var types = ['HAItem'];
             for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
                 // Only accept a single child, of the appropriate type
-                if (types.indexOf(prop[child].type.name) === -1) {
-                    return new Error(componentName + '\'s children can only be the following types: ' + types.join(', '));
+                if (types.indexOf(typeName) === -1) {
+                    return new Error(componentName + "\'s children can only be the following types: " + types.join(", "));
                 }
             }
         },

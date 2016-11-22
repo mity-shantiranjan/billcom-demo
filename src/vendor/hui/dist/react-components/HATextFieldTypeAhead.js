@@ -112,9 +112,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     function pluckSelectedItem(event) {
         var selectedItem = event.target.selectedItem;
-        return {
-            selectedItem: selectedItem
-        };
+        // for backward-compatibility
+        event.selectedItem = selectedItem;
+
+        return event;
     }
 
     var HATextFieldTypeAhead = function (_Component) {
@@ -206,10 +207,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: 'getStore',
             value: function getStore() {
-                var _props = this.props;
-                var store = _props.store;
-                var data = _props.data;
-                var huiComponent = this._huiComponent;
+                var _props = this.props,
+                    store = _props.store,
+                    data = _props.data,
+                    huiComponent = this._huiComponent;
 
                 if (store) {
                     return store;
@@ -228,11 +229,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: 'domElementPostRender',
             value: function domElementPostRender() {
-                var _props2 = this.props;
-                var value = _props2.value;
-                var selectedIndex = _props2.selectedIndex;
-                var huiComponent = this._huiComponent;
-                var newStore = this.getStore();
+                var _props2 = this.props,
+                    value = _props2.value,
+                    selectedIndex = _props2.selectedIndex,
+                    huiComponent = this._huiComponent,
+                    newStore = this.getStore();
 
                 // Don't set the store if it is the same as the current store
                 if (newStore !== huiComponent.store) {
@@ -254,10 +255,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }, {
             key: 'hasStaticItems',
             value: function hasStaticItems() {
-                var _props3 = this.props;
-                var staticItems = _props3.staticItems;
-                var store = _props3.store;
-                var data = _props3.data;
+                var _props3 = this.props,
+                    staticItems = _props3.staticItems,
+                    store = _props3.store,
+                    data = _props3.data;
 
                 return !!(staticItems || data && !store);
             }

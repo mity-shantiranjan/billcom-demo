@@ -114,6 +114,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             value: function componentDidMount() {
                 var _this2 = this;
 
+                // update web components from react rendered components
+                this.updateWebComponent();
+
                 var onShow = function onShow(event) {
                     event.stopPropagation();
                     if (_this2.props.onShow) {
@@ -147,6 +150,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 this._huiComponent.removeEventListener("show", this._listeners.onShow, false); // clean up show listener
                 this._huiComponent.removeEventListener("close", this._listeners.onClose, false); // clean up close listener
                 this._huiComponent.removeEventListener("dismiss", this._listeners.onDismiss, false); // clean up dismiss listener
+            }
+        }, {
+            key: "updateWebComponent",
+            value: function updateWebComponent() {
+                var container = this._huiComponent.querySelectorAll(".tooltip-container");
+                if (container && container.length > 1) {
+                    this._huiComponent.message = Array.prototype.slice.call(container[1].childNodes);
+                    this._huiComponent.removeChild(container[1]);
+                }
             }
         }, {
             key: "render",

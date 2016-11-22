@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/info-link"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/info-link"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/info-link"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/info-link"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.infoLink);
+        factory(mod.exports, global.react, global.utils, global.infoLink);
         global.HAInfoLink = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -40,6 +40,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         return target;
     };
+
+    function _objectWithoutProperties(obj, keys) {
+        var target = {};
+
+        for (var i in obj) {
+            if (keys.indexOf(i) >= 0) continue;
+            if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+            target[i] = obj[i];
+        }
+
+        return target;
+    }
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -109,6 +121,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             value: function componentDidMount() {
                 var _this2 = this;
 
+                // Update react components to the web component
+                this.updateReactComponent();
+
                 // With es6 syntax we have to bind the events to the react component instance
                 // https://facebook.github.io/react/docs/reusable-components.html#no-autobinding
                 // Event handler for click
@@ -160,12 +175,34 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 this._huiComponent.removeEventListener("show", this._listeners.onShow, false);
             }
         }, {
+            key: "updateReactComponent",
+            value: function updateReactComponent() {
+                var _this3 = this;
+
+                if (this.props.children) {
+                    _react2.default.Children.forEach(this.props.children, function (child) {
+                        if ((0, _utils.getReactTypeName)(child) === "HAText") {
+                            _this3._huiComponent.initializeLinkText();
+                        }
+                        if ((0, _utils.getReactTypeName)(child) === "HAMessage") {
+                            _this3._huiComponent.initializeMessage();
+                        }
+                    });
+                }
+            }
+        }, {
             key: "render",
             value: function render() {
+                var _props = this.props,
+
                 /* jshint ignore:start */
+                linkText = _props.linkText,
+                    otherProps = _objectWithoutProperties(_props, ["linkText"]);
+
+                // since IE11 preserve case sensitive of attributes, so convert linkText to lowercase when declarative
                 return _react2.default.createElement(
                     "ha-info-link",
-                    _extends({ ref: this.handleRef, "class": this.props.className }, this.props),
+                    _extends({ ref: this.handleRef, linktext: linkText }, otherProps),
                     this.props.children
                 );
                 /* jshint ignore:end */
@@ -178,20 +215,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     HAInfoLink.propTypes = {
         className: _react2.default.PropTypes.string,
         children: function anonymous(props, propName, componentName) {
+            var prop = props[propName] || [],
+                types = ["HAMessage", "HAText"],
+                typesCopy = types.slice(),
+                typeName;
 
-            var prop = props[propName];
-            var types = ['HAMessage', 'HAText'];
-            var typesCopy = types.slice();
-
-            prop = prop || [];
             prop = Array.isArray(prop) ? prop : [prop];
 
             for (var child in prop) {
+                typeName = (0, _utils.getReactTypeName)(prop[child]);
                 // Only accept a single child, of the appropriate type
-                if (types.indexOf(prop[child].type.name) === -1) {
-                    return new Error(componentName + "'s children can only have one instance of the following types: " + typesCopy.join(', '));
+                if (types.indexOf(typeName) === -1) {
+                    return new Error(componentName + "'s children can only have one instance of the following types: " + typesCopy.join(", "));
                 } else {
-                    types[types.indexOf(prop[child].type.name)] = '';
+                    types[types.indexOf(typeName)] = "";
                 }
             }
         },
@@ -202,10 +239,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     };
 
     var _initialiseProps = function _initialiseProps() {
-        var _this3 = this;
+        var _this4 = this;
 
         this.handleRef = function (c) {
-            _this3._huiComponent = c;
+            _this4._huiComponent = c;
         };
     };
 

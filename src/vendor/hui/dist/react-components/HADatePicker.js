@@ -2,17 +2,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(["exports", "react", "hui/date-picker"], factory);
+        define(["exports", "react", "hui/core/utils", "hui/date-picker"], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require("react"), require("hui/date-picker"));
+        factory(exports, require("react"), require("hui/core/utils"), require("hui/date-picker"));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.react, global.datePicker);
+        factory(mod.exports, global.react, global.utils, global.datePicker);
         global.HADatePicker = mod.exports;
     }
-})(this, function (exports, _react) {
+})(this, function (exports, _react, _utils) {
     "use strict";
 
     Object.defineProperty(exports, "__esModule", {
@@ -104,6 +104,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             _this._huiComponent = null;
             _this._listeners = {}; // keep track if we have set any event listeners on date picker
             _this._huiMethodsCalled = []; // keep track of hui methods called so we do not call them again
+            _this.state = {
+                classAttributes: null
+            };
             return _this;
         }
 
@@ -114,13 +117,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
         }, {
             key: "componentDidUpdate",
-            value: function componentDidUpdate() {
-                this.mountDatePicker();
+            value: function componentDidUpdate(prevProps) {
+                this.mountDatePicker(prevProps);
             }
         }, {
             key: "mountDatePicker",
             value: function mountDatePicker() {
                 var _this2 = this;
+
+                var prevProps = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
                 if (this._huiComponent) {
 
@@ -144,6 +149,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         this._listeners.componentUpgraded = componentUpgraded.bind(this);
                         this._huiComponent.addEventListener("component-upgraded", this._listeners.componentUpgraded);
                     }
+
+                    // handle className props being passed to custom element
+                    if (this.props.className !== prevProps.className) {
+                        this.updateElementClasses();
+                    }
+                }
+            }
+        }, {
+            key: "updateElementClasses",
+            value: function updateElementClasses() {
+                var mergedClassString = (0, _utils.updateClassWithProps)(this._huiComponent, this.props.className);
+                if (mergedClassString) {
+                    this.setState({
+                        classAttributes: mergedClassString
+                    });
                 }
             }
         }, {
@@ -247,7 +267,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 /* jshint ignore:start */
                 return _react2.default.createElement("ha-date-picker", _extends({
                     ref: this.handleRef,
-                    "class": this.props.className
+                    "class": this.state.classAttributes
                 }, this.props));
                 /* jshint ignore:end */
             }

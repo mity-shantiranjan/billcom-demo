@@ -110,12 +110,24 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             key: "renderUpdate",
             value: function renderUpdate() {
                 this._huiComponent.postRender();
-                this._huiComponent.message = this.props.children;
+                var iconSpan = this._huiComponent.querySelector('span.message-icon'),
+                    titleSpan = this._huiComponent.querySelector('header h4');
 
-                if (this.props.type) {
-                    this._huiComponent.type = this.props.type;
+                if (this.props.children) {
+                    this._huiComponent.message = this.props.children;
                 }
-                var titleSpan = this._huiComponent.querySelector('header h4');
+
+                if (this.props.type === 'alert' || this.props.type === 'warn' || this.props.type === 'error') {
+                    iconSpan.className = 'message-icon hi hi-circle-alert';
+                    if (this.props.type === 'alert') {
+                        console.warn('DEPRECATION WARNING: The "alert" type is going to be deprecated. From now on, please use "error" type instead.');
+                    }
+                } else if (this.props.type === 'discovery') {
+                    iconSpan.className = 'message-icon hi hi-lightbulb-o';
+                } else {
+                    iconSpan.className = 'message-icon hi hi-circle-info';
+                }
+
                 if (titleSpan) {
                     if (this.props.titleText) {
                         titleSpan.textContent = this.props.titleText;

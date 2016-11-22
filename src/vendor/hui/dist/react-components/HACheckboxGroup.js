@@ -135,6 +135,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     }
                     _this2.testValidity();
                 };
+
+                // Update react components to the web component
+                this.removeWebRenderComp();
+                this.updateCheckboxes();
+                this._huiComponent._setCheckboxHandle();
+
                 this._listeners.onChange = onChange.bind(this);
                 this._huiComponent.addEventListener("change", this._listeners.onChange);
 
@@ -200,6 +206,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
             }
         }, {
+            key: "removeWebRenderComp",
+            value: function removeWebRenderComp() {
+                var fieldChild = this._huiComponent.querySelectorAll("fieldset");
+                if (fieldChild && fieldChild.length > 1) {
+                    this._huiComponent.removeChild(fieldChild[0]);
+                }
+            }
+        }, {
+            key: "updateCheckboxes",
+            value: function updateCheckboxes() {
+                var checkboxes = this._huiComponent.querySelectorAll("ha-checkbox");
+                if (checkboxes) {
+                    this._huiComponent.checkboxes = Array.prototype.slice.call(checkboxes);
+                }
+            }
+        }, {
             key: "render",
             value: function render() {
                 /* jshint ignore:start */
@@ -212,11 +234,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     _react2.default.createElement(
                         "fieldset",
                         null,
-                        _react2.default.createElement(
+                        this.props.label ? _react2.default.createElement(
                             "div",
                             { className: "label-container" },
-                            _react2.default.createElement("legend", null)
-                        ),
+                            _react2.default.createElement(
+                                "legend",
+                                null,
+                                this.props.label
+                            )
+                        ) : null,
                         this.props.children
                     )
                 );
