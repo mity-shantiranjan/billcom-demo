@@ -1,5 +1,7 @@
 {
     "hasLayers": false,
+    "id": "billcom-plugin-v2",
+    "activated": true,
     "manifestVersion": "2",
     "hideAuthorizeDialog": true,
     "allowedOrigins": [
@@ -18,13 +20,28 @@
         "settings/tabs": [
             {
                 "id": "paybills",
-                "controller": "billcom-demo/js/controllers/PayBillsController",
+                "controller": "billcom-plugin-v2/js/controllers/PayBillsController",
                 "params": {
                     "label": "Bill Pay",
                     "position": 10
                 }
             }
         ],
+        "shell/navItems": [
+        {
+            "priority": 499,
+            "label": "expense_transactions",
+            "id": "expenses",
+            "type": "subtab",
+            "navItems": [
+                {
+                    "path": "paybillsonlineincoming",
+                    "label": "Bills Payments",
+                    "priority": 70
+                }
+            ]
+        }
+      ],
         "general-extension/name-status-section": [
             {
                 "controller": "qbo-ui-libs-plugins/addon/iFrameViewController",
@@ -74,6 +91,10 @@
                     "sourcePath": "/BillsPaySettings.html",
                     "width": "100%"
                 }
+            },
+            {
+              "path": "paybillsonlineincoming",
+              "controller": "billcom-plugin-v2/js/controllers/BillsRouteController"
             }
         ]
     }
